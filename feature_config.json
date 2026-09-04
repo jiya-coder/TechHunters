@@ -1,0 +1,47 @@
+{
+    "model_name": "IsolationForest_FRA_Anomaly_Detector",
+    "dataset_source": "FRA_Monthly_Progress_Dataset_2025_2026 (1).csv",
+    "version": "1.2.0",
+    "input_features_count": 20,
+    "feature_columns": [
+        "Total_Claims_Received",
+        "Individual_Claims",
+        "Community_Claims",
+        "Claims_Recommended_SDLC",
+        "Claims_Recommended_DLC",
+        "Approved_Claims",
+        "Pending_Claims",
+        "Rejected_Claims",
+        "Titles_Distributed",
+        "Pending_Rate",
+        "Approval_Rate",
+        "Rejection_Rate",
+        "Disposal_Rate",
+        "Workflow_Bottleneck_Rate",
+        "SDLC_Dropoff_Rate",
+        "DLC_Dropoff_Rate",
+        "Rejection_Anomaly_Score",
+        "Pending_Backlog_Growth",
+        "Individual_vs_Community_Imbalance",
+        "Data_Inconsistency_Flag"
+    ],
+    "excluded_columns": [
+        "State",
+        "Month",
+        "Risk_Score",
+        "Risk_Level"
+    ],
+    "risk_level_thresholds": {
+        "Normal": "< 40.0",
+        "Attention": "40.0 to 64.99",
+        "High Risk": ">= 65.0"
+    },
+    "scoring_normalization": "Robust Percentile Clipped Normalization [0.0, 1.0]",
+    "scaling": "RobustScaler",
+    "model_hyperparameters": {
+        "n_estimators": 200,
+        "contamination": 0.15,
+        "random_state": 42,
+        "n_jobs": -1
+    }
+}

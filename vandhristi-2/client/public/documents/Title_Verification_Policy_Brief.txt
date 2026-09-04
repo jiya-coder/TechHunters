@@ -1,0 +1,34 @@
+================================================================================
+TITLE VERIFICATION POLICY BRIEF & STATUTORY TIMELINES
+District Level Committee (DLC) Guidelines
+VanDrishti Decision Support System
+================================================================================
+
+1. EXECUTIVE SUMMARY
+The District Level Committee (DLC), chaired by the District Collector / District Magistrate, 
+serves as the final approving authority for the recognition and vesting of forest rights 
+under Section 6(5) of the Forest Rights Act, 2006.
+
+--------------------------------------------------------------------------------
+2. STATUTORY VERIFICATION CHECKLIST
+--------------------------------------------------------------------------------
+(1) Sub-Divisional Committee Clearance:
+    - Ensure SDLC recommendation contains complete joint verification reports.
+(2) Revenue & Forest Department Concurrence:
+    - Verify land records and forest compartment boundaries.
+    - Confirm absence of illegal land alienations or overlapping titles.
+(3) Record of Rights (RoR) Entry:
+    - Title certificate issued jointly in the name of both spouses (where applicable).
+    - Land mutated in revenue/forest records within 30 days of DLC approval.
+
+--------------------------------------------------------------------------------
+3. ANOMALY DETECTION & WORKFLOW MONITORING
+--------------------------------------------------------------------------------
+- VanDrishti Machine Learning Isolation Forest model flags high rejection rate spikes, 
+  pending backlog growth, and SDLC-to-DLC workflow drop-offs.
+- District administration can prioritize flagged states/districts using the VanDrishti GIS Map.
+
+================================================================================
+Document Source: Ministry of Tribal Affairs (MoTA) Operational Directives
+Platform: VanDrishti Forest Rights Decision Support System
+================================================================================

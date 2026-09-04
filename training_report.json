@@ -1,0 +1,36 @@
+{
+    "status": "SUCCESS",
+    "dataset_source": "FRA_Monthly_Progress_Dataset_2025_2026 (1).csv",
+    "dataset_info": {
+        "total_rows": 378,
+        "months_count": 18,
+        "states_count": 21,
+        "time_period": "Jan 2025 - June 2026",
+        "total_features_trained": 20
+    },
+    "scoring_parameters": {
+        "train_min_score_benchmark": -0.6226693948242255,
+        "train_max_score_benchmark": -0.40556983542644076,
+        "scoring_function": "compute_robust_anomaly_score"
+    },
+    "risk_level_distribution": {
+        "Normal": 211,
+        "Attention": 122,
+        "High Risk": 45
+    },
+    "anomaly_type_distribution": {
+        "Normal Workflow": 211,
+        "Rejection Spike": 53,
+        "Administrative Bottleneck": 46,
+        "Backlog Accumulation": 26,
+        "Data Discrepancy": 24,
+        "Imbalanced Filing": 18
+    },
+    "model_metrics": {
+        "mean_anomaly_score": 0.369,
+        "max_anomaly_score": 1.0,
+        "min_anomaly_score": 0.0,
+        "mean_risk_score": 36.9
+    },
+    "evaluation_disclaimer": "Unsupervised anomaly detection model trained on unlabelled government data. Accuracy/Precision/Recall are not claimed without labeled ground-truth data."
+}

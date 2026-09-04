@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VanDrishti — Turning FRA Data Into Actionable Decisions</title>
+
+    <!-- Inline Pre-Paint Theme Detection Script (Prevents Theme Flash) -->
+    <script>
+        (function() {
+            var savedTheme = localStorage.getItem('fra_theme');
+            var systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            var theme = savedTheme || (systemDark ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    
+    <!-- Google Fonts: Manrope -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Light Theme Tokens */
+        :root {
+            --bg-main: #0C1613;
+            --bg-surface: rgba(20, 36, 30, 0.62);
+            --bg-cream: rgba(14, 25, 21, 0.55);
+            --bg-nav: rgba(10, 18, 15, 0.84);
+            
+            --text-heading: #FFFFFF;
+            --text-main: rgba(255, 255, 255, 0.92);
+            --text-muted: rgba(255, 255, 255, 0.75);
+            
+            --primary: #173F35;
+            --primary-hover: #102E27;
+            --secondary: #8FB5A2;
+            --border-subtle: rgba(255, 255, 255, 0.16);
+            --border-strong: rgba(255, 255, 255, 0.28);
+            
+            --accent-amber: #D6A84F;
+            
+            --risk-normal: #4E9C6D;
+            --risk-attention: #E5A93C;
+            --risk-high: #DA5A5A;
+            --risk-missing: #9EAEA5;
+            
+            --hero-overlay: transparent;
+            --hero-text: #FFFFFF;
+            --hero-subtext: rgba(255, 255, 255, 0.88);
+
+            --radius-badge: 4px;
+            --radius-card: 8px;
+
+            /* Motion Tokens */
+            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-fast: all 150ms var(--ease-out);
+            --transition-normal: all 250ms var(--ease-out);
+            --transition-theme: background-color 400ms var(--ease-in-out), color 400ms var(--ease-in-out), border-color 400ms var(--ease-in-out);
+        }
+
+        /* Dark Theme Tokens (WCAG AA Contrast Tuned) */
+        [data-theme="dark"] {
+            --bg-main: #08100E;
+            --bg-surface: rgba(14, 25, 21, 0.72);
+            --bg-cream: rgba(10, 18, 15, 0.65);
+            --bg-nav: rgba(8, 14, 12, 0.88);
+            
+            --text-heading: #EEF3EF;
+            --text-main: #CBD8CE;
+            --text-muted: #9EAEA5;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-image: linear-gradient(180deg, rgba(12, 22, 19, 0.72) 0%, rgba(8, 14, 12, 0.82) 100%), url('/static/images/full_forest_bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--text-main);
+            min-height: 100vh;
+            line-height: 1.55;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Motion: Scroll Reveal Classes */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 600ms var(--ease-out), transform 600ms var(--ease-out);
+            will-change: opacity, transform;
+        }
+
+        .reveal-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Navigation Header */
+        header {
+            background: var(--bg-nav);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 16px 64px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: var(--transition-theme);
+        }
+
+        .brand-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.12);
+        }
+
+        .brand-title {
+            font-size: 1.15rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: #FFFFFF;
+            transition: var(--transition-theme);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .nav-link {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.85);
+            transition: var(--transition-fast);
+        }
+
+        .nav-link:hover {
+            color: #FFFFFF;
+        }
+
+        /* Theme Switcher Toggle */
+        .theme-toggle-btn {
+            background: var(--bg-cream);
+            border: 1px solid var(--border-strong);
+            color: var(--text-heading);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition-normal);
+            font-family: inherit;
+        }
+
+        .theme-toggle-btn:hover {
+            border-color: var(--primary);
+            transform: scale(1.02);
+        }
+
+        .theme-icon-rotate {
+            transition: transform 300ms var(--ease-out);
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #173F35;
+            border: 1px solid rgba(143, 181, 162, 0.4);
+            color: #FFFFFF;
+            padding: 10px 20px;
+            border-radius: var(--radius-badge);
+            font-size: 0.88rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition-fast);
+            box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+        }
+
+        .btn-primary:hover {
+            background: #102E27;
+            border-color: #8FB5A2;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #FFFFFF;
+            padding: 10px 20px;
+            border-radius: var(--radius-badge);
+            font-size: 0.88rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition-fast);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        /* Cinematic Hero Section with Eager-Loaded Background Photography */
+        .hero-section {
+            position: relative;
+            min-height: 90vh;
+            padding: 160px 64px 100px 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            overflow: hidden;
+        }
+
+        .hero-overlay {
+            display: none;
+        }
+
+        .hero-container {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.12;
+            letter-spacing: -0.03em;
+            color: var(--hero-text);
+            margin-bottom: 20px;
+        }
+
+        .hero-text p {
+            font-size: 1.12rem;
+            color: var(--hero-subtext);
+            line-height: 1.6;
+            margin-bottom: 32px;
+            max-width: 620px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 36px;
+        }
+
+        .info-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-amber);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 20px;
+        }
+
+        .info-dot {
+            width: 4px;
+            height: 4px;
+            background: var(--accent-amber);
+            border-radius: 50%;
+        }
+
+        /* Hero Graphic Panel */
+        .hero-panel {
+            background: rgba(20, 35, 30, 0.78);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-card);
+            padding: 24px;
+            color: #FFFFFF;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .hero-panel-title {
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #8FB5A2;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            padding-bottom: 10px;
+        }
+
+        .map-preview-box {
+            background: rgba(13, 23, 20, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: var(--radius-badge);
+            height: 240px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+        }
+
+        .stats-strip {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .stat-box {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-badge);
+            padding: 8px 12px;
+        }
+
+        .stat-box .lbl {
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .stat-box .val {
+            font-size: 1.1rem;
+            font-weight: 800;
+            margin-top: 2px;
+        }
+
+        /* How It Works Section with Quiet Texture */
+        .section-wrapper {
+            max-width: 1360px;
+            margin: 0 auto;
+            padding: 100px 64px;
+        }
+
+        .how-section-bg {
+            background: rgba(10, 18, 15, 0.35);
+            backdrop-filter: blur(6px);
+            border-top: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
+            transition: var(--transition-theme);
+        }
+
+        .section-title-box {
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .eyebrow {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .heading-lg {
+            font-size: 2.3rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: var(--text-heading);
+            transition: var(--transition-theme);
+        }
+
+        .how-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .how-card {
+            background: var(--bg-surface);
+            backdrop-filter: blur(14px);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-card);
+            padding: 32px 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            transition: var(--transition-normal);
+        }
+
+        .how-card:hover {
+            border-color: var(--border-strong);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .how-num {
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid var(--border-strong);
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-badge);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-theme);
+        }
+
+        /* Features Section with Image Cards */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 28px;
+        }
+
+        .feature-image-card {
+            background: var(--bg-surface);
+            backdrop-filter: blur(14px);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-card);
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            transition: var(--transition-normal);
+        }
+
+        .feature-image-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .feature-img-wrapper {
+            overflow: hidden;
+            height: 100%;
+            min-height: 180px;
+            background: var(--bg-cream);
+            position: relative;
+        }
+
+        .feature-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 300ms var(--ease-out);
+            display: block;
+        }
+
+        .feature-image-card:hover .feature-img {
+            transform: scale(1.04);
+        }
+
+        .feature-text-content {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .feature-text-content h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-heading);
+            transition: var(--transition-theme);
+        }
+
+        .feature-text-content p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            transition: var(--transition-theme);
+        }
+
+        /* Why It Matters Environmental Photo Banner */
+        .impact-banner {
+            position: relative;
+            padding: 80px 64px;
+            margin: 40px 0;
+            background: rgba(10, 18, 15, 0.55);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .impact-overlay {
+            display: none;
+        }
+
+        .impact-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            color: #FFFFFF;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .impact-content h2 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: #FFFFFF;
+        }
+
+        .impact-stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .impact-stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .impact-stat-item .num {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent-amber);
+        }
+
+        .impact-stat-item .lbl {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.85);
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        /* Final CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 90px 64px;
+            background: rgba(10, 18, 15, 0.6);
+            backdrop-filter: blur(14px);
+            border-top: 1px solid var(--border-subtle);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            transition: var(--transition-theme);
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-subtle);
+            padding: 40px 64px;
+            background: rgba(6, 12, 10, 0.78);
+            backdrop-filter: blur(14px);
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            transition: var(--transition-theme);
+        }
+
+        .footer-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            color: var(--risk-normal);
+            font-size: 0.78rem;
+            text-transform: uppercase;
+        }
+
+        /* Reduced Motion Fallbacks */
+        @media (prefers-reduced-motion: reduce) {
+            .reveal-on-scroll {
+                transition: opacity 200ms ease !important;
+                transform: none !important;
+            }
+            .feature-img, .step-block, .how-card, .btn-primary, .theme-toggle-btn {
+                transition: opacity 150ms ease !important;
+                transform: none !important;
+            }
+            .hero-section {
+                background-attachment: scroll !important;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .hero-container { grid-template-columns: 1fr; }
+            .how-grid, .features-grid { grid-template-columns: 1fr; }
+            .impact-stats-row { grid-template-columns: repeat(2, 1fr); }
+            .feature-image-card { grid-template-columns: 1fr; }
+            .feature-img-wrapper { height: 180px; }
+        }
+
+        @media (max-width: 640px) {
+            header, .hero-section, .section-wrapper, footer { padding-left: 24px; padding-right: 24px; }
+            .hero-text h1 { font-size: 2.3rem; }
+            .impact-stats-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="brand-group">
+            <div class="brand-icon">
+                <img src="/static/images/vandrishti_icon.png" alt="VanDrishti Icon" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <div class="brand-title">VANDRISHTI</div>
+        </div>
+
+        <div class="nav-actions">
+            <a href="#how-it-works" class="nav-link">How It Works</a>
+            <a href="#features" class="nav-link">Features</a>
+            <a href="#impact" class="nav-link">Why It Matters</a>
+            
+            <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle theme">
+                <span class="theme-icon-rotate" id="themeIcon">🌙</span>
+                <span id="themeLabel">Dark</span>
+            </button>
+
+            <a href="/dashboard" class="btn-primary">
+                <span>Explore VanDrishti</span>
+                <span>→</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="hero-container">
+            <div class="hero-text">
+                <h1>Turning FRA Data Into Actionable Decisions</h1>
+                <p>
+                    An intelligent monitoring and decision-support platform for identifying operational bottlenecks, unusual patterns, and high-risk states under the Forest Rights Act.
+                </p>
+
+                <div class="hero-buttons">
+                    <a href="/dashboard" class="btn-primary" style="padding: 12px 24px;">
+                        <span>Explore VanDrishti</span>
+                        <span>→</span>
+                    </a>
+                    <a href="#how-it-works" class="btn-secondary">How It Works</a>
+                </div>
+
+                <div class="info-row">
+                    <span>18 Months</span>
+                    <span class="info-dot"></span>
+                    <span>21 States</span>
+                    <span class="info-dot"></span>
+                    <span>AI-Assisted Analysis</span>
+                </div>
+            </div>
+
+            <!-- Hero Graphic Panel -->
+            <div class="hero-panel">
+                <div class="hero-panel-title">Geospatial Risk Intelligence</div>
+                
+                <div class="map-preview-box">
+                    <svg viewBox="0 0 400 300" fill="none" style="width: 100%; height: 100%; opacity: 0.85;">
+                        <path d="M180 35 L215 48 L245 70 L255 110 L235 150 L265 180 L245 220 L215 260 L185 270 L155 240 L135 190 L125 140 L145 90 Z" fill="rgba(255,255,255,0.1)" stroke="#8FB5A2" stroke-width="1.5"/>
+                        <circle cx="180" cy="120" r="14" fill="#3F7D58"/>
+                        <circle cx="210" cy="160" r="18" fill="#D49A32"/>
+                        <circle cx="150" cy="180" r="16" fill="#C94C4C"/>
+                        <circle cx="220" cy="100" r="12" fill="#3F7D58"/>
+                        <circle cx="170" cy="220" r="15" fill="#D49A32"/>
+                    </svg>
+                </div>
+
+                <div class="stats-strip">
+                    <div class="stat-box">
+                        <div class="lbl">Normal</div>
+                        <div class="val" style="color: var(--risk-normal);">7 States</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="lbl">Attention</div>
+                        <div class="val" style="color: var(--risk-attention);">6 States</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="lbl">High Risk</div>
+                        <div class="val" style="color: var(--risk-high);">8 States</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-section-bg" id="how-it-works">
+        <div class="section-wrapper">
+            <div class="section-title-box reveal-on-scroll">
+                <span class="eyebrow">Methodology & Process</span>
+                <h2 class="heading-lg">How VanDrishti Works</h2>
+            </div>
+
+            <div class="how-grid">
+                <div class="how-card reveal-on-scroll">
+                    <div class="how-num">01</div>
+                    <h3 style="font-size: 1.2rem; font-weight: 700; color: var(--text-heading);">Monitor</h3>
+                    <p style="font-size: 0.92rem; color: var(--text-muted);">Track claims, approvals, rejections and pending backlogs across 21 state implementation frameworks on a monthly continuum.</p>
+                </div>
+
+                <div class="how-card reveal-on-scroll">
+                    <div class="how-num">02</div>
+                    <h3 style="font-size: 1.2rem; font-weight: 700; color: var(--text-heading);">Detect</h3>
+                    <p style="font-size: 0.92rem; color: var(--text-muted);">Identify unusual operational patterns and potential bottlenecks using unsupervised Isolation Forest ML across 20 implementation metrics.</p>
+                </div>
+
+                <div class="how-card reveal-on-scroll">
+                    <div class="how-num">03</div>
+                    <h3 style="font-size: 1.2rem; font-weight: 700; color: var(--text-heading);">Decide</h3>
+                    <p style="font-size: 0.92rem; color: var(--text-muted);">Prioritize states and issues that require attention with plain-language, evidence-backed decision support alerts.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section with Image Cards -->
+    <section class="section-wrapper" id="features">
+        <div class="section-title-box reveal-on-scroll">
+            <span class="eyebrow">Platform Capabilities</span>
+            <h2 class="heading-lg">Decision Support Architecture</h2>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-image-card reveal-on-scroll">
+                <div class="feature-img-wrapper">
+                    <img class="feature-img" src="/static/images/forest_rights.jpg" alt="State Risk Intelligence" loading="lazy">
+                </div>
+                <div class="feature-text-content">
+                    <h3>State Risk Intelligence</h3>
+                    <p>Standardized 0–100 risk scoring categorizes state implementation status into clear actionable risk levels: Normal, Attention, and High Risk.</p>
+                </div>
+            </div>
+
+            <div class="feature-image-card reveal-on-scroll">
+                <div class="feature-img-wrapper">
+                    <img class="feature-img" src="/static/images/anomaly_detection.jpg" alt="AI Anomaly Detection" loading="lazy">
+                </div>
+                <div class="feature-text-content">
+                    <h3>AI Anomaly Detection</h3>
+                    <p>Evaluates 20 monthly implementation features per state to surface statistical outliers and severe workflow bottlenecks.</p>
+                </div>
+            </div>
+
+            <div class="feature-image-card reveal-on-scroll">
+                <div class="feature-img-wrapper">
+                    <img class="feature-img" src="/static/images/workflow_monitoring.jpg" alt="Workflow Monitoring" loading="lazy">
+                </div>
+                <div class="feature-text-content">
+                    <h3>Workflow Monitoring</h3>
+                    <p>Pinpoints operational drop-offs and friction points between Sub-Divisional Level Committees (SDLC) and District Level Committees (DLC).</p>
+                </div>
+            </div>
+
+            <div class="feature-image-card reveal-on-scroll">
+                <div class="feature-img-wrapper">
+                    <img class="feature-img" src="/static/images/backlog_analysis.jpg" alt="Backlog Analysis" loading="lazy">
+                </div>
+                <div class="feature-text-content">
+                    <h3>Backlog & Rejection Analysis</h3>
+                    <p>Continuous trend tracking for pending claims accumulation and abnormal rejection rate spikes across 18 monitoring periods.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why It Matters Environmental Photo Banner -->
+    <section class="impact-banner" id="impact">
+        <div class="impact-overlay"></div>
+        <div class="impact-content reveal-on-scroll">
+            <span class="eyebrow" style="color: var(--accent-amber);">National Implementation Coverage</span>
+            <h2>Empowering Forest Rights Governance Across India</h2>
+            <p style="font-size: 1.05rem; color: rgba(255,255,255,0.85); max-width: 700px;">
+                Monitoring operational progress across forest communities, ensuring administrative transparency, bottleneck resolution, and timely title distribution.
+            </p>
+
+            <div class="impact-stats-row">
+                <div class="impact-stat-item">
+                    <span class="num">21</span>
+                    <span class="lbl">Monitored States</span>
+                </div>
+                <div class="impact-stat-item">
+                    <span class="num">18</span>
+                    <span class="lbl">Monthly Periods</span>
+                </div>
+                <div class="impact-stat-item">
+                    <span class="num">5.1M+</span>
+                    <span class="lbl">Claims Tracked</span>
+                </div>
+                <div class="impact-stat-item">
+                    <span class="num">20</span>
+                    <span class="lbl">ML Features</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="cta-section">
+        <h2 style="font-size: 2.2rem; font-weight: 800; color: var(--text-heading);">Ready to Explore State-Level Intelligence?</h2>
+        <p style="font-size: 1.05rem; color: var(--text-muted); max-width: 600px;">Access the interactive geospatial risk map, priority state rankings, and historical timeline analytics dashboard.</p>
+        <a href="/dashboard" class="btn-primary" style="padding: 14px 32px; font-size: 0.95rem;">
+            <span>Explore VanDrishti</span>
+            <span>→</span>
+        </a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div>
+            <strong style="color: var(--text-heading); font-size: 0.95rem;">VANDRISHTI</strong>
+            <div style="margin-top: 4px;">National Forest Rights Act Decision Support Platform.</div>
+            <div style="font-size: 0.78rem; margin-top: 6px; color: var(--text-muted);">
+                Data Source: Official FRA Monthly Progress Reports (Jan 2025 – Jun 2026). State-month operational anomaly detection.
+            </div>
+        </div>
+
+        <div class="footer-status">
+            <span style="width: 8px; height: 8px; background: var(--risk-normal); border-radius: 50%;"></span>
+            <span>System Operational</span>
+        </div>
+    </footer>
+
+    <!-- Unified Theme & Motion Script -->
+    <script>
+        const themeBtn = document.getElementById('themeToggleBtn');
+        const themeIcon = document.getElementById('themeIcon');
+        const themeLabel = document.getElementById('themeLabel');
+
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('fra_theme', theme);
+            if (themeIcon) {
+                themeIcon.style.transform = 'rotate(180deg)';
+                setTimeout(() => {
+                    themeIcon.textContent = theme === 'dark' ? '☀' : '🌙';
+                    themeIcon.style.transform = 'rotate(0deg)';
+                }, 150);
+            }
+            if (themeLabel) {
+                themeLabel.textContent = theme === 'dark' ? 'Light' : 'Dark';
+            }
+        }
+
+        const savedTheme = localStorage.getItem('fra_theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        setTheme(savedTheme);
+
+        themeBtn.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+            const nextTheme = currentTheme === 'light' ? 'dark' : 'light';
+            setTheme(nextTheme);
+        });
+
+        // Scroll Reveal Observer
+        if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+        } else {
+            document.querySelectorAll('.reveal-on-scroll').forEach(el => el.classList.add('visible'));
+        }
+    </script>
+</body>
+</html>

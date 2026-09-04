@@ -1,0 +1,42 @@
+================================================================================
+GRAM SABHA IMPLEMENTATION PLAYBOOK & FIELD GUIDE
+Forest Rights Act (FRA) Claim Verification Procedure
+Ministry of Tribal Affairs & VanDrishti Decision Support System
+================================================================================
+
+1. OVERVIEW
+This field playbook provides step-by-step instructions for Gram Sabha Forest Rights 
+Committees (FRC) to verify, document, and submit Individual Forest Rights (IFR) and 
+Community Forest Rights (CFR) claims under the Forest Rights Act, 2006.
+
+--------------------------------------------------------------------------------
+2. STEP-BY-STEP VERIFICATION PROCEDURE
+--------------------------------------------------------------------------------
+Step 1: Quorum & Notice
+  - Gram Sabha meeting must be convened with at least 50% quorum of all adult members.
+  - Mandatory 33% representation of women in Forest Rights Committee (FRC).
+
+Step 2: Claim Filing & Evidence Collection
+  - Accept Form A (Individual Claims) and Form B (Community Claims).
+  - Admissible Evidence:
+    a) Government records, voter IDs, ration cards, census entries prior to Dec 13, 2005.
+    b) Physical evidence of cultivation, house structures, boundary marks, trees planted.
+    c) Statements of elders, customary rights records, traditional grazing passes.
+
+Step 3: Joint Field Inspection
+  - FRC conducts physical field verification accompanied by Forest and Revenue officials.
+  - GPS boundary mapping of claimed forest parcel.
+
+Step 4: Resolution & Submission
+  - Gram Sabha passes resolution approving or rejecting claims with clear rationale.
+  - Submits resolution package to Sub-Divisional Level Committee (SDLC).
+
+--------------------------------------------------------------------------------
+3. ESCALATION & BOTTLENECK RESOLUTION
+--------------------------------------------------------------------------------
+- If SDLC does not process claims within 60 days, FRC can submit formal appeal to DLC.
+- Operational bottleneck tracking active on VanDrishti GIS Platform.
+
+================================================================================
+Platform: VanDrishti Forest Rights Decision Support System
+================================================================================
