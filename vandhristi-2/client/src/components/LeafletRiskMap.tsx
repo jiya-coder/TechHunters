@@ -99,7 +99,7 @@ export default function LeafletRiskMap({
         : "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}";
 
     tileLayerRef.current = L.tileLayer(tileUrl, {
-      attribution: "&copy; Esri &mdash; Esri, DeLorme, NAVTEQ | VanDrishti System",
+      attribution: "&copy; Esri &mdash; Esri, DeLorme, NAVTEQ | VanRakshak System",
       maxZoom: 18,
     }).addTo(mapRef.current);
   }, [theme]);

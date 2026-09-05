@@ -116,7 +116,7 @@ export default function WhatIfSimulator({
 Please evaluate this intervention scenario under FRA 2006 Rules 12A & 14. Detail administrative feasibility, required mobile SDLC units, and priority district instructions.`;
 
     window.dispatchEvent(
-      new CustomEvent("vandrishti:trigger-assistant", {
+      new CustomEvent("vanrakshak:trigger-assistant", {
         detail: { query: prompt },
       })
     );

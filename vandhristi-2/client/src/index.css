@@ -315,7 +315,7 @@
 }
 
 /* ==========================================================================
-   VAN DRISHTI ATMOSPHERIC THEME ENGINE
+   VAN RAKSHAK ATMOSPHERIC THEME ENGINE
    1. FOREST IN MORNING (Soft dawn mist, warm sun amber, mountain sage, cedar bark)
    2. FOREST AFTER SUNSET (Deep twilight pine, dusk horizon glow, starlight silver)
    ========================================================================== */
@@ -711,5 +711,62 @@
 .theme-dusk .footer-credit { color: #8DA3B5 !important; }
 .theme-dusk .footer-credit b { color: #FFFFFF !important; }
 .theme-dusk .footer-meta { color: #6C8599 !important; }
+
+/* =========================================================
+   KNOWLEDGE HUB: 3D STATUTORY PLUG CARDS & SIMULATOR
+   ========================================================= */
+.perspective-stage {
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+.plug-card-stack {
+  position: relative;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
+}
+
+.plug-layer-tilt {
+  transform: rotateX(8deg) rotateY(-3deg) translateZ(0);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.3s ease;
+}
+
+.plug-layer-tilt:hover,
+.plug-layer-tilt.is-active {
+  transform: rotateX(0deg) rotateY(0deg) translateZ(28px) scale(1.015);
+  box-shadow: 0 22px 50px -10px rgba(0, 0, 0, 0.7), 0 0 30px rgba(52, 211, 153, 0.15);
+}
+
+.plug-pin-glow {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.plug-pin-glow::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: inherit;
+  opacity: 0.4;
+  animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.95); opacity: 0.6; }
+  50% { transform: scale(1.4); opacity: 0; }
+  100% { transform: scale(0.95); opacity: 0; }
+}
+
+.glow-connector-line {
+  background: linear-gradient(180deg, rgba(52, 211, 153, 0.8) 0%, rgba(56, 189, 248, 0.8) 50%, rgba(245, 158, 11, 0.8) 100%);
+  box-shadow: 0 0 8px rgba(52, 211, 153, 0.5);
+}
+
 
 

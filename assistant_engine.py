@@ -1,11 +1,11 @@
 """
 assistant_engine.py
-VanDrishti AI Assistant Engine
+VanRakshak AI Assistant Engine
 Provides deep domain expertise on:
 - Forest Rights Act (FRA) 2006: IFR, CFR, CFR Management, Gram Sabha, SDLC, DLC, statutory timelines
 - Deforestation Awareness: drivers, ecological & tribal impacts, conservation strategies, climate connections
 - Indian Forestry Framework: FCA 1980/2023, Indian Forest Act 1927, PESA 1996, WPA 1972, ISFR statistics
-- VanDrishti DSS: Machine learning anomaly detection, risk tiers, workflow bottlenecks
+- VanRakshak DSS: Machine learning anomaly detection, risk tiers, workflow bottlenecks
 - Multilingual support (English, Hindi, Hinglish)
 - Optional Gemini/OpenAI API pass-through with automatic fallback to local knowledge base
 """
@@ -17,7 +17,7 @@ import urllib.request
 import urllib.error
 
 # System prompt used when an external LLM is configured
-SYSTEM_PROMPT = """You are VanDhristi AI, an expert AI assistant specialized in Indian Forestry, the Forest Rights Act (FRA) 2006, Deforestation Awareness, and the VanDrishti Decision Support System (DSS) developed by Team TechHunters.
+SYSTEM_PROMPT = """You are VanRakshak AI, an expert AI assistant specialized in Indian Forestry, the Forest Rights Act (FRA) 2006, Deforestation Awareness, and the VanRakshak Decision Support System (DSS) developed by Team TechHunters.
 
 Your knowledge includes:
 1. THE FOREST RIGHTS ACT, 2006 (FRA) [Act No. 2 of 2007]:
@@ -40,7 +40,7 @@ Your knowledge includes:
    - Primary Drivers in India & Globally: Industrial mining (coal, bauxite, iron ore), linear infrastructure (expressways, railway lines, power lines), commercial monocultures, agricultural encroachment, illegal logging, forest fires.
    - Ecological Consequences: Destroys carbon sinks (~10-15% of global emissions), disrupts precipitation and monsoon cycles, causes catastrophic soil erosion and desertification, devastates biodiversity (India has 4 global biodiversity hotspots: Western Ghats, Eastern Himalayas, Indo-Burma, Sundaland).
    - Socio-Economic Impacts: Directly threatens livelihoods of ~275 million forest-dependent people in India; forces tribal displacement; aggravates human-wildlife conflict.
-   - Solutions: FRA Community Forest Resource empowerment (Sec 3(1)(i)), satellite GIS monitoring (VanDrishti), Joint Forest Management (JFM), strict enforcement of Forest Conservation Act (FCA 1980 / 2023) and CAMPA, promoting Agroforestry and community afforestation.
+   - Solutions: FRA Community Forest Resource empowerment (Sec 3(1)(i)), satellite GIS monitoring (VanRakshak), Joint Forest Management (JFM), strict enforcement of Forest Conservation Act (FCA 1980 / 2023) and CAMPA, promoting Agroforestry and community afforestation.
 
 3. FORESTRY FRAMEWORK & METRICS:
    - Forest Conservation Act (FCA) 1980 & 2023 Amendment.
@@ -49,7 +49,7 @@ Your knowledge includes:
    - Wildlife (Protection) Act 1972 & Biological Diversity Act 2002.
    - National Forest Policy 1988: Mandates 33% of national land area under forest/tree cover (66% in hills). Current ISFR forest cover is ~21.71%, tree cover is ~2.91%, total green cover ~24.62%.
 
-4. VANDRISHTI DSS (DECISION SUPPORT SYSTEM):
+4. VANRAKSHAK DSS (DECISION SUPPORT SYSTEM):
    - Developed by Team TechHunters.
    - Leverages an Isolation Forest Machine Learning model to detect implementation anomalies from Monthly Progress Reports (MPR).
    - Metrics: Pending Rate, Rejection Rate, Workflow Bottleneck Rate (SDLC to DLC drop-off), Backlog Growth.
@@ -145,9 +145,9 @@ While IFR secures tenure for farming households, **CFR (especially Section 3(1)(
 
 ---
 
-### 3. How VanDrishti & FRA Counter Deforestation
+### 3. How VanRakshak & FRA Counter Deforestation
 * **Community Forest Rights (FRA 3(1)(i)):** Empowered Gram Sabhas maintain active anti-logging patrols and sustainable harvesting practices.
-* **AI & Geospatial Surveillance:** VanDrishti monitors state-level anomalies, backlog spikes, and high-risk forest zones using GIS and machine learning to aid timely intervention.""",
+* **AI & Geospatial Surveillance:** VanRakshak monitors state-level anomalies, backlog spikes, and high-risk forest zones using GIS and machine learning to aid timely intervention.""",
         "suggestions": [
             "What are the best solutions to stop deforestation in India?",
             "How does the Forest Conservation Act (FCA 1980/2023) work?",
@@ -196,11 +196,11 @@ The Forest Rights Act, 2006 establishes an institutional hierarchy ensuring clai
 - Final statutory approving authority under Section 6(5).
 - Approves claims, issues official title deeds (**Pattas**), and directs the Revenue and Forest departments to mutate the **Record of Rights (RoR)** within 30 days.
 
-> **VanDrishti ML Alert:** VanDrishti’s Isolation Forest model tracks workflow bottlenecks where claims stall between SDLC recommendation and DLC final title issuance.""",
+> **VanRakshak ML Alert:** VanRakshak’s Isolation Forest model tracks workflow bottlenecks where claims stall between SDLC recommendation and DLC final title issuance.""",
         "suggestions": [
             "What documents count as admissible evidence under FRA?",
             "What happens if an SDLC or DLC unlawfully rejects a claim?",
-            "How does VanDrishti track SDLC-to-DLC workflow bottlenecks?"
+            "How does VanRakshak track SDLC-to-DLC workflow bottlenecks?"
         ]
     },
     {
@@ -329,15 +329,15 @@ According to the biennial **India State of Forest Report (ISFR)** published by t
         "suggestions": [
             "What are the main causes and effects of deforestation?",
             "What states have the highest forest cover in India?",
-            "How does VanDrishti monitor state forest rights implementation?"
+            "How does VanRakshak monitor state forest rights implementation?"
         ]
     },
     {
-        "keywords": ["vandrishti", "techhunters", "dss", "decision support system", "anomaly", "machine learning", "isolation forest", "risk score", "how vandrishti works"],
-        "title": "VanDrishti Decision Support System (DSS) Architecture",
-        "reply": """### VanDrishti: FRA Decision Support System (DSS)
+        "keywords": ["vanrakshak", "techhunters", "dss", "decision support system", "anomaly", "machine learning", "isolation forest", "risk score", "how vanrakshak works"],
+        "title": "VanRakshak Decision Support System (DSS) Architecture",
+        "reply": """### VanRakshak: FRA Decision Support System (DSS)
 
-**VanDrishti** is an advanced State-level Decision Support System engineered by **Team TechHunters** to identify procedural bottlenecks, implementation anomalies, and high-risk states under the Forest Rights Act (FRA 2006).
+**VanRakshak** is an advanced State-level Decision Support System engineered by **Team TechHunters** to identify procedural bottlenecks, implementation anomalies, and high-risk states under the Forest Rights Act (FRA 2006).
 
 ---
 
@@ -361,9 +361,9 @@ According to the biennial **India State of Forest Report (ISFR)** published by t
 ### 3. Integrated Platform Features
 * **Interactive GIS Map:** Leaflet-powered state-wise geospatial visualization with risk-level color coding.
 * **Knowledge Hub:** Direct access to statutory gazettes, Gram Sabha field playbooks, and DLC policy briefs.
-* **VanDhristi AI:** 24/7 intelligent assistant answering questions on forest conservation, statutory compliance, and anomaly interpretation.""",
+* **VanRakshak AI:** 24/7 intelligent assistant answering questions on forest conservation, statutory compliance, and anomaly interpretation.""",
         "suggestions": [
-            "Which states currently have High Risk status in VanDrishti?",
+            "Which states currently have High Risk status in VanRakshak?",
             "What is the difference between IFR and CFR?",
             "What are the statutory guidelines for Gram Sabha claim verification?"
         ]
@@ -405,7 +405,7 @@ def generate_local_response(query: str, state_context: str = None) -> dict:
     # Policy Simulation / What-If Scenario Evaluation (Checked first for highest priority)
     if any(k in q for k in ["simulation", "scenario", "policy lever", "clearance target", "what-if", "interventions"]):
         return {
-            "reply": """### VanDhristi AI: Administrative Policy Scenario Evaluation 🌿
+            "reply": """### VanRakshak AI: Administrative Policy Scenario Evaluation 🌿
 
 Thank you for running the policy intervention simulator. Below is the statutory and operational assessment under the **Forest Rights Act (FRA) 2006**:
 
@@ -433,7 +433,7 @@ Thank you for running the policy intervention simulator. Below is the statutory 
                 "How can Gram Sabhas appeal an unfair rejection?",
                 "How does CFR tenure security prevent deforestation?"
             ],
-            "sources": ["FRA 2006 Rules 12A & 14", "MoTA Circulars", "VanDrishti Policy Simulation Engine"]
+            "sources": ["FRA 2006 Rules 12A & 14", "MoTA Circulars", "VanRakshak Policy Simulation Engine"]
         }
 
     match = match_knowledge_base(query)
@@ -441,26 +441,26 @@ Thank you for running the policy intervention simulator. Below is the statutory 
         return {
             "reply": match["reply"],
             "suggestions": match["suggestions"],
-            "sources": ["Forest Rights Act (FRA) 2006", "Ministry of Tribal Affairs (MoTA)", "ISFR Report", "VanDrishti DSS Engine"]
+            "sources": ["Forest Rights Act (FRA) 2006", "Ministry of Tribal Affairs (MoTA)", "ISFR Report", "VanRakshak DSS Engine"]
         }
         
     # General greetings
     if any(greet in q for greet in ["hi", "hello", "namaste", "hey", "good morning", "good evening"]):
         return {
-            "reply": """**Namaste! I am VanDhristi AI**, your specialized assistant for:
+            "reply": """**Namaste! I am VanRakshak AI**, your specialized assistant for:
 * 🌲 **Forest Rights Act (FRA) 2006:** Individual (IFR) & Community (CFR) rights, Gram Sabha verification, SDLC & DLC timelines.
 * 🍃 **Deforestation Awareness:** Causes of canopy loss, ecological consequences, biodiversity conservation, and policy solutions.
 * 📜 **Statutory Guidance:** Forest Conservation Act (FCA 1980/2023), PESA 1996, Wildlife Protection Act 1972, and ISFR data.
-* 🗺️ **VanDrishti DSS:** Machine learning risk scores, anomaly detection, and state implementation analytics.
+* 🗺️ **VanRakshak DSS:** Machine learning risk scores, anomaly detection, and state implementation analytics.
 
 How can I assist you with forest conservation or forest rights today?""",
             "suggestions": [
                 "What is the Forest Rights Act (FRA 2006)?",
                 "What are the main causes and effects of deforestation?",
                 "What is the difference between IFR and CFR?",
-                "How does VanDrishti detect FRA implementation anomalies?"
+                "How does VanRakshak detect FRA implementation anomalies?"
             ],
-            "sources": ["VanDrishti Knowledge Hub"]
+            "sources": ["VanRakshak Knowledge Hub"]
         }
         
     # Question on tribal communities or forest dwellers
@@ -517,7 +517,7 @@ Forest fires pose an escalating risk to India's green cover, destroying undergro
     # Policy Simulation / What-If Scenario Evaluation
     if any(k in q for k in ["simulation", "scenario", "policy lever", "clearance target", "what-if", "interventions"]):
         return {
-            "reply": """### VanDhristi AI: Administrative Policy Scenario Evaluation 🌿
+            "reply": """### VanRakshak AI: Administrative Policy Scenario Evaluation 🌿
 
 Thank you for running the policy intervention simulator. Below is the statutory and operational assessment under the **Forest Rights Act (FRA) 2006**:
 
@@ -545,12 +545,12 @@ Thank you for running the policy intervention simulator. Below is the statutory 
                 "How can Gram Sabhas appeal an unfair rejection?",
                 "How does CFR tenure security prevent deforestation?"
             ],
-            "sources": ["FRA 2006 Rules 12A & 14", "MoTA Circulars", "VanDrishti Policy Simulation Engine"]
+            "sources": ["FRA 2006 Rules 12A & 14", "MoTA Circulars", "VanRakshak Policy Simulation Engine"]
         }
 
     # Default informative synthesis
     return {
-        "reply": f"""### VanDhristi AI Domain Insights
+        "reply": f"""### VanRakshak AI Domain Insights
 
 Regarding your question about **"{query}"**:
 
@@ -558,16 +558,16 @@ Under Indian forestry governance and the **Forest Rights Act (FRA) 2006**:
 1. **Statutory Framework:** Forest protection in India is governed through the harmonious implementation of the **Forest Rights Act 2006**, **Forest Conservation Act 1980 (amended 2023)**, and **PESA 1996**.
 2. **Deforestation Prevention:** Active community stewardship via **Community Forest Resource (CFR) rights [Sec 3(1)(i)]** has demonstrated up to a 60% reduction in illicit tree felling compared to exclusively state-controlled perimeters.
 3. **Decentralized Decision Making:** The **Gram Sabha** serves as the primary custodian of both forest titles and sustainable harvesting of Minor Forest Produce (MFP).
-4. **VanDrishti Decision Support:** Our machine learning models detect anomalous rejection patterns, workflow delays at the SDLC/DLC tier, and backlog growth to keep district and state administrations accountable.
+4. **VanRakshak Decision Support:** Our machine learning models detect anomalous rejection patterns, workflow delays at the SDLC/DLC tier, and backlog growth to keep district and state administrations accountable.
 
 Explore specific aspects below or ask follow-up questions!""",
         "suggestions": [
             "What is the Forest Rights Act (FRA 2006)?",
             "What are the causes and impacts of deforestation?",
             "What is the difference between IFR and CFR?",
-            "How does VanDrishti detect implementation anomalies?"
+            "How does VanRakshak detect implementation anomalies?"
         ],
-        "sources": ["FRA 2006 Statute", "VanDrishti Decision Support System"]
+        "sources": ["FRA 2006 Statute", "VanRakshak Decision Support System"]
     }
 
 def ask_external_llm(message: str, history: list = None) -> str:
@@ -611,7 +611,7 @@ def get_assistant_chat_response(message: str, history: list = None, state_contex
     clean_msg = message.strip()
     if not clean_msg:
         return {
-            "reply": "Please ask a question about forests, deforestation awareness, the Forest Rights Act (FRA 2006), or VanDrishti.",
+            "reply": "Please ask a question about forests, deforestation awareness, the Forest Rights Act (FRA 2006), or VanRakshak.",
             "suggestions": [
                 "What is the Forest Rights Act (FRA 2006)?",
                 "What are the main causes and effects of deforestation?",
@@ -628,9 +628,9 @@ def get_assistant_chat_response(message: str, history: list = None, state_contex
             "suggestions": [
                 "Tell me more about CFR under Section 3(1)(i)",
                 "What evidence is required for FRA claims?",
-                "How does VanDrishti calculate state risk scores?"
+                "How does VanRakshak calculate state risk scores?"
             ],
-            "sources": ["VanDrishti AI & MoTA Guidelines"]
+            "sources": ["VanRakshak AI & MoTA Guidelines"]
         }
 
     # Fast, rich local domain knowledge engine

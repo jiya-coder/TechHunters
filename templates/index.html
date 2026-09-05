@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VanDrishti — DSS Dashboard</title>
+    <title>VanRakshak — DSS Dashboard</title>
     
     <!-- Inline Pre-Paint Theme Detection Script (Prevents Theme Flash) -->
     <script>
@@ -751,10 +751,10 @@
     <header>
         <div class="header-brand">
             <div class="brand-icon">
-                <img src="/static/images/vandrishti_icon.png" alt="VanDrishti Icon" style="width: 100%; height: 100%; object-fit: cover;">
+                <img src="/static/images/vandrishti_icon.png" alt="VanRakshak Icon" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
             <div class="brand-text">
-                <h1>VanDrishti</h1>
+                <h1>VanRakshak</h1>
                 <p>Forest Rights Act Monitoring</p>
             </div>
         </div>
@@ -967,7 +967,7 @@
                 const tileUrl = theme === 'dark' 
                     ? 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}'
                     : 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}';
-                tileLayer = L.tileLayer(tileUrl, { attribution: '&copy; Esri | VanDrishti', maxZoom: 18 }).addTo(map);
+                tileLayer = L.tileLayer(tileUrl, { attribution: '&copy; Esri | VanRakshak', maxZoom: 18 }).addTo(map);
             }
 
             renderTimelineCharts();
@@ -1028,7 +1028,7 @@
             const tileUrl = currentTheme === 'dark' 
                 ? 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}'
                 : 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}';
-            tileLayer = L.tileLayer(tileUrl, { attribution: '&copy; Esri | VanDrishti System', maxZoom: 18 }).addTo(map);
+            tileLayer = L.tileLayer(tileUrl, { attribution: '&copy; Esri | VanRakshak System', maxZoom: 18 }).addTo(map);
 
             addLegend();
         }
@@ -1569,11 +1569,11 @@
         });
     </script>
 
-    <!-- VanDhristi AI Floating Assistant Widget -->
+    <!-- VanRakshak AI Floating Assistant Widget -->
     <div id="vfa-container">
         <!-- Floating Action Button -->
-        <button id="vfa-toggle-btn" aria-label="Open VanDhristi AI Assistant" title="Ask VanDhristi AI">
-            <img src="/static/images/assistant-logo.png" alt="VanDhristi AI Logo" class="vfa-logo-img" onerror="this.src='/assistant-logo.png'">
+        <button id="vfa-toggle-btn" aria-label="Open VanRakshak AI Assistant" title="Ask VanRakshak AI">
+            <img src="/static/images/assistant-logo.png" alt="VanRakshak AI Logo" class="vfa-logo-img" onerror="this.src='/assistant-logo.png'">
             <span class="vfa-status-dot"></span>
         </button>
 
@@ -1583,12 +1583,12 @@
             <div class="vfa-header">
                 <div class="vfa-header-info">
                     <div class="vfa-avatar-wrap">
-                        <img src="/static/images/assistant-logo.png" alt="VanDhristi AI" onerror="this.src='/assistant-logo.png'">
+                        <img src="/static/images/assistant-logo.png" alt="VanRakshak AI" onerror="this.src='/assistant-logo.png'">
                         <span class="vfa-online-pip"></span>
                     </div>
                     <div>
                         <div class="vfa-title">
-                            VanDhristi AI <span class="vfa-badge">DSS 2.0</span>
+                            VanRakshak AI <span class="vfa-badge">DSS 2.0</span>
                         </div>
                         <div class="vfa-subtitle">
                             <span class="vfa-pulse-dot"></span> Forest & FRA Intelligence
@@ -1605,8 +1605,8 @@
             <div id="vfa-messages" class="vfa-messages">
                 <div class="vfa-msg vfa-bot">
                     <div class="vfa-bubble">
-                        <p><strong>Namaste! I am VanDhristi AI.</strong> 🌿</p>
-                        <p>I am your specialized intelligence assistant for <strong>Forests</strong>, <strong>Deforestation Awareness</strong>, the <strong>Forest Rights Act (FRA 2006)</strong>, and <strong>VanDrishti DSS</strong>.</p>
+                        <p><strong>Namaste! I am VanRakshak AI.</strong> 🌿</p>
+                        <p>I am your specialized intelligence assistant for <strong>Forests</strong>, <strong>Deforestation Awareness</strong>, the <strong>Forest Rights Act (FRA 2006)</strong>, and <strong>VanRakshak DSS</strong>.</p>
                         <p>How can I help you today? Choose a starter topic below or type your question!</p>
                     </div>
                     <div class="vfa-suggestions">
@@ -1626,7 +1626,7 @@
                     <button id="vfa-send-btn" type="button" title="Send" aria-label="Send query">➔</button>
                 </div>
                 <div class="vfa-footer-note">
-                    <span>VanDrishti Decision Support System</span>
+                    <span>VanRakshak Decision Support System</span>
                     <span>Team TechHunters</span>
                 </div>
             </div>
@@ -2151,7 +2151,7 @@
                             <div class="vfa-bubble-actions">
                                 <button class="vfa-action-btn vfa-tts-btn">🔊 Listen</button>
                                 <button class="vfa-action-btn vfa-copy-btn">📋 Copy</button>
-                                <span>Ref: ${data.sources?.[0] || 'VanDrishti DSS'}</span>
+                                <span>Ref: ${data.sources?.[0] || 'VanRakshak DSS'}</span>
                             </div>
                         </div>
                         ${sugHtml}
@@ -2166,7 +2166,7 @@
                     botDiv.className = 'vfa-msg vfa-bot';
                     botDiv.innerHTML = `
                         <div class="vfa-bubble">
-                            <p><strong>VanDhristi Domain Notice:</strong></p>
+                            <p><strong>VanRakshak Domain Notice:</strong></p>
                             <p>Under the Forest Rights Act (FRA 2006), Gram Sabhas are the statutory authority to record IFR and CFR claims. Deforestation is strictly regulated under the Forest Conservation Act (FCA 1980/2023) and CAMPA.</p>
                         </div>
                     `;

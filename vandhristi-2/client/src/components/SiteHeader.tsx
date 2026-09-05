@@ -5,9 +5,9 @@ export default function SiteHeader({ theme = "dusk", onToggleTheme }: { theme?: 
   const [location] = useLocation();
   return (
     <header className="site-header">
-      <Link className="brand" href="/" aria-label="VanDhristi home">
+      <Link className="brand" href="/" aria-label="VanRakshak home">
         <span className="brand-mark"><Trees size={22} strokeWidth={1.8} /></span>
-        <span><b>VanDhristi</b><small>by TeachHunters</small></span>
+        <span><b>VanRakshak</b><small>by TeachHunters</small></span>
       </Link>
       <nav className="main-nav">
         <Link className={`nav-link ${location === "/" ? "active" : ""}`} href="/"><span>01</span>Home</Link>

@@ -195,7 +195,7 @@ export default function StateComparisonModal({
   const handleAskCopilotComparative = () => {
     const query = `Please provide a comparative FRA policy analysis between ${state1?.State || "State 1"} (Risk: ${state1?.ML_Risk_Score.toFixed(0)}, Rejection: ${(state1?.Rejection_Rate * 100).toFixed(1)}%) and ${state2?.State || "State 2"} (Risk: ${state2?.ML_Risk_Score.toFixed(0)}, Rejection: ${(state2?.Rejection_Rate * 100).toFixed(1)}%) against the National Benchmark for ${currentMonth}. What administrative actions can the lagging state replicate?`;
     window.dispatchEvent(
-      new CustomEvent("vandrishti:trigger-assistant", {
+      new CustomEvent("vanrakshak:trigger-assistant", {
         detail: { query },
       })
     );

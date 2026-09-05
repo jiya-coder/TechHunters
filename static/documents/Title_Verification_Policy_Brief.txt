@@ -1,7 +1,7 @@
 ================================================================================
 TITLE VERIFICATION POLICY BRIEF & STATUTORY TIMELINES
 District Level Committee (DLC) Guidelines
-VanDrishti Decision Support System
+VanRakshak Decision Support System
 ================================================================================
 
 1. EXECUTIVE SUMMARY
@@ -24,11 +24,11 @@ under Section 6(5) of the Forest Rights Act, 2006.
 --------------------------------------------------------------------------------
 3. ANOMALY DETECTION & WORKFLOW MONITORING
 --------------------------------------------------------------------------------
-- VanDrishti Machine Learning Isolation Forest model flags high rejection rate spikes, 
+- VanRakshak Machine Learning Isolation Forest model flags high rejection rate spikes, 
   pending backlog growth, and SDLC-to-DLC workflow drop-offs.
-- District administration can prioritize flagged states/districts using the VanDrishti GIS Map.
+- District administration can prioritize flagged states/districts using the VanRakshak GIS Map.
 
 ================================================================================
 Document Source: Ministry of Tribal Affairs (MoTA) Operational Directives
-Platform: VanDrishti Forest Rights Decision Support System
+Platform: VanRakshak Forest Rights Decision Support System
 ================================================================================

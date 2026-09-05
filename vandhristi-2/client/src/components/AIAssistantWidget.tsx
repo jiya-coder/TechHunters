@@ -18,19 +18,19 @@ const KNOWLEDGE_BASE = [
     response: 'Forests are vital ecosystems that cover about 31% of the global land area. They play a crucial role in carbon sequestration, maintaining water cycles, and supporting diverse wildlife.'
   },
   {
-    keywords: ['vandrishti', 'what is this', 'about'],
-    response: 'VanDrishti is a Decision Support System that tracks Forest Rights Act implementation anomalies, risk levels, and workflow bottlenecks using geospatial and machine learning tools.'
+    keywords: ['vanrakshak', 'vandrishti', 'what is this', 'about'],
+    response: 'VanRakshak is a Decision Support System that tracks Forest Rights Act implementation anomalies, risk levels, and workflow bottlenecks using geospatial and machine learning tools.'
   },
   {
     keywords: ['hello', 'hi', 'hey'],
-    response: 'Hello! I am your VanDrishti AI assistant. Ask me anything about forests, deforestation, or the Forest Rights Act (FRA).'
+    response: 'Hello! I am your VanRakshak AI assistant. Ask me anything about forests, deforestation, or the Forest Rights Act (FRA).'
   }
 ];
 
 export function AIAssistantWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<{ text: string; isUser: boolean }[]>([
-    { text: 'Hi! I am the VanDrishti AI. I can answer your questions about forests, deforestation, and the Forest Rights Act. How can I help you today?', isUser: false }
+    { text: 'Hi! I am the VanRakshak AI. I can answer your questions about forests, deforestation, and the Forest Rights Act. How can I help you today?', isUser: false }
   ]);
   const [inputValue, setInputValue] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -73,10 +73,10 @@ export function AIAssistantWidget() {
           <CardHeader className="p-4 border-b border-border flex flex-row items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-full overflow-hidden bg-background p-1 flex items-center justify-center">
-                <img src="/vandrishti_icon.png" alt="VanDrishti AI" className="w-full h-full object-contain" />
+                <img src="/vandrishti_icon.png" alt="VanRakshak AI" className="w-full h-full object-contain" />
               </div>
               <div>
-                <CardTitle className="text-sm font-bold text-foreground">VanDrishti AI</CardTitle>
+                <CardTitle className="text-sm font-bold text-foreground">VanRakshak AI</CardTitle>
                 <p className="text-xs text-muted-foreground">Forest & FRA Expert</p>
               </div>
             </div>

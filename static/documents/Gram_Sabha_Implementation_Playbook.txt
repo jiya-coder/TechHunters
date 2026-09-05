@@ -1,7 +1,7 @@
 ================================================================================
 GRAM SABHA IMPLEMENTATION PLAYBOOK & FIELD GUIDE
 Forest Rights Act (FRA) Claim Verification Procedure
-Ministry of Tribal Affairs & VanDrishti Decision Support System
+Ministry of Tribal Affairs & VanRakshak Decision Support System
 ================================================================================
 
 1. OVERVIEW
@@ -35,8 +35,8 @@ Step 4: Resolution & Submission
 3. ESCALATION & BOTTLENECK RESOLUTION
 --------------------------------------------------------------------------------
 - If SDLC does not process claims within 60 days, FRC can submit formal appeal to DLC.
-- Operational bottleneck tracking active on VanDrishti GIS Platform.
+- Operational bottleneck tracking active on VanRakshak GIS Platform.
 
 ================================================================================
-Platform: VanDrishti Forest Rights Decision Support System
+Platform: VanRakshak Forest Rights Decision Support System
 ================================================================================

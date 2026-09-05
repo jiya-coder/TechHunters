@@ -134,7 +134,7 @@ export default function Home() {
           <div className="container landing-hero-content flex flex-col items-center justify-center text-center min-h-[calc(100vh-140px)] py-12 z-20">
             <div className="hero-copy max-w-4xl w-full text-center mx-auto space-y-6">
               <div>
-                <h1 className="hero-title-large text-7xl sm:text-8xl md:text-9xl lg:text-[125px] font-extrabold tracking-tight leading-none mb-3 text-center">VanDrishti</h1>
+                <h1 className="hero-title-large text-7xl sm:text-8xl md:text-9xl lg:text-[125px] font-extrabold tracking-tight leading-none mb-3 text-center">VanRakshak</h1>
                 <p className="hero-lede text-sm sm:text-base md:text-lg font-medium tracking-wide text-center mx-auto max-w-2xl">
                   Geospatial AI & Decision Intelligence for the Forest Rights Act (FRA 2006).
                 </p>
@@ -596,7 +596,7 @@ export default function Home() {
           <div className="container footer-inner">
             <div className="footer-brand">
               <span className="brand-mark"><Trees size={22} /></span>
-              <span><b>VanDhristi</b><small>Empowering forest rights through intelligence.</small></span>
+              <span><b>VanRakshak</b><small>Empowering forest rights through intelligence.</small></span>
             </div>
             <span className="footer-credit">Designed & developed by <b>Team TechHunters</b></span>
             <span className="footer-meta">PS-7 / DECISION SUPPORT SYSTEM</span>

@@ -1,6 +1,6 @@
-# VanDrishti: Forest Rights Act (FRA) Decision Support System
+# VanRakshak: Forest Rights Act (FRA) Decision Support System
 
-VanDrishti is an open-source, multi-layered Decision Support System (DSS) engineered to provide end-to-end monitoring, anomaly detection, and workflow bottleneck analysis for the implementation of the Forest Rights Act (FRA) across Indian states. The platform operates on a dual-interface model: a comprehensive geospatial dashboard for state-wise KPI tracking and an integrated AI assistant for proactive knowledge dissemination and anomaly explanations.
+VanRakshak is an open-source, multi-layered Decision Support System (DSS) engineered to provide end-to-end monitoring, anomaly detection, and workflow bottleneck analysis for the implementation of the Forest Rights Act (FRA) across Indian states. The platform operates on a dual-interface model: a comprehensive geospatial dashboard for state-wise KPI tracking and an integrated AI assistant for proactive knowledge dissemination and anomaly explanations.
 
 ---
 
@@ -24,7 +24,7 @@ VanDrishti is an open-source, multi-layered Decision Support System (DSS) engine
 
 ## 1. Executive Summary
 
-VanDrishti unifies diverse state-level Monthly Progress Reports (MPRs) and geospatial data into an orchestrated operating system for tribal and forest rights management. Traditional monitoring tools suffer from fragmented reporting and delayed bottleneck detection. VanDrishti mitigates these challenges through:
+VanRakshak unifies diverse state-level Monthly Progress Reports (MPRs) and geospatial data into an orchestrated operating system for tribal and forest rights management. Traditional monitoring tools suffer from fragmented reporting and delayed bottleneck detection. VanRakshak mitigates these challenges through:
 
 1. **Automated Document Parsing**: OCR and heuristic-based extraction of data from official PDF MPRs into structured state-wise pipelines.
 2. **Machine Learning Risk Engine**: Deployment of Isolation Forest models to flag anomalies (e.g., unexpected rejection rate spikes or severe claim backlogs) and compute a definitive `State Risk Level`.
@@ -39,7 +39,7 @@ VanDrishti unifies diverse state-level Monthly Progress Reports (MPRs) and geosp
 
 The platform's data and decision logic follow a sequential pipeline from raw MPR ingestion to administrative prioritization:
 
-![VanDrishti Architecture Flowchart](./static/images/flowchart.png)
+![VanRakshak Architecture Flowchart](./static/images/flowchart.png)
 
 *   **Ingestion & Pipeline**: Processes State-Month MPR data into validated data structures.
 *   **Feature Engineering**: Calculates metrics like Approval, Pending, Disposal, and Bottleneck rates.

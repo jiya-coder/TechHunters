@@ -123,7 +123,7 @@ def get_india_geojson():
 async def assistant_chat(request: Request):
     """
     POST /api/assistant/chat
-    Answers questions regarding forests, deforestation awareness, FRA 2006, and VanDrishti DSS.
+    Answers questions regarding forests, deforestation awareness, FRA 2006, and VanRakshak DSS.
     """
     try:
         body = await request.json()
@@ -137,7 +137,7 @@ async def assistant_chat(request: Request):
 
 @app.get("/api/assistant/suggestions")
 def assistant_suggestions():
-    """Returns curated starter prompts for VanDhristi AI."""
+    """Returns curated starter prompts for VanRakshak AI."""
     return JSONResponse(content={
         "suggestions": [
             "What is the Forest Rights Act (FRA 2006)?",
@@ -145,7 +145,7 @@ def assistant_suggestions():
             "What are the main causes and effects of deforestation?",
             "How does the 3-tier Gram Sabha to DLC process work?",
             "What evidence is required to prove an FRA claim?",
-            "How does VanDrishti detect implementation anomalies?"
+            "How does VanRakshak detect implementation anomalies?"
         ]
     })
 
@@ -162,7 +162,7 @@ def serve_legacy_landing():
     if os.path.exists(html_path):
         with open(html_path, "r") as f:
             return f.read()
-    return HTMLResponse(content="<h2>VanDrishti Landing Page loading...</h2>")
+    return HTMLResponse(content="<h2>VanRakshak Landing Page loading...</h2>")
 
 @app.get("/legacy-dashboard", response_class=HTMLResponse)
 def serve_legacy_dashboard():
@@ -171,12 +171,12 @@ def serve_legacy_dashboard():
     if os.path.exists(html_path):
         with open(html_path, "r") as f:
             return f.read()
-    return HTMLResponse(content="<h2>FRA Dashboard loading...</h2>")
+    return HTMLResponse(content="<h2>VanRakshak Dashboard Loading...</h2>")
 
 @app.get("/{full_path:path}")
 def serve_spa(full_path: str):
     """
-    Catch-all SPA router: Serves built VanDrishti React application from dist/public/index.html.
+    Catch-all SPA router: Serves built VanRakshak React application from dist/public/index.html.
     Also serves static public assets if they exist in dist/public.
     """
     file_path = os.path.join(VITE_DIST_PATH, full_path)
@@ -191,7 +191,7 @@ def serve_spa(full_path: str):
     html_path = os.path.join("templates", "landing.html")
     if os.path.exists(html_path):
         return FileResponse(html_path)
-    return HTMLResponse(content="<h2>VanDrishti Platform Loading...</h2>")
+    return HTMLResponse(content="<h2>VanRakshak Platform Loading...</h2>")
 
 if __name__ == "__main__":
     import uvicorn

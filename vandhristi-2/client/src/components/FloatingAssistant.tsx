@@ -104,7 +104,7 @@ Under Section 3 of FRA 2006, forest rights are bifurcated into two vital categor
 
 ### 3. Key Solutions:
 * **FRA Community Forest Rights [Sec 3(1)(i)]:** Vests legal conservation powers in local Gram Sabhas to stop illicit logging.
-* **VanDrishti GIS Platform:** Leverages AI anomaly detection to identify high-risk forest zones and backlog spikes.
+* **VanRakshak GIS Platform:** Leverages AI anomaly detection to identify high-risk forest zones and backlog spikes.
 * **Compensatory Afforestation (CAMPA):** Ensuring genuine indigenous species restoration rather than monocultures.`,
     suggestions: [
       "What are the best solutions to prevent deforestation?",
@@ -134,11 +134,11 @@ Claims under the Forest Rights Act follow a decentralized 3-tier statutory ladde
    - Final statutory approving authority under Section 6(5).
    - Approves claims, issues title deeds (**Pattas**), and directs mutation in the **Record of Rights (RoR)** within 30 days.
 
-> **VanDrishti ML Alert:** VanDrishti's Isolation Forest model automatically flags states where claims experience severe SDLC-to-DLC bottleneck drop-offs.`,
+> **VanRakshak ML Alert:** VanRakshak's Isolation Forest model automatically flags states where claims experience severe SDLC-to-DLC bottleneck drop-offs.`,
     suggestions: [
       "What documents count as admissible evidence under FRA?",
       "What is the criterion for Other Traditional Forest Dwellers (OTFD)?",
-      "How does VanDrishti detect implementation anomalies?"
+      "How does VanRakshak detect implementation anomalies?"
     ]
   },
   {
@@ -199,14 +199,14 @@ According to the latest **India State of Forest Report (ISFR)**:
     suggestions: [
       "What are the main causes and effects of deforestation?",
       "How does the Forest Rights Act protect forest cover?",
-      "How does VanDrishti monitor state forest rights implementation?"
+      "How does VanRakshak monitor state forest rights implementation?"
     ]
   },
   {
-    keywords: ["vandrishti", "techhunters", "dss", "decision support system", "anomaly", "machine learning", "risk score"],
-    reply: `### VanDrishti: FRA Decision Support System (DSS)
+    keywords: ["vanrakshak", "vandrishti", "techhunters", "dss", "decision support system", "anomaly", "machine learning", "risk score"],
+    reply: `### VanRakshak: FRA Decision Support System (DSS)
 
-**VanDrishti** was developed by **Team TechHunters** as an intelligence platform to monitor the implementation of the Forest Rights Act (FRA 2006) across India.
+**VanRakshak** was developed by **Team TechHunters** as an intelligence platform to monitor the implementation of the Forest Rights Act (FRA 2006) across India.
 
 ---
 
@@ -256,7 +256,7 @@ function findClientResponse(query: string) {
   // Simulation / Policy Lever Scenario Handler
   if (q.includes("simulation") || q.includes("scenario") || q.includes("policy lever") || q.includes("clearance target") || q.includes("what-if") || q.includes("interventions")) {
     return {
-      reply: `### VanDhristi AI: Policy Scenario Evaluation & Tactical Guidance 🌿
+      reply: `### VanRakshak AI: Policy Scenario Evaluation & Tactical Guidance 🌿
 
 Thank you for running the administrative simulation. Here is your structured policy analysis under the **Forest Rights Act (FRA) 2006**:
 
@@ -284,35 +284,35 @@ Thank you for running the administrative simulation. Here is your structured pol
         "How can Gram Sabhas appeal an unfair rejection?",
         "How does CFR tenure security prevent deforestation?"
       ],
-      sources: ["FRA 2006 Rules 12A & 14", "MoTA Guidelines", "VanDrishti Policy Simulation Engine"]
+      sources: ["FRA 2006 Rules 12A & 14", "MoTA Guidelines", "VanRakshak Policy Simulation Engine"]
     };
   }
 
   // Greeting
   if (/^(hi|hello|hey|namaste|greetings)/i.test(q)) {
     return {
-      reply: `**Namaste! I am VanDhristi AI.** 🌿
+      reply: `**Namaste! I am VanRakshak AI.** 🌿
 
 I am your dedicated intelligence assistant for:
 * 🌲 **Forest Rights Act (FRA) 2006:** Individual (IFR) & Community (CFR) titles, Gram Sabha verification, and statutory appeals.
 * 🍃 **Deforestation Awareness:** Drivers of canopy loss, ecological fallout, biodiversity conservation, and policy solutions.
 * 📜 **Forestry Laws:** Forest Conservation Act (FCA 1980/2023), PESA 1996, and ISFR statistics.
-* 🗺️ **VanDrishti DSS:** Machine learning anomaly detection and state implementation risk monitoring.
+* 🗺️ **VanRakshak DSS:** Machine learning anomaly detection and state implementation risk monitoring.
 
 How can I help you today?`,
       suggestions: [
         "What is the Forest Rights Act (FRA 2006)?",
         "What are the main causes and effects of deforestation?",
         "What is the difference between IFR and CFR?",
-        "How does VanDrishti detect implementation anomalies?"
+        "How does VanRakshak detect implementation anomalies?"
       ],
-      sources: ["VanDrishti Knowledge Hub"]
+      sources: ["VanRakshak Knowledge Hub"]
     };
   }
 
   // Default synthesis
   return {
-    reply: `### VanDhristi AI Domain Intelligence
+    reply: `### VanRakshak AI Domain Intelligence
 
 Regarding **"${query}"**:
 
@@ -320,16 +320,16 @@ Under Indian forest governance and the **Forest Rights Act (FRA) 2006**:
 1. **Statutory Framework:** Forest protection in India is governed through the harmonious implementation of the **Forest Rights Act 2006**, **Forest Conservation Act 1980 (amended 2023)**, and **PESA 1996**.
 2. **Deforestation Prevention:** Active community stewardship via **Community Forest Resource (CFR) rights [Sec 3(1)(i)]** has demonstrated up to a 60% reduction in illicit tree felling compared to exclusively state-controlled perimeters.
 3. **Decentralized Decision Making:** The **Gram Sabha** serves as the primary custodian of both forest titles and sustainable harvesting of Minor Forest Produce (MFP).
-4. **VanDrishti Decision Support:** Our machine learning models detect anomalous rejection patterns, workflow delays at the SDLC/DLC tier, and backlog growth to keep district and state administrations accountable.
+4. **VanRakshak Decision Support:** Our machine learning models detect anomalous rejection patterns, workflow delays at the SDLC/DLC tier, and backlog growth to keep district and state administrations accountable.
 
 Choose a topic below or ask any question on forestry and rights!`,
-    suggestions: [
-      "What is the Forest Rights Act (FRA 2006)?",
-      "What are the main causes and effects of deforestation?",
-      "What is the difference between IFR and CFR?",
-      "How does the 3-tier Gram Sabha to DLC process work?"
-    ],
-    sources: ["Forest Rights Act (FRA) 2006", "VanDrishti DSS"]
+      suggestions: [
+        "What is the Forest Rights Act (FRA 2006)?",
+        "What are the main causes and effects of deforestation?",
+        "What is the difference between IFR and CFR?",
+        "How does the 3-tier Gram Sabha to DLC process work?"
+      ],
+      sources: ["Forest Rights Act (FRA) 2006", "VanRakshak DSS"]
   };
 }
 
@@ -510,9 +510,9 @@ export default function FloatingAssistant() {
     {
       id: "msg-init",
       sender: "bot",
-      text: `**Namaste! I am VanDhristi AI.** 🌿
+      text: `**Namaste! I am VanRakshak AI.** 🌿
 
-I am your dedicated intelligence assistant for **Forests**, **Deforestation Awareness**, the **Forest Rights Act (FRA 2006)**, and **VanDrishti DSS**.
+I am your dedicated intelligence assistant for **Forests**, **Deforestation Awareness**, the **Forest Rights Act (FRA 2006)**, and **VanRakshak DSS**.
 
 How can I help you today? Ask any question or click a starter topic below!`,
       suggestions: [
@@ -621,7 +621,7 @@ How can I help you today? Ask any question or click a starter topic below!`,
           "What is the Forest Rights Act (FRA 2006)?",
           "What is the difference between IFR and CFR?",
           "What are the main causes and effects of deforestation?",
-          "How does VanDrishti detect implementation anomalies?"
+          "How does VanRakshak detect implementation anomalies?"
         ],
         timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       },
@@ -697,24 +697,28 @@ How can I help you today? Ask any question or click a starter topic below!`,
         }, 150);
       }
     };
+    window.addEventListener("vanrakshak:trigger-assistant", handleTrigger);
     window.addEventListener("vandrishti:trigger-assistant", handleTrigger);
-    return () => window.removeEventListener("vandrishti:trigger-assistant", handleTrigger);
+    return () => {
+      window.removeEventListener("vanrakshak:trigger-assistant", handleTrigger);
+      window.removeEventListener("vandrishti:trigger-assistant", handleTrigger);
+    };
   }, []);
 
   return (
-    <div className="vandrishti-floating-assistant-wrapper">
+    <div className="vanrakshak-floating-assistant-wrapper">
       {/* 1. The Floating Circular Logo Button (Fixed at bottom right) */}
       {!isOpen && (
         <button
           className="fixed bottom-6 right-6 z-[9999] group flex items-center justify-center w-14 h-14 rounded-full bg-white shadow-2xl transition-all duration-300 hover:scale-110 active:scale-95 focus:outline-none focus:ring-4 focus:ring-[#12B981]/50 border-2 border-[#12B981]"
           onClick={() => setIsOpen(true)}
-          aria-label="Open VanDhristi AI Assistant"
-          title="Open VanDhristi AI Assistant"
+          aria-label="Open VanRakshak AI Assistant"
+          title="Open VanRakshak AI Assistant"
         >
           {/* Exact Uploaded Circular Logo Image */}
           <img
             src="/assistant-logo.png"
-            alt="VanDhristi AI"
+            alt="VanRakshak AI"
             className="w-full h-full object-contain rounded-full p-1 drop-shadow-sm transition-transform duration-300 group-hover:rotate-6"
             onError={(e) => {
               // Fallback to static path if needed
@@ -728,7 +732,7 @@ How can I help you today? Ask any question or click a starter topic below!`,
           </span>
           {/* Tooltip on hover */}
           <span className="absolute right-16 px-3 py-1.5 rounded-lg bg-[#0C1A15] border border-[#B7E64B]/30 text-[#F2F3E9] text-xs font-mono font-medium shadow-xl opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity whitespace-nowrap">
-            Ask VanDhristi AI
+            Ask VanRakshak AI
           </span>
         </button>
       )}
@@ -751,7 +755,7 @@ How can I help you today? Ask any question or click a starter topic below!`,
               <div className="relative w-10 h-10 rounded-full bg-white border-2 border-[#12B981] flex items-center justify-center overflow-hidden p-0.5 shadow-md">
                 <img
                   src="/assistant-logo.png"
-                  alt="VanDhristi AI"
+                  alt="VanRakshak AI"
                   className="w-full h-full object-contain rounded-full"
                   onError={(e) => {
                     (e.target as HTMLImageElement).src = "/static/images/assistant-logo.png";
@@ -761,7 +765,7 @@ How can I help you today? Ask any question or click a starter topic below!`,
               </div>
               <div>
                 <div className="flex items-center gap-1.5">
-                  <span className="font-bold text-sm tracking-wide text-[#F2F3E9]">VanDhristi AI</span>
+                  <span className="font-bold text-sm tracking-wide text-[#F2F3E9]">VanRakshak AI</span>
                   <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-[#B7E64B]/20 text-[#B7E64B] font-semibold">
                     DSS 2.0
                   </span>
@@ -813,7 +817,7 @@ How can I help you today? Ask any question or click a starter topic below!`,
                   {msg.sender === "user" ? (
                     <span>You · {msg.timestamp}</span>
                   ) : (
-                    <span>VanDhristi AI · {msg.timestamp}</span>
+                    <span>VanRakshak AI · {msg.timestamp}</span>
                   )}
                 </div>
 
@@ -965,7 +969,7 @@ How can I help you today? Ask any question or click a starter topic below!`,
               </button>
             </form>
             <div className="flex items-center justify-between mt-2 px-1 text-[9px] text-[#5A7364] font-mono">
-              <span>VanDrishti Decision Support System</span>
+              <span>VanRakshak Decision Support System</span>
               <span>Team TechHunters</span>
             </div>
           </div>

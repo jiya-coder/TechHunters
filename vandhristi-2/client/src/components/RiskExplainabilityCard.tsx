@@ -99,7 +99,7 @@ export default function RiskExplainabilityCard({
       );
     } else {
       window.dispatchEvent(
-        new CustomEvent("vandrishti:trigger-assistant", {
+        new CustomEvent("vanrakshak:trigger-assistant", {
           detail: {
             query: `Explain the ML Risk Score (${score.toFixed(1)} / ${level}) for ${state.State} and why the Isolation Forest model flagged it in ${state.Month}.`,
           },
