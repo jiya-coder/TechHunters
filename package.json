@@ -1,0 +1,8 @@
+{
+  "name": "techhunters",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "cd vandhristi-2 && npm install && npm run build"
+  }
+}
