@@ -3,6 +3,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Route, Switch, useLocation } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import { AIAssistantWidget } from "./components/AIAssistantWidget";
 import Home from "./pages/Home";
 import Knowledge from "./pages/Knowledge";
 import Maps from "./pages/Maps";
@@ -30,6 +31,7 @@ export default function App() {
           <div className="page-transition" key={location}>
             <Router />
           </div>
+          <AIAssistantWidget />
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>
