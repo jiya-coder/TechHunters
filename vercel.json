@@ -1,6 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "installCommand": "cd vandhristi-2 && npm install",
+  "installCommand": "cd vandhristi-2 && npm install --legacy-peer-deps",
   "buildCommand": "cd vandhristi-2 && npm run build",
   "outputDirectory": "vandhristi-2/dist/public",
   "rewrites": [
