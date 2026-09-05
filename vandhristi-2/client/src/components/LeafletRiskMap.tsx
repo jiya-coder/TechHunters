@@ -1,18 +1,20 @@
 import { useEffect, useRef } from "react";
-
-declare global {
-  interface Window {
-    L: any;
-  }
-}
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
 
 export interface StateDSSData {
   State: string;
   Month: string;
   Total_Claims_Received: number;
+  Individual_Claims?: number;
+  Community_Claims?: number;
+  Claims_Recommended_SDLC?: number;
+  Claims_Recommended_DLC?: number;
   Approved_Claims: number;
   Pending_Claims: number;
   Rejected_Claims: number;
+  Titles_Distributed?: number;
+  Disposal_Rate?: number;
   ML_Risk_Score: number;
   ML_Risk_Level: string;
   Anomaly_Type: string;
@@ -61,10 +63,9 @@ export default function LeafletRiskMap({
 
   // Initialize Map
   useEffect(() => {
-    if (!mapContainerRef.current || !window.L) return;
+    if (!mapContainerRef.current) return;
 
     if (!mapRef.current) {
-      const L = window.L;
       const map = L.map(mapContainerRef.current, {
         center: [22.5937, 78.9629],
         zoom: 5,
@@ -86,8 +87,7 @@ export default function LeafletRiskMap({
 
   // Update Tile Layer based on theme
   useEffect(() => {
-    if (!mapRef.current || !window.L) return;
-    const L = window.L;
+    if (!mapRef.current) return;
 
     if (tileLayerRef.current) {
       mapRef.current.removeLayer(tileLayerRef.current);
@@ -106,8 +106,7 @@ export default function LeafletRiskMap({
 
   // Render / Update GeoJSON features
   useEffect(() => {
-    if (!mapRef.current || !geoJsonData || !window.L) return;
-    const L = window.L;
+    if (!mapRef.current || !geoJsonData) return;
 
     if (geoJsonLayerRef.current) {
       mapRef.current.removeLayer(geoJsonLayerRef.current);

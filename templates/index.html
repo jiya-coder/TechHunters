@@ -1568,5 +1568,683 @@
             await loadGeoJSON();
         });
     </script>
+
+    <!-- VanDhristi AI Floating Assistant Widget -->
+    <div id="vfa-container">
+        <!-- Floating Action Button -->
+        <button id="vfa-toggle-btn" aria-label="Open VanDhristi AI Assistant" title="Ask VanDhristi AI">
+            <img src="/static/images/assistant-logo.png" alt="VanDhristi AI Logo" class="vfa-logo-img" onerror="this.src='/assistant-logo.png'">
+            <span class="vfa-status-dot"></span>
+        </button>
+
+        <!-- Floating Chat Modal Window -->
+        <div id="vfa-chat-window" class="vfa-hidden">
+            <!-- Header -->
+            <div class="vfa-header">
+                <div class="vfa-header-info">
+                    <div class="vfa-avatar-wrap">
+                        <img src="/static/images/assistant-logo.png" alt="VanDhristi AI" onerror="this.src='/assistant-logo.png'">
+                        <span class="vfa-online-pip"></span>
+                    </div>
+                    <div>
+                        <div class="vfa-title">
+                            VanDhristi AI <span class="vfa-badge">DSS 2.0</span>
+                        </div>
+                        <div class="vfa-subtitle">
+                            <span class="vfa-pulse-dot"></span> Forest & FRA Intelligence
+                        </div>
+                    </div>
+                </div>
+                <div class="vfa-header-actions">
+                    <button id="vfa-reset-btn" title="Reset chat" aria-label="Reset chat">↺</button>
+                    <button id="vfa-close-btn" title="Close chat" aria-label="Close chat">✕</button>
+                </div>
+            </div>
+
+            <!-- Messages Thread -->
+            <div id="vfa-messages" class="vfa-messages">
+                <div class="vfa-msg vfa-bot">
+                    <div class="vfa-bubble">
+                        <p><strong>Namaste! I am VanDhristi AI.</strong> 🌿</p>
+                        <p>I am your specialized intelligence assistant for <strong>Forests</strong>, <strong>Deforestation Awareness</strong>, the <strong>Forest Rights Act (FRA 2006)</strong>, and <strong>VanDrishti DSS</strong>.</p>
+                        <p>How can I help you today? Choose a starter topic below or type your question!</p>
+                    </div>
+                    <div class="vfa-suggestions">
+                        <button class="vfa-sug-btn">🌲 What is the Forest Rights Act (FRA 2006)?</button>
+                        <button class="vfa-sug-btn">🍃 Causes & impacts of deforestation</button>
+                        <button class="vfa-sug-btn">⚖️ Difference between IFR and CFR</button>
+                        <button class="vfa-sug-btn">📋 3-tier Gram Sabha to DLC process</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Compose Box -->
+            <div class="vfa-compose">
+                <div class="vfa-input-row">
+                    <button id="vfa-mic-btn" type="button" title="Voice input" aria-label="Voice input">🎤</button>
+                    <input id="vfa-input" type="text" placeholder="Ask about forests, deforestation, FRA 2006..." autocomplete="off">
+                    <button id="vfa-send-btn" type="button" title="Send" aria-label="Send query">➔</button>
+                </div>
+                <div class="vfa-footer-note">
+                    <span>VanDrishti Decision Support System</span>
+                    <span>Team TechHunters</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        #vfa-container {
+            font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 99999;
+        }
+        #vfa-toggle-btn {
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 2.5px solid #12B981;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5), 0 0 20px rgba(18,185,129,0.3);
+            cursor: pointer;
+            padding: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: transform 0.25s cubic-bezier(0.16,1,0.3,1), box-shadow 0.25s ease;
+        }
+        #vfa-toggle-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 14px 30px rgba(0,0,0,0.6), 0 0 25px rgba(18,185,129,0.45);
+        }
+        #vfa-toggle-btn:active {
+            transform: scale(0.96);
+        }
+        .vfa-logo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 50%;
+            display: block;
+        }
+        .vfa-status-dot {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 13px;
+            height: 13px;
+            background: #10B981;
+            border: 2px solid #0C1713;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #10B981;
+        }
+        #vfa-chat-window {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 410px;
+            max-width: calc(100vw - 32px);
+            height: 580px;
+            max-height: calc(100vh - 48px);
+            background: rgba(12, 23, 19, 0.96);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(183, 230, 75, 0.25);
+            border-radius: 20px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.8), 0 0 35px rgba(18,185,129,0.15);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            color: #F2F3E9;
+            z-index: 100000;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+        #vfa-chat-window.vfa-hidden {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+        }
+        .vfa-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: rgba(18, 42, 32, 0.85);
+            border-bottom: 1px solid rgba(183, 230, 75, 0.2);
+        }
+        .vfa-header-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .vfa-avatar-wrap {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #fff;
+            border: 2px solid #12B981;
+            padding: 1px;
+            position: relative;
+            flex-shrink: 0;
+        }
+        .vfa-avatar-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 50%;
+        }
+        .vfa-online-pip {
+            position: absolute;
+            bottom: -1px;
+            right: -1px;
+            width: 9px;
+            height: 9px;
+            background: #10B981;
+            border: 1.5px solid #0C1713;
+            border-radius: 50%;
+        }
+        .vfa-title {
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #F2F3E9;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .vfa-badge {
+            font-size: 9px;
+            font-family: monospace;
+            padding: 2px 5px;
+            background: rgba(183, 230, 75, 0.15);
+            color: #B7E64B;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        .vfa-subtitle {
+            font-size: 11px;
+            color: #8FB5A2;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-family: monospace;
+        }
+        .vfa-pulse-dot {
+            width: 6px;
+            height: 6px;
+            background: #10B981;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 6px #10B981;
+        }
+        .vfa-header-actions {
+            display: flex;
+            gap: 6px;
+        }
+        .vfa-header-actions button {
+            background: transparent;
+            border: none;
+            color: #8FB5A2;
+            cursor: pointer;
+            font-size: 15px;
+            padding: 6px;
+            border-radius: 6px;
+            line-height: 1;
+            transition: all 0.2s;
+        }
+        .vfa-header-actions button:hover {
+            color: #B7E64B;
+            background: rgba(255,255,255,0.08);
+        }
+        .vfa-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            font-size: 12.5px;
+        }
+        .vfa-messages::-webkit-scrollbar {
+            width: 5px;
+        }
+        .vfa-messages::-webkit-scrollbar-thumb {
+            background: rgba(183, 230, 75, 0.25);
+            border-radius: 3px;
+        }
+        .vfa-msg {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            max-width: 92%;
+        }
+        .vfa-msg.vfa-user {
+            align-self: flex-end;
+        }
+        .vfa-msg.vfa-bot {
+            align-self: flex-start;
+        }
+        .vfa-msg.vfa-user .vfa-bubble {
+            background: #185338;
+            color: #ffffff;
+            border-radius: 14px 14px 2px 14px;
+            border: 1px solid rgba(183, 230, 75, 0.3);
+            padding: 10px 14px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        .vfa-msg.vfa-bot .vfa-bubble {
+            background: rgba(14, 35, 27, 0.95);
+            color: #E4EDE7;
+            border-radius: 14px 14px 14px 2px;
+            border: 1px solid rgba(183, 230, 75, 0.15);
+            padding: 12px 14px;
+            line-height: 1.5;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        .vfa-bubble p {
+            margin: 4px 0;
+        }
+        .vfa-bubble h4 {
+            margin: 8px 0 4px;
+            color: #B7E64B;
+            font-size: 13px;
+        }
+        .vfa-bubble table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 8px 0;
+            font-size: 11px;
+            background: rgba(6, 18, 14, 0.8);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .vfa-bubble th, .vfa-bubble td {
+            padding: 6px 8px;
+            border-bottom: 1px solid rgba(183, 230, 75, 0.15);
+            text-align: left;
+        }
+        .vfa-bubble th {
+            color: #B7E64B;
+            font-weight: 600;
+        }
+        .vfa-bubble hr {
+            border: none;
+            border-top: 1px solid rgba(183, 230, 75, 0.2);
+            margin: 8px 0;
+        }
+        .vfa-bubble blockquote {
+            margin: 6px 0;
+            padding: 6px 10px;
+            background: rgba(183, 230, 75, 0.1);
+            border-left: 3px solid #B7E64B;
+            border-radius: 4px;
+            font-style: italic;
+            font-size: 11.5px;
+        }
+        .vfa-suggestions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 4px;
+        }
+        .vfa-sug-btn {
+            background: rgba(18, 42, 32, 0.9);
+            border: 1px solid rgba(183, 230, 75, 0.3);
+            color: #B7E64B;
+            font-size: 11px;
+            padding: 5px 10px;
+            border-radius: 12px;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s;
+        }
+        .vfa-sug-btn:hover {
+            background: rgba(26, 61, 47, 0.95);
+            border-color: #B7E64B;
+            transform: translateY(-1px);
+        }
+        .vfa-bubble-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 8px;
+            padding-top: 6px;
+            border-top: 1px solid rgba(183, 230, 75, 0.1);
+            font-size: 10px;
+            color: #8FB5A2;
+        }
+        .vfa-action-btn {
+            background: transparent;
+            border: none;
+            color: #8FB5A2;
+            cursor: pointer;
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+        .vfa-action-btn:hover {
+            color: #B7E64B;
+            background: rgba(233, 63, 53, 0.5);
+        }
+        .vfa-compose {
+            padding: 12px;
+            background: #10241B;
+            border-top: 1px solid rgba(183, 230, 75, 0.2);
+        }
+        .vfa-input-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        #vfa-input {
+            flex: 1;
+            background: #0A1813;
+            border: 1px solid rgba(183, 230, 75, 0.25);
+            color: #F2F3E9;
+            font-size: 12px;
+            padding: 9px 12px;
+            border-radius: 10px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        #vfa-input:focus {
+            border-color: #B7E64B;
+        }
+        #vfa-send-btn {
+            background: #B7E64B;
+            color: #0C1613;
+            border: none;
+            border-radius: 10px;
+            padding: 9px 14px;
+            font-weight: bold;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        #vfa-send-btn:hover {
+            background: #cbf95f;
+            transform: scale(1.05);
+        }
+        #vfa-mic-btn {
+            background: #0A1813;
+            border: 1px solid rgba(183, 230, 75, 0.25);
+            color: #8FB5A2;
+            border-radius: 10px;
+            padding: 8px 10px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+        #vfa-mic-btn.vfa-listening {
+            background: #DA5A5A;
+            color: #fff;
+            border-color: #ff6b6b;
+            animation: vfa-pulse 1s infinite;
+        }
+        @keyframes vfa-pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+            100% { transform: scale(1); }
+        }
+        .vfa-footer-note {
+            display: flex;
+            justify-content: space-between;
+            font-size: 9px;
+            color: #5A7364;
+            font-family: monospace;
+            margin-top: 6px;
+            padding: 0 4px;
+        }
+    </style>
+
+    <script>
+        (function() {
+            const toggleBtn = document.getElementById('vfa-toggle-btn');
+            const chatWindow = document.getElementById('vfa-chat-window');
+            const closeBtn = document.getElementById('vfa-close-btn');
+            const resetBtn = document.getElementById('vfa-reset-btn');
+            const sendBtn = document.getElementById('vfa-send-btn');
+            const micBtn = document.getElementById('vfa-mic-btn');
+            const input = document.getElementById('vfa-input');
+            const messagesContainer = document.getElementById('vfa-messages');
+
+            let isListening = false;
+            let recognition = null;
+
+            // Toggle window
+            toggleBtn.addEventListener('click', () => {
+                chatWindow.classList.toggle('vfa-hidden');
+                if (!chatWindow.classList.contains('vfa-hidden')) {
+                    input.focus();
+                }
+            });
+
+            closeBtn.addEventListener('click', () => {
+                chatWindow.classList.add('vfa-hidden');
+            });
+
+            // Reset chat
+            resetBtn.addEventListener('click', () => {
+                messagesContainer.innerHTML = `
+                    <div class="vfa-msg vfa-bot">
+                        <div class="vfa-bubble">
+                            <p><strong>Conversation reset.</strong> 🌿</p>
+                            <p>Ask anything about forests, deforestation awareness, or the Forest Rights Act (FRA 2006)!</p>
+                        </div>
+                        <div class="vfa-suggestions">
+                            <button class="vfa-sug-btn">🌲 What is the Forest Rights Act (FRA 2006)?</button>
+                            <button class="vfa-sug-btn">🍃 Causes & impacts of deforestation</button>
+                            <button class="vfa-sug-btn">⚖️ Difference between IFR and CFR</button>
+                            <button class="vfa-sug-btn">📋 3-tier Gram Sabha to DLC process</button>
+                        </div>
+                    </div>
+                `;
+                attachSuggestionListeners();
+            });
+
+            function formatMarkdown(text) {
+                let html = text
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;');
+
+                // Headers
+                html = html.replace(/^### (.*$)/gim, '<h4>$1</h4>');
+                html = html.replace(/^## (.*$)/gim, '<h4>$1</h4>');
+                // Bold
+                html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                // Blockquote
+                html = html.replace(/^> (.*$)/gim, '<blockquote>$1</blockquote>');
+                // Horizontal rule
+                html = html.replace(/^---$/gim, '<hr>');
+                // Bullets
+                html = html.replace(/^[\*\-] (.*$)/gim, '<div style="display:flex;gap:6px;margin:2px 0;"><span style="color:#B7E64B">•</span><span>$1</span></div>');
+                // Tables
+                const lines = html.split('\n');
+                let inTable = false;
+                let tableBuf = [];
+                let finalLines = [];
+
+                for (let line of lines) {
+                    let trimmed = line.trim();
+                    if (trimmed.startsWith('|') && trimmed.endsWith('|')) {
+                        inTable = true;
+                        let cells = trimmed.slice(1, -1).split('|');
+                        tableBuf.push(cells);
+                    } else {
+                        if (inTable && tableBuf.length > 0) {
+                            let tableHtml = '<table><thead><tr>';
+                            tableBuf[0].forEach(h => tableHtml += `<th>${h.trim()}</th>`);
+                            tableHtml += '</tr></thead><tbody>';
+                            for (let i = 1; i < tableBuf.length; i++) {
+                                if (tableBuf[i].every(c => c.trim().startsWith('---') || c.trim().startsWith(':--'))) continue;
+                                tableHtml += '<tr>';
+                                tableBuf[i].forEach(c => tableHtml += `<td>${c.trim()}</td>`);
+                                tableHtml += '</tr>';
+                            }
+                            tableHtml += '</tbody></table>';
+                            finalLines.push(tableHtml);
+                            tableBuf = [];
+                            inTable = false;
+                        }
+                        finalLines.push(line);
+                    }
+                }
+                if (inTable && tableBuf.length > 0) {
+                    let tableHtml = '<table><thead><tr>';
+                    tableBuf[0].forEach(h => tableHtml += `<th>${h.trim()}</th>`);
+                    tableHtml += '</tr></thead><tbody>';
+                    for (let i = 1; i < tableBuf.length; i++) {
+                        if (tableBuf[i].every(c => c.trim().startsWith('---') || c.trim().startsWith(':--'))) continue;
+                        tableHtml += '<tr>';
+                        tableBuf[i].forEach(c => tableHtml += `<td>${c.trim()}</td>`);
+                        tableHtml += '</tr>';
+                    }
+                    tableHtml += '</tbody></table>';
+                    finalLines.push(tableHtml);
+                }
+
+                return finalLines.join('<br>').replace(/<br>\s*<br>/g, '<br>');
+            }
+
+            async function sendMessage(query) {
+                const text = (query || input.value).trim();
+                if (!text) return;
+
+                // Add User Bubble
+                const userDiv = document.createElement('div');
+                userDiv.className = 'vfa-msg vfa-user';
+                userDiv.innerHTML = `<div class="vfa-bubble"><p>${text}</p></div>`;
+                messagesContainer.appendChild(userDiv);
+                input.value = '';
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+                // Add typing indicator
+                const typingDiv = document.createElement('div');
+                typingDiv.className = 'vfa-msg vfa-bot';
+                typingDiv.id = 'vfa-typing';
+                typingDiv.innerHTML = `<div class="vfa-bubble" style="font-family:monospace;color:#B7E64B;font-size:11px;">Consulting FRA statutes & forest data…</div>`;
+                messagesContainer.appendChild(typingDiv);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+                try {
+                    const res = await fetch('/api/assistant/chat', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ message: text })
+                    });
+                    const data = await res.json();
+                    typingDiv.remove();
+
+                    const botDiv = document.createElement('div');
+                    botDiv.className = 'vfa-msg vfa-bot';
+                    let sugHtml = '';
+                    if (data.suggestions && data.suggestions.length > 0) {
+                        sugHtml = `<div class="vfa-suggestions">${data.suggestions.map(s => `<button class="vfa-sug-btn">${s}</button>`).join('')}</div>`;
+                    }
+                    botDiv.innerHTML = `
+                        <div class="vfa-bubble">
+                            ${formatMarkdown(data.reply)}
+                            <div class="vfa-bubble-actions">
+                                <button class="vfa-action-btn vfa-tts-btn">🔊 Listen</button>
+                                <button class="vfa-action-btn vfa-copy-btn">📋 Copy</button>
+                                <span>Ref: ${data.sources?.[0] || 'VanDrishti DSS'}</span>
+                            </div>
+                        </div>
+                        ${sugHtml}
+                    `;
+                    messagesContainer.appendChild(botDiv);
+                    attachActionListeners(botDiv, data.reply);
+                    attachSuggestionListeners();
+                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                } catch (err) {
+                    typingDiv.remove();
+                    const botDiv = document.createElement('div');
+                    botDiv.className = 'vfa-msg vfa-bot';
+                    botDiv.innerHTML = `
+                        <div class="vfa-bubble">
+                            <p><strong>VanDhristi Domain Notice:</strong></p>
+                            <p>Under the Forest Rights Act (FRA 2006), Gram Sabhas are the statutory authority to record IFR and CFR claims. Deforestation is strictly regulated under the Forest Conservation Act (FCA 1980/2023) and CAMPA.</p>
+                        </div>
+                    `;
+                    messagesContainer.appendChild(botDiv);
+                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                }
+            }
+
+            function attachActionListeners(container, rawText) {
+                const ttsBtn = container.querySelector('.vfa-tts-btn');
+                const copyBtn = container.querySelector('.vfa-copy-btn');
+
+                if (ttsBtn && 'speechSynthesis' in window) {
+                    ttsBtn.addEventListener('click', () => {
+                        window.speechSynthesis.cancel();
+                        const clean = rawText.replace(/[\#\*\>\|]/g, '');
+                        const utter = new SpeechSynthesisUtterance(clean);
+                        utter.lang = 'en-IN';
+                        window.speechSynthesis.speak(utter);
+                        ttsBtn.textContent = '⏹ Stop';
+                        utter.onend = () => ttsBtn.textContent = '🔊 Listen';
+                    });
+                }
+
+                if (copyBtn) {
+                    copyBtn.addEventListener('click', () => {
+                        navigator.clipboard.writeText(rawText);
+                        copyBtn.textContent = '✓ Copied';
+                        setTimeout(() => copyBtn.textContent = '📋 Copy', 2000);
+                    });
+                }
+            }
+
+            function attachSuggestionListeners() {
+                document.querySelectorAll('.vfa-sug-btn').forEach(btn => {
+                    btn.onclick = () => {
+                        const cleanQuery = btn.textContent.replace(/^[^\w\s]+/, '').trim();
+                        sendMessage(cleanQuery);
+                    };
+                });
+            }
+
+            sendBtn.addEventListener('click', () => sendMessage());
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') sendMessage();
+            });
+
+            // Voice recognition
+            const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (SpeechRec) {
+                recognition = new SpeechRec();
+                recognition.lang = 'en-IN';
+                recognition.onresult = (e) => {
+                    const transcript = e.results[0][0].transcript;
+                    micBtn.classList.remove('vfa-listening');
+                    isListening = false;
+                    sendMessage(transcript);
+                };
+                recognition.onend = () => {
+                    micBtn.classList.remove('vfa-listening');
+                    isListening = false;
+                };
+
+                micBtn.addEventListener('click', () => {
+                    if (isListening) {
+                        recognition.stop();
+                    } else {
+                        recognition.start();
+                        micBtn.classList.add('vfa-listening');
+                        isListening = true;
+                    }
+                });
+            } else {
+                micBtn.style.display = 'none';
+            }
+
+            attachSuggestionListeners();
+        })();
+    </script>
 </body>
 </html>

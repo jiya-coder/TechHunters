@@ -203,7 +203,60 @@ function vitePluginStorageProxy(): Plugin {
   };
 }
 
-const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector(), vitePluginStorageProxy()];
+function vitePluginFraApi(): Plugin {
+  const rootDir = path.resolve(import.meta.dirname, "..");
+  const geojsonPath = path.resolve(rootDir, "india_states.geojson");
+  const fraDataPath = path.resolve(import.meta.dirname, "client", "src", "data", "fraData.json");
+
+  return {
+    name: "fra-api-dev-middleware",
+    configureServer(server: ViteDevServer) {
+      server.middlewares.use(async (req, res, next) => {
+        const url = new URL(req.url || "/", "http://localhost");
+
+        if (url.pathname === "/api/fra/months") {
+          res.setHeader("Content-Type", "application/json");
+          if (fs.existsSync(fraDataPath)) {
+            const data = JSON.parse(fs.readFileSync(fraDataPath, "utf-8"));
+            res.end(JSON.stringify({ months: data.months, total_months: data.months.length }));
+          } else {
+            res.end(JSON.stringify({ months: [], total_months: 0 }));
+          }
+          return;
+        }
+
+        if (url.pathname === "/api/fra/geojson") {
+          res.setHeader("Content-Type", "application/json");
+          if (fs.existsSync(geojsonPath)) {
+            res.end(fs.readFileSync(geojsonPath, "utf-8"));
+          } else {
+            res.statusCode = 404;
+            res.end(JSON.stringify({ error: "GeoJSON not found" }));
+          }
+          return;
+        }
+
+        if (url.pathname === "/api/fra/states") {
+          const month = url.searchParams.get("month") || "";
+          res.setHeader("Content-Type", "application/json");
+          if (fs.existsSync(fraDataPath)) {
+            const data = JSON.parse(fs.readFileSync(fraDataPath, "utf-8"));
+            const monthData = data.byMonth[month] || Object.values(data.byMonth)[0];
+            res.end(JSON.stringify(monthData));
+          } else {
+            res.statusCode = 404;
+            res.end(JSON.stringify({ error: "Data not found" }));
+          }
+          return;
+        }
+
+        next();
+      });
+    },
+  };
+}
+
+const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector(), vitePluginStorageProxy(), vitePluginFraApi()];
 
 export default defineConfig({
   plugins,
@@ -221,9 +274,15 @@ export default defineConfig({
     emptyOutDir: true,
   },
   server: {
-    port: 3000,
-    strictPort: false, // Will find next available port if 3000 is busy
+    port: 5173,
+    strictPort: false, // Will find next available port if 5173 is busy
     host: true,
+    proxy: {
+      "/api": {
+        target: "http://127.0.0.1:8000",
+        changeOrigin: true,
+      },
+    },
     allowedHosts: [
       ".manuspre.computer",
       ".manus.computer",

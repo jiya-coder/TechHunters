@@ -1,9 +1,11 @@
-from fastapi import FastAPI, Query, HTTPException
+from fastapi import FastAPI, Query, HTTPException, Request
 from fastapi.responses import HTMLResponse, FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 import pandas as pd
 import json
 import os
+from assistant_engine import get_assistant_chat_response
+
 
 app = FastAPI(
     title="FRA Decision Support System (DSS) Map API",
@@ -65,9 +67,15 @@ def get_state_dss_data(month: str = Query(..., description="Selected month in fo
             "State": st_name,
             "Month": row["Month"],
             "Total_Claims_Received": int(row["Total_Claims_Received"]),
+            "Individual_Claims": int(row["Individual_Claims"]) if "Individual_Claims" in row and pd.notna(row["Individual_Claims"]) else 0,
+            "Community_Claims": int(row["Community_Claims"]) if "Community_Claims" in row and pd.notna(row["Community_Claims"]) else 0,
+            "Claims_Recommended_SDLC": int(row["Claims_Recommended_SDLC"]) if "Claims_Recommended_SDLC" in row and pd.notna(row["Claims_Recommended_SDLC"]) else 0,
+            "Claims_Recommended_DLC": int(row["Claims_Recommended_DLC"]) if "Claims_Recommended_DLC" in row and pd.notna(row["Claims_Recommended_DLC"]) else 0,
             "Approved_Claims": int(row["Approved_Claims"]),
             "Pending_Claims": int(row["Pending_Claims"]),
             "Rejected_Claims": int(row["Rejected_Claims"]),
+            "Titles_Distributed": int(row["Titles_Distributed"]) if "Titles_Distributed" in row and pd.notna(row["Titles_Distributed"]) else 0,
+            "Disposal_Rate": float(row["Disposal_Rate"]) if "Disposal_Rate" in row and pd.notna(row["Disposal_Rate"]) else 0.0,
             "ML_Risk_Score": float(row["Risk_Score"]),
             "ML_Risk_Level": str(row["Risk_Level"]),
             "Anomaly_Type": str(row["Anomaly_Type"]),
@@ -89,7 +97,15 @@ def get_state_dss_data(month: str = Query(..., description="Selected month in fo
             "Pending_Claims": int(month_df["Pending_Claims"].sum()),
             "Normal_Count": risk_counts.get("Normal", 0),
             "Attention_Count": risk_counts.get("Attention", 0),
-            "High_Risk_Count": risk_counts.get("High Risk", 0)
+            "High_Risk_Count": risk_counts.get("High Risk", 0),
+            "avg_disposal_rate": round(float(month_df["Disposal_Rate"].mean()), 4) if "Disposal_Rate" in month_df else 0.0,
+            "avg_rejection_rate": round(float(month_df["Rejection_Rate"].mean()), 4),
+            "avg_pending_rate": round(float(month_df["Pending_Rate"].mean()), 4),
+            "avg_bottleneck_rate": round(float(month_df["Workflow_Bottleneck_Rate"].mean()), 4),
+            "median_disposal_rate": round(float(month_df["Disposal_Rate"].median()), 4) if "Disposal_Rate" in month_df else 0.0,
+            "median_rejection_rate": round(float(month_df["Rejection_Rate"].median()), 4),
+            "median_pending_rate": round(float(month_df["Pending_Rate"].median()), 4),
+            "median_bottleneck_rate": round(float(month_df["Workflow_Bottleneck_Rate"].median()), 4)
         },
         "states": states_dict
     }
@@ -102,6 +118,36 @@ def get_india_geojson():
     with open(GEOJSON_PATH, "r") as f:
         data = json.load(f)
     return JSONResponse(content=data)
+
+@app.post("/api/assistant/chat")
+async def assistant_chat(request: Request):
+    """
+    POST /api/assistant/chat
+    Answers questions regarding forests, deforestation awareness, FRA 2006, and VanDrishti DSS.
+    """
+    try:
+        body = await request.json()
+    except Exception:
+        body = {}
+    message = body.get("message", "")
+    history = body.get("history", [])
+    state_context = body.get("state_context", None)
+    response_data = get_assistant_chat_response(message, history, state_context)
+    return JSONResponse(content=response_data)
+
+@app.get("/api/assistant/suggestions")
+def assistant_suggestions():
+    """Returns curated starter prompts for VanDhristi AI."""
+    return JSONResponse(content={
+        "suggestions": [
+            "What is the Forest Rights Act (FRA 2006)?",
+            "What is the difference between IFR and CFR?",
+            "What are the main causes and effects of deforestation?",
+            "How does the 3-tier Gram Sabha to DLC process work?",
+            "What evidence is required to prove an FRA claim?",
+            "How does VanDrishti detect implementation anomalies?"
+        ]
+    })
 
 VITE_DIST_PATH = os.path.join("vandhristi-2", "dist", "public")
 ASSETS_PATH = os.path.join(VITE_DIST_PATH, "assets")

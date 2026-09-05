@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
-import { AlertTriangle, Calendar, ChevronDown, Download, Filter, MapPinned, PanelRight, Sparkles, TrendingUp, CheckCircle, Clock, FileText } from "lucide-react";
+import { AlertTriangle, Calendar, ChevronDown, Download, Filter, MapPinned, PanelRight, Sparkles, TrendingUp, CheckCircle, Clock, FileText, Scale, Sliders, GitCompare } from "lucide-react";
 import { Link } from "wouter";
 import SiteHeader from "@/components/SiteHeader";
 import LeafletRiskMap, { StateDSSData } from "@/components/LeafletRiskMap";
+import StateComparisonModal from "@/components/StateComparisonModal";
+import RiskExplainabilityCard from "@/components/RiskExplainabilityCard";
+import WhatIfSimulator from "@/components/WhatIfSimulator";
+import fraFallbackData from "@/data/fraData.json";
 
 export default function Maps() {
   const [theme, setTheme] = useState<"morning" | "dusk">("morning");
@@ -14,26 +18,49 @@ export default function Maps() {
   const [statusFilter, setStatusFilter] = useState<string>("All statuses");
   const [summaryStats, setSummaryStats] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [isCompareOpen, setIsCompareOpen] = useState<boolean>(false);
+  const [isSimulatorOpen, setIsSimulatorOpen] = useState<boolean>(false);
 
   // Fetch Available Months on mount
   useEffect(() => {
     fetch("/api/fra/months")
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error("API not ok");
+        return res.json();
+      })
       .then((data) => {
         if (data.months && data.months.length > 0) {
           setMonths(data.months);
-          setSelectedMonth(data.months[data.months.length - 1]); // Default to latest month
+          setSelectedMonth(data.months[data.months.length - 1]);
+        } else {
+          throw new Error("No months returned");
         }
       })
-      .catch((err) => console.error("Error fetching months:", err));
+      .catch((err) => {
+        console.warn("Using fallback months data:", err);
+        const fbMonths = fraFallbackData.months || [];
+        setMonths(fbMonths);
+        if (fbMonths.length > 0) {
+          setSelectedMonth(fbMonths[fbMonths.length - 1]);
+        }
+      });
   }, []);
 
   // Fetch GeoJSON Boundaries on mount
   useEffect(() => {
     fetch("/api/fra/geojson")
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error("API not ok");
+        return res.json();
+      })
       .then((data) => setGeoJsonData(data))
-      .catch((err) => console.error("Error fetching geojson:", err));
+      .catch((err) => {
+        console.warn("Using fallback GeoJSON:", err);
+        fetch("/india_states.geojson")
+          .then((res) => res.json())
+          .then((data) => setGeoJsonData(data))
+          .catch((e) => console.error("Error loading fallback geojson:", e));
+      });
   }, []);
 
   // Fetch State DSS Data whenever selectedMonth changes
@@ -42,13 +69,15 @@ export default function Maps() {
     setLoading(true);
 
     fetch(`/api/fra/states?month=${selectedMonth}`)
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error("API not ok");
+        return res.json();
+      })
       .then((data) => {
         if (data.states) {
           setStatesData(data.states);
           setSummaryStats(data.summary);
 
-          // Default selected state to the highest risk state
           const statesList = Object.values(data.states) as StateDSSData[];
           statesList.sort((a, b) => b.ML_Risk_Score - a.ML_Risk_Score);
           if (statesList.length > 0) {
@@ -58,7 +87,18 @@ export default function Maps() {
         setLoading(false);
       })
       .catch((err) => {
-        console.error("Error fetching states data:", err);
+        console.warn("Using fallback state data for month:", selectedMonth, err);
+        const fbMonthData = (fraFallbackData.byMonth as any)?.[selectedMonth];
+        if (fbMonthData && fbMonthData.states) {
+          setStatesData(fbMonthData.states);
+          setSummaryStats(fbMonthData.summary);
+
+          const statesList = Object.values(fbMonthData.states) as StateDSSData[];
+          statesList.sort((a, b) => b.ML_Risk_Score - a.ML_Risk_Score);
+          if (statesList.length > 0) {
+            setSelectedState(statesList[0]);
+          }
+        }
         setLoading(false);
       });
   }, [selectedMonth]);
@@ -140,23 +180,45 @@ export default function Maps() {
           </div>
 
           <div className="map-workspace glass-panel">
-            <div className="map-toolbar flex items-center justify-between px-6 py-4 border-b border-border">
+            <div className="map-toolbar flex flex-wrap items-center justify-between gap-3 px-6 py-3.5 border-b border-border">
               <div className="toolbar-context flex items-center gap-2 text-xs font-bold text-primary tracking-widest uppercase">
                 <MapPinned size={16} /> LIVE GIS / INDIA <i>·</i> {selectedState ? selectedState.State.toUpperCase() : "MADHYA PRADESH"}
               </div>
-              <div className="flex items-center gap-3">
-                <Calendar className="text-primary" size={16} />
-                <select
-                  value={selectedMonth}
-                  onChange={(e) => setSelectedMonth(e.target.value)}
-                  className="bg-background/90 border border-border rounded-md px-3 py-1 text-xs font-semibold text-foreground cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary"
+              <div className="flex flex-wrap items-center gap-2.5">
+                {/* Feature 1 Trigger: Compare States */}
+                <button
+                  onClick={() => setIsCompareOpen(true)}
+                  className="px-3 py-1.5 rounded-lg bg-card/80 hover:bg-card border border-primary/40 hover:border-primary text-xs font-semibold text-foreground transition-all flex items-center gap-1.5 shadow-sm active:scale-95"
+                  title="Compare 2-3 states with National Benchmark"
                 >
-                  {months.map((m) => (
-                    <option key={m} value={m}>
-                      {m}
-                    </option>
-                  ))}
-                </select>
+                  <Scale size={14} className="text-primary" />
+                  <span>Compare & Benchmark</span>
+                </button>
+
+                {/* Feature 3 Trigger: Policy Simulator */}
+                <button
+                  onClick={() => setIsSimulatorOpen(true)}
+                  className="px-3 py-1.5 rounded-lg bg-primary/20 hover:bg-primary/30 border border-primary text-xs font-bold text-primary transition-all flex items-center gap-1.5 shadow-sm active:scale-95"
+                  title="Simulate policy levers and risk reduction"
+                >
+                  <Sliders size={14} />
+                  <span>What-If Simulator</span>
+                </button>
+
+                <div className="flex items-center gap-2 pl-1 border-l border-border/60">
+                  <Calendar className="text-primary" size={15} />
+                  <select
+                    value={selectedMonth}
+                    onChange={(e) => setSelectedMonth(e.target.value)}
+                    className="bg-background/90 border border-border rounded-md px-2.5 py-1 text-xs font-semibold text-foreground cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary"
+                  >
+                    {months.map((m) => (
+                      <option key={m} value={m}>
+                        {m}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
             </div>
 
@@ -202,7 +264,7 @@ export default function Maps() {
               </div>
 
               {/* Selected Region Details Panel (Middle 3 cols) */}
-              <aside className="lg:col-span-3 decision-panel p-5 border-r border-border flex flex-col justify-between gap-4">
+              <aside className="lg:col-span-3 decision-panel p-5 border-r border-border flex flex-col justify-between gap-4 overflow-y-auto max-h-[680px]">
                 {selectedState ? (
                   <>
                     <div className="space-y-4">
@@ -247,6 +309,13 @@ export default function Maps() {
                         </div>
                       </div>
 
+                      {/* Feature 2: Early Warning + Explainable Risk Decomposition */}
+                      <RiskExplainabilityCard
+                        state={selectedState}
+                        summaryStats={summaryStats}
+                        onOpenSimulator={() => setIsSimulatorOpen(true)}
+                      />
+
                       <div className="panel-section text-xs space-y-1.5">
                         <div className="panel-section-head flex items-center justify-between text-[11px] font-bold text-muted-foreground">
                           <span>ML Operational Signal</span>
@@ -260,15 +329,21 @@ export default function Maps() {
                       <div className="panel-section text-xs space-y-1.5 pt-1">
                         <div className="flex justify-between text-muted-foreground">
                           <span>Pending Rate:</span>
-                          <b className="text-foreground font-semibold">{selectedState.Pending_Rate.toFixed(1)}%</b>
+                          <b className="text-foreground font-semibold">
+                            {(selectedState.Pending_Rate * (selectedState.Pending_Rate <= 1 ? 100 : 1)).toFixed(1)}%
+                          </b>
                         </div>
                         <div className="flex justify-between text-muted-foreground">
                           <span>Rejection Rate:</span>
-                          <b className="text-foreground font-semibold">{selectedState.Rejection_Rate.toFixed(1)}%</b>
+                          <b className="text-foreground font-semibold">
+                            {(selectedState.Rejection_Rate * (selectedState.Rejection_Rate <= 1 ? 100 : 1)).toFixed(1)}%
+                          </b>
                         </div>
                         <div className="flex justify-between text-muted-foreground">
                           <span>Workflow Bottleneck Rate:</span>
-                          <b className="text-foreground font-semibold">{selectedState.Workflow_Bottleneck_Rate.toFixed(1)}%</b>
+                          <b className="text-foreground font-semibold">
+                            {(selectedState.Workflow_Bottleneck_Rate * (selectedState.Workflow_Bottleneck_Rate <= 1 ? 100 : 1)).toFixed(1)}%
+                          </b>
                         </div>
                         <div className="flex justify-between text-muted-foreground">
                           <span>Pending Backlog Growth:</span>
@@ -279,9 +354,21 @@ export default function Maps() {
                       </div>
                     </div>
 
-                    <div className="panel-actions pt-2">
-                      <Link className="inline-flex items-center justify-center gap-2 w-full py-2 px-4 rounded-full bg-primary text-primary-foreground font-bold text-xs hover:brightness-110 transition-all shadow-md" href="/knowledge">
-                        <FileText size={14} /> Statutory Guidelines
+                    <div className="panel-actions pt-2 space-y-2">
+                      <button
+                        onClick={() => setIsSimulatorOpen(true)}
+                        className="inline-flex items-center justify-center gap-2 w-full py-2 px-4 rounded-full bg-primary text-primary-foreground font-bold text-xs hover:brightness-110 transition-all shadow-md active:scale-95"
+                      >
+                        <Sliders size={14} /> Simulate Policy Levers
+                      </button>
+                      <button
+                        onClick={() => setIsCompareOpen(true)}
+                        className="inline-flex items-center justify-center gap-2 w-full py-2 px-4 rounded-full bg-card border border-primary/40 text-foreground font-semibold text-xs hover:border-primary transition-all active:scale-95"
+                      >
+                        <Scale size={14} className="text-primary" /> Compare with Benchmark
+                      </button>
+                      <Link className="inline-flex items-center justify-center gap-2 w-full py-1.5 px-4 rounded-full text-muted-foreground hover:text-foreground font-medium text-xs transition-colors" href="/knowledge">
+                        <FileText size={13} /> Statutory Guidelines
                       </Link>
                     </div>
                   </>
@@ -294,7 +381,7 @@ export default function Maps() {
               </aside>
 
               {/* Decision Priorities Panel (Right 3 cols) */}
-              <aside className="lg:col-span-3 priorities-panel p-5 bg-background/30 flex flex-col justify-between gap-4">
+              <aside className="lg:col-span-3 priorities-panel p-5 bg-background/30 flex flex-col justify-between gap-4 overflow-y-auto max-h-[680px]">
                 <div className="space-y-4">
                   <div className="decision-top flex items-center justify-between">
                     <div>
@@ -337,6 +424,17 @@ export default function Maps() {
                       </button>
                     ))}
                   </div>
+
+                  {/* Quick Compare Action */}
+                  <div className="pt-2">
+                    <button
+                      onClick={() => setIsCompareOpen(true)}
+                      className="w-full py-2 px-3 rounded-xl bg-card/80 border border-border hover:border-primary/50 text-xs font-semibold text-foreground flex items-center justify-center gap-1.5 transition-all shadow-sm"
+                    >
+                      <Scale size={13} className="text-primary" />
+                      <span>Compare Top Risk States</span>
+                    </button>
+                  </div>
                 </div>
 
                 <div className="pt-2 border-t border-border/50 text-[10px] text-muted-foreground flex items-center justify-between">
@@ -348,6 +446,24 @@ export default function Maps() {
           </div>
         </div>
       </main>
+
+      {/* Feature 1: State Comparison & National Benchmark Modal */}
+      <StateComparisonModal
+        isOpen={isCompareOpen}
+        onClose={() => setIsCompareOpen(false)}
+        statesData={statesData}
+        initialState={selectedState}
+        summaryStats={summaryStats}
+        currentMonth={selectedMonth}
+      />
+
+      {/* Feature 3: What-If Policy Intervention Simulator */}
+      <WhatIfSimulator
+        isOpen={isSimulatorOpen}
+        onClose={() => setIsSimulatorOpen(false)}
+        state={selectedState}
+        currentMonth={selectedMonth}
+      />
     </div>
   );
 }

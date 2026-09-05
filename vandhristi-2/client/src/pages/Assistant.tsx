@@ -33,13 +33,33 @@ export default function Assistant() {
     window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
   };
 
-  const respond = (question: string) => {
+  const respond = async (question: string) => {
     const clean = question.trim();
     if (!clean) return;
-    setMessages((items) => [...items, { from: "user", text: clean }, { from: "bot", text: fallbackReply }]);
+    setMessages((items) => [...items, { from: "user", text: clean }]);
     setInput("");
+
+    try {
+      const res = await fetch("/api/assistant/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: clean }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        const replyText = data.reply || fallbackReply;
+        setMessages((items) => [...items, { from: "bot", text: replyText }]);
+        speak(replyText.slice(0, 200));
+        return;
+      }
+    } catch {
+      // ignore
+    }
+
+    setMessages((items) => [...items, { from: "bot", text: fallbackReply }]);
     speak(fallbackReply);
   };
+
 
   const startVoice = () => {
     if (listening) {
