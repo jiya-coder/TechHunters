@@ -115,7 +115,7 @@ export default function Home() {
           <div className="hero-model-frame">
             <iframe
               title="Mountain with rivers and lakes, forest 3D model"
-              src="https://sketchfab.com/models/8c31757aa3f44880af5e38257daab659/embed?autostart=1&preload=1&autospin=0.08&camera=0&ui_controls=0&ui_infos=0&ui_stop=0&ui_watermark=0&transparent=0&dnt=1&ui_hint=0&ui_theme=dark"
+              src="https://sketchfab.com/models/8c31757aa3f44880af5e38257daab659/embed?autostart=1&preload=1&autospin=0.08&camera=0&ui_controls=0&ui_infos=0&ui_stop=0&ui_watermark=0&transparent=0&dnt=1&ui_hint=2&ui_help=0&ui_theme=dark"
               allow="autoplay; fullscreen; xr-spatial-tracking"
               allowFullScreen
             />
@@ -136,9 +136,6 @@ export default function Home() {
           <div className="container landing-hero-content flex flex-col items-center justify-center text-center min-h-[calc(100vh-140px)] py-12 z-20">
             <div className="hero-copy max-w-4xl w-full text-center mx-auto space-y-6">
               <div>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#B7E64B]/15 border border-[#B7E64B]/30 text-[#B7E64B] text-xs font-mono font-bold uppercase tracking-wider mb-4 shadow-sm">
-                  <Sparkles size={13} /> Decision Support System · PS-7
-                </span>
                 <h1 className="hero-title-large text-7xl sm:text-8xl md:text-9xl lg:text-[125px] font-extrabold tracking-tight leading-none mb-3 text-center">VanDrishti</h1>
                 <p className="hero-lede text-sm sm:text-base md:text-lg text-white/95 font-medium tracking-wide text-center mx-auto max-w-2xl">
                   Geospatial AI & Decision Intelligence for the Forest Rights Act (FRA 2006).
