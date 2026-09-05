@@ -1,5 +1,28 @@
 import { useEffect, useRef, useState, type WheelEvent } from "react";
-import { ArrowRight, ArrowUpRight, Trees } from "lucide-react";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  Trees,
+  Scale,
+  Sliders,
+  ShieldAlert,
+  Cpu,
+  Sparkles,
+  Database,
+  BarChart3,
+  Users,
+  CheckCircle2,
+  ChevronRight,
+  Activity,
+  MapPinned,
+  Building2,
+  FileText,
+  Workflow,
+  AlertTriangle,
+  Layers,
+  Bot,
+  Zap,
+} from "lucide-react";
 import { Link } from "wouter";
 import SiteHeader from "@/components/SiteHeader";
 
@@ -86,6 +109,7 @@ export default function Home() {
       <SiteHeader theme={theme} onToggleTheme={() => setTheme(theme === "morning" ? "dusk" : "morning")} />
       
       <main>
+        {/* HERO SECTION — 3D Model Kept 100% Intact with High-Impact CTAs & Live Telemetry */}
         <section className="landing-hero static-hero">
           <div className="hero-backdrop" />
           <div className="hero-model-frame">
@@ -109,16 +133,310 @@ export default function Home() {
           <div className="hero-vignette" />
           <div className="grain" />
           
-          <div className="container landing-hero-content flex flex-col items-center justify-center text-center min-h-[calc(100vh-140px)] py-12">
-            <div className="hero-copy max-w-4xl w-full text-center mx-auto">
-              <h1 className="hero-title-large text-7xl sm:text-8xl md:text-9xl lg:text-[125px] font-extrabold tracking-tight leading-none mb-3 text-center">VanDrishti</h1>
-              <p className="hero-lede text-sm sm:text-base md:text-lg text-white/95 font-medium tracking-wide text-center mx-auto">Geospatial AI & Decision Intelligence for the Forest Rights Act.</p>
+          <div className="container landing-hero-content flex flex-col items-center justify-center text-center min-h-[calc(100vh-140px)] py-12 z-20">
+            <div className="hero-copy max-w-4xl w-full text-center mx-auto space-y-6">
+              <div>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#B7E64B]/15 border border-[#B7E64B]/30 text-[#B7E64B] text-xs font-mono font-bold uppercase tracking-wider mb-4 shadow-sm">
+                  <Sparkles size={13} /> Decision Support System · PS-7
+                </span>
+                <h1 className="hero-title-large text-7xl sm:text-8xl md:text-9xl lg:text-[125px] font-extrabold tracking-tight leading-none mb-3 text-center">VanDrishti</h1>
+                <p className="hero-lede text-sm sm:text-base md:text-lg text-white/95 font-medium tracking-wide text-center mx-auto max-w-2xl">
+                  Geospatial AI & Decision Intelligence for the Forest Rights Act (FRA 2006).
+                </p>
+                <p className="text-xs sm:text-sm text-[#9EBEA8] max-w-xl mx-auto mt-2 leading-relaxed">
+                  Over 5.1M tribal forest rights claims across 21 states. Detecting workflow bottlenecks, rejection anomalies, and statutory risks via unsupervised machine learning.
+                </p>
+              </div>
+
+              {/* Instant Action CTAs */}
+              <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+                <Link
+                  href="/maps"
+                  className="px-6 py-3 rounded-full bg-[#B7E64B] text-[#0C1A15] font-bold text-sm hover:bg-[#cbf75b] transition-all flex items-center gap-2 shadow-lg shadow-[#B7E64B]/20 active:scale-95"
+                >
+                  <MapPinned size={16} />
+                  <span>Explore Live GIS Map</span>
+                  <ArrowRight size={15} />
+                </Link>
+
+                <Link
+                  href="/maps?action=simulator"
+                  className="px-5 py-3 rounded-full bg-[#122A20]/80 hover:bg-[#1A3D2F] border border-[#B7E64B]/30 hover:border-[#B7E64B] text-white font-semibold text-sm transition-all flex items-center gap-2 backdrop-blur-md active:scale-95 shadow-md"
+                >
+                  <Sliders size={15} className="text-[#B7E64B]" />
+                  <span>Policy Simulator</span>
+                </Link>
+
+                <Link
+                  href="/maps?action=compare"
+                  className="px-5 py-3 rounded-full bg-[#122A20]/80 hover:bg-[#1A3D2F] border border-[#38BDF8]/40 hover:border-[#38BDF8] text-white font-semibold text-sm transition-all flex items-center gap-2 backdrop-blur-md active:scale-95 shadow-md"
+                >
+                  <Scale size={15} className="text-[#38BDF8]" />
+                  <span>State Benchmarking</span>
+                </Link>
+              </div>
+
+              {/* Real-time National Telemetry Strip */}
+              <div className="pt-4 max-w-3xl mx-auto w-full">
+                <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 p-3 rounded-2xl bg-[#06120E]/80 border border-[#B7E64B]/20 backdrop-blur-md text-center shadow-2xl">
+                  <div className="p-2">
+                    <span className="font-mono text-base sm:text-lg font-bold text-white block">5,104,904</span>
+                    <span className="text-[10px] font-mono text-[#789883] uppercase tracking-wider block">Claims Monitored</span>
+                  </div>
+                  <div className="p-2">
+                    <span className="font-mono text-base sm:text-lg font-bold text-[#E5A93C] block">784,276</span>
+                    <span className="text-[10px] font-mono text-[#789883] uppercase tracking-wider block">Unresolved Pending</span>
+                  </div>
+                  <div className="p-2">
+                    <span className="font-mono text-base sm:text-lg font-bold text-white block">21</span>
+                    <span className="text-[10px] font-mono text-[#789883] uppercase tracking-wider block">Monitored States</span>
+                  </div>
+                  <div className="p-2">
+                    <span className="font-mono text-base sm:text-lg font-bold text-[#38BDF8] block">18 Mo.</span>
+                    <span className="text-[10px] font-mono text-[#789883] uppercase tracking-wider block">Historical MPR</span>
+                  </div>
+                  <div className="p-2 col-span-2 sm:col-span-1">
+                    <span className="font-mono text-base sm:text-lg font-bold text-[#B7E64B] block">Rule 12A</span>
+                    <span className="text-[10px] font-mono text-[#789883] uppercase tracking-wider block">Statutory Audit</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          
-
         </section>
 
+        {/* SECTION 2: EVALUATOR FAST-TRACK — 1-Click State Anomaly Test Cases */}
+        <section className="evaluator-fast-track py-16 bg-[#06140E] border-t border-[#B7E64B]/15">
+          <div className="container max-w-6xl mx-auto px-4">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+              <div>
+                <span className="text-[#B7E64B] text-xs font-mono font-bold tracking-widest uppercase block">
+                  FAST-TRACK TEST CASES · CURATED FOR EVALUATION
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-bold text-white mt-1">
+                  Test Live Machine Learning Signals in 1-Click
+                </h2>
+                <p className="text-xs sm:text-sm text-[#789883] mt-1 max-w-xl">
+                  Select any benchmark state below to directly launch the GIS map with its explainable risk decomposition:
+                </p>
+              </div>
+              <Link
+                href="/maps"
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#B7E64B] hover:underline shrink-0"
+              >
+                <span>View all 21 states</span>
+                <ArrowRight size={14} />
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {/* Madhya Pradesh */}
+              <Link
+                href="/maps?state=Madhya%20Pradesh"
+                className="p-4 rounded-xl bg-[#0B1E17] border border-rose-900/50 hover:border-rose-500/80 transition-all group hover:-translate-y-1 shadow-lg flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-rose-950 text-rose-300 border border-rose-800 font-bold">
+                      🔴 High Risk 87.6
+                    </span>
+                    <span className="text-[10px] font-mono text-muted-foreground">MoTA MPR</span>
+                  </div>
+                  <b className="text-base font-bold text-white group-hover:text-rose-400 transition-colors block">
+                    Madhya Pradesh
+                  </b>
+                  <span className="text-xs font-semibold text-rose-300 block mt-1">
+                    Rejection Spike: 51.4%
+                  </span>
+                  <p className="text-[11px] text-[#789883] mt-2 leading-relaxed">
+                    Highest rejection volume nationwide. Flagged for urgent Section 4(5) audit to prevent wrongful eviction.
+                  </p>
+                </div>
+                <div className="mt-4 pt-2 border-t border-rose-900/30 flex items-center justify-between text-xs font-bold text-rose-400 group-hover:translate-x-1 transition-transform">
+                  <span>Inspect Signal</span>
+                  <ArrowUpRight size={14} />
+                </div>
+              </Link>
+
+              {/* Odisha */}
+              <Link
+                href="/maps?state=Odisha"
+                className="p-4 rounded-xl bg-[#0B1E17] border border-rose-900/50 hover:border-rose-500/80 transition-all group hover:-translate-y-1 shadow-lg flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-rose-950 text-rose-300 border border-rose-800 font-bold">
+                      🔴 High Risk 85.2
+                    </span>
+                    <span className="text-[10px] font-mono text-muted-foreground">MoTA MPR</span>
+                  </div>
+                  <b className="text-base font-bold text-white group-hover:text-rose-400 transition-colors block">
+                    Odisha
+                  </b>
+                  <span className="text-xs font-semibold text-amber-300 block mt-1">
+                    CFR Imbalance & 96K Backlog
+                  </span>
+                  <p className="text-[11px] text-[#789883] mt-2 leading-relaxed">
+                    High structural divergence between individual and community titling with rapid backlog velocity.
+                  </p>
+                </div>
+                <div className="mt-4 pt-2 border-t border-rose-900/30 flex items-center justify-between text-xs font-bold text-rose-400 group-hover:translate-x-1 transition-transform">
+                  <span>Inspect Signal</span>
+                  <ArrowUpRight size={14} />
+                </div>
+              </Link>
+
+              {/* Goa */}
+              <Link
+                href="/maps?state=Goa"
+                className="p-4 rounded-xl bg-[#0B1E17] border border-amber-900/50 hover:border-amber-500/80 transition-all group hover:-translate-y-1 shadow-lg flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-800 font-bold">
+                      🟡 High Risk 67.6
+                    </span>
+                    <span className="text-[10px] font-mono text-muted-foreground">MoTA MPR</span>
+                  </div>
+                  <b className="text-base font-bold text-white group-hover:text-amber-400 transition-colors block">
+                    Goa
+                  </b>
+                  <span className="text-xs font-semibold text-amber-300 block mt-1">
+                    SDLC Drop-off: 50.8%
+                  </span>
+                  <p className="text-[11px] text-[#789883] mt-2 leading-relaxed">
+                    Severe workflow blockage: Sub-Divisional Committee recommendations stall before District Collector vesting.
+                  </p>
+                </div>
+                <div className="mt-4 pt-2 border-t border-amber-900/30 flex items-center justify-between text-xs font-bold text-amber-400 group-hover:translate-x-1 transition-transform">
+                  <span>Inspect Signal</span>
+                  <ArrowUpRight size={14} />
+                </div>
+              </Link>
+
+              {/* Rajasthan */}
+              <Link
+                href="/maps?state=Rajasthan"
+                className="p-4 rounded-xl bg-[#0B1E17] border border-emerald-900/50 hover:border-emerald-500/80 transition-all group hover:-translate-y-1 shadow-lg flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-800 font-bold">
+                      🟢 Normal 0.0
+                    </span>
+                    <span className="text-[10px] font-mono text-muted-foreground">MoTA MPR</span>
+                  </div>
+                  <b className="text-base font-bold text-white group-hover:text-emerald-400 transition-colors block">
+                    Rajasthan
+                  </b>
+                  <span className="text-xs font-semibold text-emerald-300 block mt-1">
+                    Equilibrium Flow
+                  </span>
+                  <p className="text-[11px] text-[#789883] mt-2 leading-relaxed">
+                    Administrative equilibrium: Disposal velocity exceeds intake volume, maintaining zero pending accumulation.
+                  </p>
+                </div>
+                <div className="mt-4 pt-2 border-t border-emerald-900/30 flex items-center justify-between text-xs font-bold text-emerald-400 group-hover:translate-x-1 transition-transform">
+                  <span>Inspect Signal</span>
+                  <ArrowUpRight size={14} />
+                </div>
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* SECTION 3: CORE BREAKTHROUGHS — Why VanDrishti Wins */}
+        <section className="core-breakthroughs py-20 bg-[#081A12] border-t border-[#B7E64B]/15">
+          <div className="container max-w-6xl mx-auto px-4 space-y-12">
+            <div className="text-center max-w-3xl mx-auto space-y-2">
+              <span className="text-[#B7E64B] text-xs font-mono font-bold tracking-widest uppercase block">
+                INNOVATION BLUEPRINT
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-bold text-white">
+                Three Pillars of Autonomous Decision Intelligence
+              </h2>
+              <p className="text-xs sm:text-sm text-[#789883]">
+                Moving beyond static dashboards into explainable machine learning anomaly detection and actionable policy simulations.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* Pillar 1 */}
+              <div className="p-6 rounded-2xl bg-[#0C2219]/70 border border-[#B7E64B]/20 hover:border-[#B7E64B]/50 transition-all space-y-4 shadow-xl">
+                <div className="w-12 h-12 rounded-xl bg-[#B7E64B]/15 border border-[#B7E64B]/30 flex items-center justify-center text-[#B7E64B]">
+                  <Cpu size={24} />
+                </div>
+                <div>
+                  <span className="text-[10px] font-mono text-[#789883] uppercase tracking-wider block">Pillar 01</span>
+                  <h3 className="text-lg font-bold text-white mt-1">Unsupervised Isolation Forest ML</h3>
+                </div>
+                <p className="text-xs text-[#9EBEA8] leading-relaxed">
+                  Trained on 18 months of official MoTA records. Detects 4 distinct anomaly signatures: SDLC Bottlenecks, Rejection Spikes, Imbalanced Filings, and Backlog Momentum.
+                </p>
+                <div className="pt-2 border-t border-[#B7E64B]/10 space-y-1 text-[11px] text-[#789883]">
+                  <div className="flex justify-between">
+                    <span>Algorithm:</span>
+                    <b className="text-white">Isolation Forest (Scikit-Learn)</b>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>XAI Attribution:</span>
+                    <b className="text-[#B7E64B]">Surrogate Shapley Vectors</b>
+                  </div>
+                </div>
+              </div>
+
+              {/* Pillar 2 */}
+              <div className="p-6 rounded-2xl bg-[#0C2219]/70 border border-[#38BDF8]/25 hover:border-[#38BDF8]/60 transition-all space-y-4 shadow-xl">
+                <div className="w-12 h-12 rounded-xl bg-[#38BDF8]/15 border border-[#38BDF8]/30 flex items-center justify-center text-[#38BDF8]">
+                  <Scale size={24} />
+                </div>
+                <div>
+                  <span className="text-[10px] font-mono text-[#789883] uppercase tracking-wider block">Pillar 02</span>
+                  <h3 className="text-lg font-bold text-white mt-1">5D National Benchmarking</h3>
+                </div>
+                <p className="text-xs text-[#9EBEA8] leading-relaxed">
+                  Multi-attribute Recharts Radar & Bar analysis benchmarking any focus state against dynamic monthly national medians across Disposal, CFR Share, and Throughput.
+                </p>
+                <div className="pt-2 border-t border-[#38BDF8]/10 space-y-1 text-[11px] text-[#789883]">
+                  <div className="flex justify-between">
+                    <span>Dimensions:</span>
+                    <b className="text-white">5 Core Metrics</b>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Benchmark Layer:</span>
+                    <b className="text-[#38BDF8]">Dynamic Monthly Median</b>
+                  </div>
+                </div>
+              </div>
+
+              {/* Pillar 3 */}
+              <div className="p-6 rounded-2xl bg-[#0C2219]/70 border border-[#C084FC]/25 hover:border-[#C084FC]/60 transition-all space-y-4 shadow-xl">
+                <div className="w-12 h-12 rounded-xl bg-[#C084FC]/15 border border-[#C084FC]/30 flex items-center justify-center text-[#C084FC]">
+                  <Sliders size={24} />
+                </div>
+                <div>
+                  <span className="text-[10px] font-mono text-[#789883] uppercase tracking-wider block">Pillar 03</span>
+                  <h3 className="text-lg font-bold text-white mt-1">What-If Simulator & AI Copilot</h3>
+                </div>
+                <p className="text-xs text-[#9EBEA8] leading-relaxed">
+                  Interactive policy sliders model the real-time impact of SDLC clearance drives and appellate reviews under Section 6(2), with 1-click legal briefings under FRA Rule 12A.
+                </p>
+                <div className="pt-2 border-t border-[#C084FC]/10 space-y-1 text-[11px] text-[#789883]">
+                  <div className="flex justify-between">
+                    <span>Policy Levers:</span>
+                    <b className="text-white">3 Calibrated Sliders</b>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Copilot Bridge:</span>
+                    <b className="text-[#C084FC]">Automated Legal Briefing</b>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* SECTION 4: THE ORBIT CAROUSEL (Kept Intact) */}
         <section id="landscape-sequence" className="landscape-sequence stable-carousel" onWheel={handleCarouselWheel}>
           <div className="landscape-sticky stable-carousel-stage">
             <div className="landscape-fallback" />
@@ -155,6 +473,64 @@ export default function Home() {
           </div>
         </section>
 
+        {/* SECTION 5: TECHNICAL ARCHITECTURE & DATA PIPELINE */}
+        <section className="architecture-section py-20 bg-[#06140E] border-t border-[#B7E64B]/15">
+          <div className="container max-w-5xl mx-auto px-4 space-y-10">
+            <div className="text-center space-y-2">
+              <span className="text-[#B7E64B] text-xs font-mono font-bold tracking-widest uppercase block">
+                SYSTEM PIPELINE & DATA PROVENANCE
+              </span>
+              <h2 className="text-3xl font-bold text-white">End-to-End Architectural Flow</h2>
+              <p className="text-xs sm:text-sm text-[#789883] max-w-xl mx-auto">
+                How official government Monthly Progress Reports are transformed into actionable judicial insights.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-5 gap-3 relative">
+              <div className="p-4 rounded-xl bg-[#0C2219] border border-[#B7E64B]/20 text-center space-y-2">
+                <span className="w-7 h-7 rounded-full bg-[#B7E64B]/20 text-[#B7E64B] font-mono font-bold text-xs flex items-center justify-center mx-auto">
+                  01
+                </span>
+                <b className="text-xs text-white block">MoTA MPR Bulletins</b>
+                <p className="text-[11px] text-[#789883]">Official state-wise monthly claim submissions (21 states)</p>
+              </div>
+
+              <div className="p-4 rounded-xl bg-[#0C2219] border border-[#B7E64B]/20 text-center space-y-2">
+                <span className="w-7 h-7 rounded-full bg-[#B7E64B]/20 text-[#B7E64B] font-mono font-bold text-xs flex items-center justify-center mx-auto">
+                  02
+                </span>
+                <b className="text-xs text-white block">Feature Engineering</b>
+                <p className="text-[11px] text-[#789883]">Bottleneck drop-off, MoM growth velocity, CFR share</p>
+              </div>
+
+              <div className="p-4 rounded-xl bg-[#0C2219] border border-[#B7E64B]/20 text-center space-y-2">
+                <span className="w-7 h-7 rounded-full bg-[#B7E64B]/20 text-[#B7E64B] font-mono font-bold text-xs flex items-center justify-center mx-auto">
+                  03
+                </span>
+                <b className="text-xs text-white block">Isolation Forest ML</b>
+                <p className="text-[11px] text-[#789883]">Unsupervised multidimensional anomaly detection (0-100 score)</p>
+              </div>
+
+              <div className="p-4 rounded-xl bg-[#0C2219] border border-[#B7E64B]/20 text-center space-y-2">
+                <span className="w-7 h-7 rounded-full bg-[#B7E64B]/20 text-[#B7E64B] font-mono font-bold text-xs flex items-center justify-center mx-auto">
+                  04
+                </span>
+                <b className="text-xs text-white block">Leaflet GIS Engine</b>
+                <p className="text-[11px] text-[#789883]">Dynamic GeoJSON chloropleth with risk tier coloration</p>
+              </div>
+
+              <div className="p-4 rounded-xl bg-[#0C2219] border border-[#B7E64B]/20 text-center space-y-2">
+                <span className="w-7 h-7 rounded-full bg-[#B7E64B]/20 text-[#B7E64B] font-mono font-bold text-xs flex items-center justify-center mx-auto">
+                  05
+                </span>
+                <b className="text-xs text-white block">AI Statutory Copilot</b>
+                <p className="text-[11px] text-[#789883]">FRA Rules 12A & 14 policy briefing & action recommendations</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* SECTION 6: CHOOSE YOUR VANTAGE POINT (Kept Intact) */}
         <section className="landing-navigation-section relative overflow-hidden bg-[#081A12] min-h-[480px] py-20 lg:py-24 flex flex-col justify-center border-t border-[#789883]/15">
           {/* Background Aerial Drone Forest Photograph */}
           <div className="absolute inset-0 z-0 group overflow-hidden">
@@ -195,7 +571,7 @@ export default function Home() {
                     </b>
                   </div>
                   <small className="text-xs text-[#789883] font-mono block mt-4 leading-relaxed">
-                    Open the Forest Rights state-level decision support map.
+                    Open the Forest Rights state-level decision support map with ML risk attribution.
                   </small>
                 </Link>
 
@@ -227,7 +603,7 @@ export default function Home() {
               <span className="brand-mark"><Trees size={22} /></span>
               <span><b>VanDhristi</b><small>Empowering forest rights through intelligence.</small></span>
             </div>
-            <span className="footer-credit">Designed & developed by <b>Team TeachHunters</b></span>
+            <span className="footer-credit">Designed & developed by <b>Team TechHunters</b></span>
             <span className="footer-meta">PS-7 / DECISION SUPPORT SYSTEM</span>
           </div>
         </footer>

@@ -79,9 +79,21 @@ export default function Maps() {
           setSummaryStats(data.summary);
 
           const statesList = Object.values(data.states) as StateDSSData[];
-          statesList.sort((a, b) => b.ML_Risk_Score - a.ML_Risk_Score);
-          if (statesList.length > 0) {
-            setSelectedState(statesList[0]);
+          const urlParams = new URLSearchParams(window.location.search);
+          const stateParam = urlParams.get("state");
+          const actionParam = urlParams.get("action");
+
+          if (actionParam === "simulator") setIsSimulatorOpen(true);
+          if (actionParam === "compare") setIsCompareOpen(true);
+
+          const matched = stateParam ? statesList.find(s => s.State.toLowerCase() === stateParam.toLowerCase()) : null;
+          if (matched) {
+            setSelectedState(matched);
+          } else {
+            statesList.sort((a, b) => b.ML_Risk_Score - a.ML_Risk_Score);
+            if (statesList.length > 0) {
+              setSelectedState(statesList[0]);
+            }
           }
         }
         setLoading(false);
@@ -94,9 +106,21 @@ export default function Maps() {
           setSummaryStats(fbMonthData.summary);
 
           const statesList = Object.values(fbMonthData.states) as StateDSSData[];
-          statesList.sort((a, b) => b.ML_Risk_Score - a.ML_Risk_Score);
-          if (statesList.length > 0) {
-            setSelectedState(statesList[0]);
+          const urlParams = new URLSearchParams(window.location.search);
+          const stateParam = urlParams.get("state");
+          const actionParam = urlParams.get("action");
+
+          if (actionParam === "simulator") setIsSimulatorOpen(true);
+          if (actionParam === "compare") setIsCompareOpen(true);
+
+          const matched = stateParam ? statesList.find(s => s.State.toLowerCase() === stateParam.toLowerCase()) : null;
+          if (matched) {
+            setSelectedState(matched);
+          } else {
+            statesList.sort((a, b) => b.ML_Risk_Score - a.ML_Risk_Score);
+            if (statesList.length > 0) {
+              setSelectedState(statesList[0]);
+            }
           }
         }
         setLoading(false);
