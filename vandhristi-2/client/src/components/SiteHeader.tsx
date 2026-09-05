@@ -1,7 +1,7 @@
-import { Moon, Sun, Trees } from "lucide-react";
+import { Trees } from "lucide-react";
 import { Link, useLocation } from "wouter";
 
-export default function SiteHeader({ theme, onToggleTheme }: { theme: "morning" | "dusk"; onToggleTheme: () => void }) {
+export default function SiteHeader({ theme = "dusk", onToggleTheme }: { theme?: "morning" | "dusk"; onToggleTheme?: () => void }) {
   const [location] = useLocation();
   return (
     <header className="site-header">
@@ -15,11 +15,6 @@ export default function SiteHeader({ theme, onToggleTheme }: { theme: "morning" 
         <Link className={`nav-link ${location === "/knowledge" ? "active" : ""}`} href="/knowledge"><span>03</span>Knowledge Hub</Link>
       </nav>
       <div className="header-actions">
-        <button className="mode-switch" onClick={onToggleTheme} aria-label="Toggle morning and dusk mode">
-          <Sun size={17} className={theme === "morning" ? "mode-active" : ""} />
-          <span className="switch-track"><span /></span>
-          <Moon size={17} className={theme === "dusk" ? "mode-active" : ""} />
-        </button>
         <Link className="header-cta" href="/maps">Launch GIS <span aria-hidden="true">↗</span></Link>
       </div>
     </header>

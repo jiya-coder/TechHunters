@@ -190,7 +190,7 @@ const statutorySteps = [
 ];
 
 export default function Knowledge() {
-  const [theme, setTheme] = useState<"morning" | "dusk">("morning");
+  const [theme, setTheme] = useState<"morning" | "dusk">("dusk");
   const [query, setQuery] = useState("");
   const [activeStepIndex, setActiveStepIndex] = useState(0);
 

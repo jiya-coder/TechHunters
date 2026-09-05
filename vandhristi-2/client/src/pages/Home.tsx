@@ -26,7 +26,6 @@ import {
 import { Link } from "wouter";
 import SiteHeader from "@/components/SiteHeader";
 
-type Theme = "morning" | "dusk";
 
 const orbitPictures = [
   {
@@ -80,7 +79,6 @@ const orbitPictures = [
 ];
 
 export default function Home() {
-  const [theme, setTheme] = useState<Theme>("morning");
   const [activeIndex, setActiveIndex] = useState(0);
   const lastWheel = useRef(0);
 
@@ -105,11 +103,11 @@ export default function Home() {
   };
 
   return (
-    <div className={`site-shell ${theme === "dusk" ? "theme-dusk" : "theme-morning"}`}>
-      <SiteHeader theme={theme} onToggleTheme={() => setTheme(theme === "morning" ? "dusk" : "morning")} />
+    <div className="site-shell theme-dusk">
+      <SiteHeader />
       
       <main>
-        {/* HERO SECTION — 3D Model Kept 100% Intact with High-Impact CTAs & Live Telemetry */}
+        {/* HERO SECTION — 3D Model Kept 100% Intact with Atmospheric CTAs & Live Telemetry */}
         <section className="landing-hero static-hero">
           <div className="hero-backdrop" />
           <div className="hero-model-frame">
@@ -137,10 +135,10 @@ export default function Home() {
             <div className="hero-copy max-w-4xl w-full text-center mx-auto space-y-6">
               <div>
                 <h1 className="hero-title-large text-7xl sm:text-8xl md:text-9xl lg:text-[125px] font-extrabold tracking-tight leading-none mb-3 text-center">VanDrishti</h1>
-                <p className="hero-lede text-sm sm:text-base md:text-lg text-white/95 font-medium tracking-wide text-center mx-auto max-w-2xl">
+                <p className="hero-lede text-sm sm:text-base md:text-lg font-medium tracking-wide text-center mx-auto max-w-2xl">
                   Geospatial AI & Decision Intelligence for the Forest Rights Act (FRA 2006).
                 </p>
-                <p className="text-xs sm:text-sm text-[#9EBEA8] max-w-xl mx-auto mt-2 leading-relaxed">
+                <p className="hero-sublede text-xs sm:text-sm max-w-xl mx-auto mt-2 leading-relaxed font-medium">
                   Over 5.1M tribal forest rights claims across 21 states. Detecting workflow bottlenecks, rejection anomalies, and statutory risks via unsupervised machine learning.
                 </p>
               </div>
@@ -149,7 +147,7 @@ export default function Home() {
               <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
                 <Link
                   href="/maps"
-                  className="px-6 py-3 rounded-full bg-[#B7E64B] text-[#0C1A15] font-bold text-sm hover:bg-[#cbf75b] transition-all flex items-center gap-2 shadow-lg shadow-[#B7E64B]/20 active:scale-95"
+                  className="hero-btn-primary px-6 py-3 rounded-full font-bold text-sm transition-all flex items-center gap-2 active:scale-95 shadow-lg"
                 >
                   <MapPinned size={16} />
                   <span>Explore Live GIS Map</span>
@@ -158,43 +156,43 @@ export default function Home() {
 
                 <Link
                   href="/maps?action=simulator"
-                  className="px-5 py-3 rounded-full bg-[#122A20]/80 hover:bg-[#1A3D2F] border border-[#B7E64B]/30 hover:border-[#B7E64B] text-white font-semibold text-sm transition-all flex items-center gap-2 backdrop-blur-md active:scale-95 shadow-md"
+                  className="hero-btn-simulator px-5 py-3 rounded-full font-semibold text-sm transition-all flex items-center gap-2 backdrop-blur-md active:scale-95 shadow-md"
                 >
-                  <Sliders size={15} className="text-[#B7E64B]" />
+                  <Sliders size={15} />
                   <span>Policy Simulator</span>
                 </Link>
 
                 <Link
                   href="/maps?action=compare"
-                  className="px-5 py-3 rounded-full bg-[#122A20]/80 hover:bg-[#1A3D2F] border border-[#38BDF8]/40 hover:border-[#38BDF8] text-white font-semibold text-sm transition-all flex items-center gap-2 backdrop-blur-md active:scale-95 shadow-md"
+                  className="hero-btn-compare px-5 py-3 rounded-full font-semibold text-sm transition-all flex items-center gap-2 backdrop-blur-md active:scale-95 shadow-md"
                 >
-                  <Scale size={15} className="text-[#38BDF8]" />
+                  <Scale size={15} />
                   <span>State Benchmarking</span>
                 </Link>
               </div>
 
               {/* Real-time National Telemetry Strip */}
               <div className="pt-4 max-w-3xl mx-auto w-full">
-                <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 p-3 rounded-2xl bg-[#06120E]/80 border border-[#B7E64B]/20 backdrop-blur-md text-center shadow-2xl">
+                <div className="telemetry-strip grid grid-cols-2 sm:grid-cols-5 gap-2 p-3 rounded-2xl backdrop-blur-md text-center shadow-2xl">
                   <div className="p-2">
-                    <span className="font-mono text-base sm:text-lg font-bold text-white block">5,104,904</span>
-                    <span className="text-[10px] font-mono text-[#789883] uppercase tracking-wider block">Claims Monitored</span>
+                    <span className="telemetry-val font-mono text-base sm:text-lg font-bold block">5,104,904</span>
+                    <span className="telemetry-lbl text-[10px] font-mono uppercase tracking-wider block">Claims Monitored</span>
                   </div>
                   <div className="p-2">
-                    <span className="font-mono text-base sm:text-lg font-bold text-[#E5A93C] block">784,276</span>
-                    <span className="text-[10px] font-mono text-[#789883] uppercase tracking-wider block">Unresolved Pending</span>
+                    <span className="font-mono text-base sm:text-lg font-bold text-amber-500 block">784,276</span>
+                    <span className="telemetry-lbl text-[10px] font-mono uppercase tracking-wider block">Unresolved Pending</span>
                   </div>
                   <div className="p-2">
-                    <span className="font-mono text-base sm:text-lg font-bold text-white block">21</span>
-                    <span className="text-[10px] font-mono text-[#789883] uppercase tracking-wider block">Monitored States</span>
+                    <span className="font-mono text-base sm:text-lg font-bold text-emerald-500 block">21</span>
+                    <span className="telemetry-lbl text-[10px] font-mono uppercase tracking-wider block">Monitored States</span>
                   </div>
                   <div className="p-2">
-                    <span className="font-mono text-base sm:text-lg font-bold text-[#38BDF8] block">18 Mo.</span>
-                    <span className="text-[10px] font-mono text-[#789883] uppercase tracking-wider block">Historical MPR</span>
+                    <span className="font-mono text-base sm:text-lg font-bold text-sky-500 block">18 Mo.</span>
+                    <span className="telemetry-lbl text-[10px] font-mono uppercase tracking-wider block">Historical MPR</span>
                   </div>
                   <div className="p-2 col-span-2 sm:col-span-1">
-                    <span className="font-mono text-base sm:text-lg font-bold text-[#B7E64B] block">Rule 12A</span>
-                    <span className="text-[10px] font-mono text-[#789883] uppercase tracking-wider block">Statutory Audit</span>
+                    <span className="font-mono text-base sm:text-lg font-bold text-violet-500 block">Rule 12A</span>
+                    <span className="telemetry-lbl text-[10px] font-mono uppercase tracking-wider block">Statutory Audit</span>
                   </div>
                 </div>
               </div>
@@ -203,23 +201,23 @@ export default function Home() {
         </section>
 
         {/* SECTION 2: EVALUATOR FAST-TRACK — 1-Click State Anomaly Test Cases */}
-        <section className="evaluator-fast-track py-16 bg-[#06140E] border-t border-[#B7E64B]/15">
+        <section className="evaluator-fast-track py-16">
           <div className="container max-w-6xl mx-auto px-4">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
               <div>
-                <span className="text-[#B7E64B] text-xs font-mono font-bold tracking-widest uppercase block">
+                <span className="section-eyebrow text-xs font-mono font-bold tracking-widest uppercase block">
                   FAST-TRACK TEST CASES · CURATED FOR EVALUATION
                 </span>
-                <h2 className="text-2xl sm:text-3xl font-bold text-white mt-1">
+                <h2 className="section-title text-2xl sm:text-3xl font-bold mt-1">
                   Test Live Machine Learning Signals in 1-Click
                 </h2>
-                <p className="text-xs sm:text-sm text-[#789883] mt-1 max-w-xl">
+                <p className="section-subtitle text-xs sm:text-sm mt-1 max-w-xl">
                   Select any benchmark state below to directly launch the GIS map with its explainable risk decomposition:
                 </p>
               </div>
               <Link
                 href="/maps"
-                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#B7E64B] hover:underline shrink-0"
+                className="section-link inline-flex items-center gap-1.5 text-xs font-bold hover:underline shrink-0"
               >
                 <span>View all 21 states</span>
                 <ArrowRight size={14} />
@@ -230,26 +228,26 @@ export default function Home() {
               {/* Madhya Pradesh */}
               <Link
                 href="/maps?state=Madhya%20Pradesh"
-                className="p-4 rounded-xl bg-[#0B1E17] border border-rose-900/50 hover:border-rose-500/80 transition-all group hover:-translate-y-1 shadow-lg flex flex-col justify-between"
+                className="state-card card-mp p-4 rounded-xl transition-all group hover:-translate-y-1 shadow-lg flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-rose-950 text-rose-300 border border-rose-800 font-bold">
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded font-bold badge-mp">
                       🔴 High Risk 87.6
                     </span>
-                    <span className="text-[10px] font-mono text-muted-foreground">MoTA MPR</span>
+                    <span className="text-[10px] font-mono card-meta">MoTA MPR</span>
                   </div>
-                  <b className="text-base font-bold text-white group-hover:text-rose-400 transition-colors block">
+                  <b className="text-base font-bold card-name group-hover:text-rose-500 transition-colors block">
                     Madhya Pradesh
                   </b>
-                  <span className="text-xs font-semibold text-rose-300 block mt-1">
+                  <span className="text-xs font-semibold text-rose-500 block mt-1">
                     Rejection Spike: 51.4%
                   </span>
-                  <p className="text-[11px] text-[#789883] mt-2 leading-relaxed">
+                  <p className="text-[11px] card-desc mt-2 leading-relaxed">
                     Highest rejection volume nationwide. Flagged for urgent Section 4(5) audit to prevent wrongful eviction.
                   </p>
                 </div>
-                <div className="mt-4 pt-2 border-t border-rose-900/30 flex items-center justify-between text-xs font-bold text-rose-400 group-hover:translate-x-1 transition-transform">
+                <div className="mt-4 pt-2 border-t card-action flex items-center justify-between text-xs font-bold text-rose-500 group-hover:translate-x-1 transition-transform">
                   <span>Inspect Signal</span>
                   <ArrowUpRight size={14} />
                 </div>
@@ -258,26 +256,26 @@ export default function Home() {
               {/* Odisha */}
               <Link
                 href="/maps?state=Odisha"
-                className="p-4 rounded-xl bg-[#0B1E17] border border-rose-900/50 hover:border-rose-500/80 transition-all group hover:-translate-y-1 shadow-lg flex flex-col justify-between"
+                className="state-card card-odisha p-4 rounded-xl transition-all group hover:-translate-y-1 shadow-lg flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-rose-950 text-rose-300 border border-rose-800 font-bold">
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded font-bold badge-odisha">
                       🔴 High Risk 85.2
                     </span>
-                    <span className="text-[10px] font-mono text-muted-foreground">MoTA MPR</span>
+                    <span className="text-[10px] font-mono card-meta">MoTA MPR</span>
                   </div>
-                  <b className="text-base font-bold text-white group-hover:text-rose-400 transition-colors block">
+                  <b className="text-base font-bold card-name group-hover:text-amber-500 transition-colors block">
                     Odisha
                   </b>
-                  <span className="text-xs font-semibold text-amber-300 block mt-1">
+                  <span className="text-xs font-semibold text-amber-500 block mt-1">
                     CFR Imbalance & 96K Backlog
                   </span>
-                  <p className="text-[11px] text-[#789883] mt-2 leading-relaxed">
+                  <p className="text-[11px] card-desc mt-2 leading-relaxed">
                     High structural divergence between individual and community titling with rapid backlog velocity.
                   </p>
                 </div>
-                <div className="mt-4 pt-2 border-t border-rose-900/30 flex items-center justify-between text-xs font-bold text-rose-400 group-hover:translate-x-1 transition-transform">
+                <div className="mt-4 pt-2 border-t card-action flex items-center justify-between text-xs font-bold text-amber-500 group-hover:translate-x-1 transition-transform">
                   <span>Inspect Signal</span>
                   <ArrowUpRight size={14} />
                 </div>
@@ -286,26 +284,26 @@ export default function Home() {
               {/* Goa */}
               <Link
                 href="/maps?state=Goa"
-                className="p-4 rounded-xl bg-[#0B1E17] border border-amber-900/50 hover:border-amber-500/80 transition-all group hover:-translate-y-1 shadow-lg flex flex-col justify-between"
+                className="state-card card-goa p-4 rounded-xl transition-all group hover:-translate-y-1 shadow-lg flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-800 font-bold">
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded font-bold badge-goa">
                       🟡 High Risk 67.6
                     </span>
-                    <span className="text-[10px] font-mono text-muted-foreground">MoTA MPR</span>
+                    <span className="text-[10px] font-mono card-meta">MoTA MPR</span>
                   </div>
-                  <b className="text-base font-bold text-white group-hover:text-amber-400 transition-colors block">
+                  <b className="text-base font-bold card-name group-hover:text-indigo-500 transition-colors block">
                     Goa
                   </b>
-                  <span className="text-xs font-semibold text-amber-300 block mt-1">
+                  <span className="text-xs font-semibold text-indigo-500 block mt-1">
                     SDLC Drop-off: 50.8%
                   </span>
-                  <p className="text-[11px] text-[#789883] mt-2 leading-relaxed">
+                  <p className="text-[11px] card-desc mt-2 leading-relaxed">
                     Severe workflow blockage: Sub-Divisional Committee recommendations stall before District Collector vesting.
                   </p>
                 </div>
-                <div className="mt-4 pt-2 border-t border-amber-900/30 flex items-center justify-between text-xs font-bold text-amber-400 group-hover:translate-x-1 transition-transform">
+                <div className="mt-4 pt-2 border-t card-action flex items-center justify-between text-xs font-bold text-indigo-500 group-hover:translate-x-1 transition-transform">
                   <span>Inspect Signal</span>
                   <ArrowUpRight size={14} />
                 </div>
@@ -314,26 +312,26 @@ export default function Home() {
               {/* Rajasthan */}
               <Link
                 href="/maps?state=Rajasthan"
-                className="p-4 rounded-xl bg-[#0B1E17] border border-emerald-900/50 hover:border-emerald-500/80 transition-all group hover:-translate-y-1 shadow-lg flex flex-col justify-between"
+                className="state-card card-rajasthan p-4 rounded-xl transition-all group hover:-translate-y-1 shadow-lg flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-800 font-bold">
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded font-bold badge-rajasthan">
                       🟢 Normal 0.0
                     </span>
-                    <span className="text-[10px] font-mono text-muted-foreground">MoTA MPR</span>
+                    <span className="text-[10px] font-mono card-meta">MoTA MPR</span>
                   </div>
-                  <b className="text-base font-bold text-white group-hover:text-emerald-400 transition-colors block">
+                  <b className="text-base font-bold card-name group-hover:text-emerald-500 transition-colors block">
                     Rajasthan
                   </b>
-                  <span className="text-xs font-semibold text-emerald-300 block mt-1">
+                  <span className="text-xs font-semibold text-emerald-500 block mt-1">
                     Equilibrium Flow
                   </span>
-                  <p className="text-[11px] text-[#789883] mt-2 leading-relaxed">
+                  <p className="text-[11px] card-desc mt-2 leading-relaxed">
                     Administrative equilibrium: Disposal velocity exceeds intake volume, maintaining zero pending accumulation.
                   </p>
                 </div>
-                <div className="mt-4 pt-2 border-t border-emerald-900/30 flex items-center justify-between text-xs font-bold text-emerald-400 group-hover:translate-x-1 transition-transform">
+                <div className="mt-4 pt-2 border-t card-action flex items-center justify-between text-xs font-bold text-emerald-500 group-hover:translate-x-1 transition-transform">
                   <span>Inspect Signal</span>
                   <ArrowUpRight size={14} />
                 </div>
@@ -342,90 +340,90 @@ export default function Home() {
           </div>
         </section>
 
-        {/* SECTION 3: CORE BREAKTHROUGHS — Why VanDrishti Wins */}
-        <section className="core-breakthroughs py-20 bg-[#081A12] border-t border-[#B7E64B]/15">
+        {/* SECTION 3: CORE BREAKTHROUGHS — Three Pillars of Decision Intelligence */}
+        <section className="core-breakthroughs py-20">
           <div className="container max-w-6xl mx-auto px-4 space-y-12">
             <div className="text-center max-w-3xl mx-auto space-y-2">
-              <span className="text-[#B7E64B] text-xs font-mono font-bold tracking-widest uppercase block">
+              <span className="section-eyebrow text-xs font-mono font-bold tracking-widest uppercase block">
                 INNOVATION BLUEPRINT
               </span>
-              <h2 className="text-3xl sm:text-4xl font-bold text-white">
+              <h2 className="section-title text-3xl sm:text-4xl font-bold">
                 Three Pillars of Autonomous Decision Intelligence
               </h2>
-              <p className="text-xs sm:text-sm text-[#789883]">
+              <p className="section-subtitle text-xs sm:text-sm">
                 Moving beyond static dashboards into explainable machine learning anomaly detection and actionable policy simulations.
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {/* Pillar 1 */}
-              <div className="p-6 rounded-2xl bg-[#0C2219]/70 border border-[#B7E64B]/20 hover:border-[#B7E64B]/50 transition-all space-y-4 shadow-xl">
-                <div className="w-12 h-12 rounded-xl bg-[#B7E64B]/15 border border-[#B7E64B]/30 flex items-center justify-center text-[#B7E64B]">
+              <div className="pillar-card pillar-1 p-6 rounded-2xl transition-all space-y-4 shadow-xl">
+                <div className="w-12 h-12 rounded-xl pillar-icon-1 flex items-center justify-center">
                   <Cpu size={24} />
                 </div>
                 <div>
-                  <span className="text-[10px] font-mono text-[#789883] uppercase tracking-wider block">Pillar 01</span>
-                  <h3 className="text-lg font-bold text-white mt-1">Unsupervised Isolation Forest ML</h3>
+                  <span className="text-[10px] font-mono pillar-meta uppercase tracking-wider block">Pillar 01</span>
+                  <h3 className="text-lg font-bold pillar-heading mt-1">Unsupervised Isolation Forest ML</h3>
                 </div>
-                <p className="text-xs text-[#9EBEA8] leading-relaxed">
+                <p className="text-xs pillar-body leading-relaxed">
                   Trained on 18 months of official MoTA records. Detects 4 distinct anomaly signatures: SDLC Bottlenecks, Rejection Spikes, Imbalanced Filings, and Backlog Momentum.
                 </p>
-                <div className="pt-2 border-t border-[#B7E64B]/10 space-y-1 text-[11px] text-[#789883]">
+                <div className="pt-2 border-t pillar-divider space-y-1 text-[11px] pillar-meta">
                   <div className="flex justify-between">
                     <span>Algorithm:</span>
-                    <b className="text-white">Isolation Forest (Scikit-Learn)</b>
+                    <b className="pillar-bold">Isolation Forest (Scikit-Learn)</b>
                   </div>
                   <div className="flex justify-between">
                     <span>XAI Attribution:</span>
-                    <b className="text-[#B7E64B]">Surrogate Shapley Vectors</b>
+                    <b className="text-emerald-500">Surrogate Shapley Vectors</b>
                   </div>
                 </div>
               </div>
 
               {/* Pillar 2 */}
-              <div className="p-6 rounded-2xl bg-[#0C2219]/70 border border-[#38BDF8]/25 hover:border-[#38BDF8]/60 transition-all space-y-4 shadow-xl">
-                <div className="w-12 h-12 rounded-xl bg-[#38BDF8]/15 border border-[#38BDF8]/30 flex items-center justify-center text-[#38BDF8]">
+              <div className="pillar-card pillar-2 p-6 rounded-2xl transition-all space-y-4 shadow-xl">
+                <div className="w-12 h-12 rounded-xl pillar-icon-2 flex items-center justify-center">
                   <Scale size={24} />
                 </div>
                 <div>
-                  <span className="text-[10px] font-mono text-[#789883] uppercase tracking-wider block">Pillar 02</span>
-                  <h3 className="text-lg font-bold text-white mt-1">5D National Benchmarking</h3>
+                  <span className="text-[10px] font-mono pillar-meta uppercase tracking-wider block">Pillar 02</span>
+                  <h3 className="text-lg font-bold pillar-heading mt-1">5D National Benchmarking</h3>
                 </div>
-                <p className="text-xs text-[#9EBEA8] leading-relaxed">
+                <p className="text-xs pillar-body leading-relaxed">
                   Multi-attribute Recharts Radar & Bar analysis benchmarking any focus state against dynamic monthly national medians across Disposal, CFR Share, and Throughput.
                 </p>
-                <div className="pt-2 border-t border-[#38BDF8]/10 space-y-1 text-[11px] text-[#789883]">
+                <div className="pt-2 border-t pillar-divider space-y-1 text-[11px] pillar-meta">
                   <div className="flex justify-between">
                     <span>Dimensions:</span>
-                    <b className="text-white">5 Core Metrics</b>
+                    <b className="pillar-bold">5 Core Metrics</b>
                   </div>
                   <div className="flex justify-between">
                     <span>Benchmark Layer:</span>
-                    <b className="text-[#38BDF8]">Dynamic Monthly Median</b>
+                    <b className="text-sky-500">Dynamic Monthly Median</b>
                   </div>
                 </div>
               </div>
 
               {/* Pillar 3 */}
-              <div className="p-6 rounded-2xl bg-[#0C2219]/70 border border-[#C084FC]/25 hover:border-[#C084FC]/60 transition-all space-y-4 shadow-xl">
-                <div className="w-12 h-12 rounded-xl bg-[#C084FC]/15 border border-[#C084FC]/30 flex items-center justify-center text-[#C084FC]">
+              <div className="pillar-card pillar-3 p-6 rounded-2xl transition-all space-y-4 shadow-xl">
+                <div className="w-12 h-12 rounded-xl pillar-icon-3 flex items-center justify-center">
                   <Sliders size={24} />
                 </div>
                 <div>
-                  <span className="text-[10px] font-mono text-[#789883] uppercase tracking-wider block">Pillar 03</span>
-                  <h3 className="text-lg font-bold text-white mt-1">What-If Simulator & AI Copilot</h3>
+                  <span className="text-[10px] font-mono pillar-meta uppercase tracking-wider block">Pillar 03</span>
+                  <h3 className="text-lg font-bold pillar-heading mt-1">What-If Simulator & AI Copilot</h3>
                 </div>
-                <p className="text-xs text-[#9EBEA8] leading-relaxed">
+                <p className="text-xs pillar-body leading-relaxed">
                   Interactive policy sliders model the real-time impact of SDLC clearance drives and appellate reviews under Section 6(2), with 1-click legal briefings under FRA Rule 12A.
                 </p>
-                <div className="pt-2 border-t border-[#C084FC]/10 space-y-1 text-[11px] text-[#789883]">
+                <div className="pt-2 border-t pillar-divider space-y-1 text-[11px] pillar-meta">
                   <div className="flex justify-between">
                     <span>Policy Levers:</span>
-                    <b className="text-white">3 Calibrated Sliders</b>
+                    <b className="pillar-bold">3 Calibrated Sliders</b>
                   </div>
                   <div className="flex justify-between">
                     <span>Copilot Bridge:</span>
-                    <b className="text-[#C084FC]">Automated Legal Briefing</b>
+                    <b className="text-violet-500">Automated Legal Briefing</b>
                   </div>
                 </div>
               </div>
@@ -471,84 +469,84 @@ export default function Home() {
         </section>
 
         {/* SECTION 5: TECHNICAL ARCHITECTURE & DATA PIPELINE */}
-        <section className="architecture-section py-20 bg-[#06140E] border-t border-[#B7E64B]/15">
+        <section className="architecture-section py-20">
           <div className="container max-w-5xl mx-auto px-4 space-y-10">
             <div className="text-center space-y-2">
-              <span className="text-[#B7E64B] text-xs font-mono font-bold tracking-widest uppercase block">
+              <span className="section-eyebrow text-xs font-mono font-bold tracking-widest uppercase block">
                 SYSTEM PIPELINE & DATA PROVENANCE
               </span>
-              <h2 className="text-3xl font-bold text-white">End-to-End Architectural Flow</h2>
-              <p className="text-xs sm:text-sm text-[#789883] max-w-xl mx-auto">
+              <h2 className="section-title text-3xl font-bold">End-to-End Architectural Flow</h2>
+              <p className="section-subtitle text-xs sm:text-sm max-w-xl mx-auto">
                 How official government Monthly Progress Reports are transformed into actionable judicial insights.
               </p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-5 gap-3 relative">
-              <div className="p-4 rounded-xl bg-[#0C2219] border border-[#B7E64B]/20 text-center space-y-2">
-                <span className="w-7 h-7 rounded-full bg-[#B7E64B]/20 text-[#B7E64B] font-mono font-bold text-xs flex items-center justify-center mx-auto">
+              <div className="pipeline-card p-4 rounded-xl text-center space-y-2">
+                <span className="w-7 h-7 rounded-full bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30 font-mono font-bold text-xs flex items-center justify-center mx-auto">
                   01
                 </span>
-                <b className="text-xs text-white block">MoTA MPR Bulletins</b>
-                <p className="text-[11px] text-[#789883]">Official state-wise monthly claim submissions (21 states)</p>
+                <b className="text-xs pipeline-title block">MoTA MPR Bulletins</b>
+                <p className="text-[11px] pipeline-desc">Official state-wise monthly claim submissions (21 states)</p>
               </div>
 
-              <div className="p-4 rounded-xl bg-[#0C2219] border border-[#B7E64B]/20 text-center space-y-2">
-                <span className="w-7 h-7 rounded-full bg-[#B7E64B]/20 text-[#B7E64B] font-mono font-bold text-xs flex items-center justify-center mx-auto">
+              <div className="pipeline-card p-4 rounded-xl text-center space-y-2">
+                <span className="w-7 h-7 rounded-full bg-sky-500/15 text-sky-600 dark:text-sky-400 border border-sky-500/30 font-mono font-bold text-xs flex items-center justify-center mx-auto">
                   02
                 </span>
-                <b className="text-xs text-white block">Feature Engineering</b>
-                <p className="text-[11px] text-[#789883]">Bottleneck drop-off, MoM growth velocity, CFR share</p>
+                <b className="text-xs pipeline-title block">Feature Engineering</b>
+                <p className="text-[11px] pipeline-desc">Bottleneck drop-off, MoM growth velocity, CFR share</p>
               </div>
 
-              <div className="p-4 rounded-xl bg-[#0C2219] border border-[#B7E64B]/20 text-center space-y-2">
-                <span className="w-7 h-7 rounded-full bg-[#B7E64B]/20 text-[#B7E64B] font-mono font-bold text-xs flex items-center justify-center mx-auto">
+              <div className="pipeline-card p-4 rounded-xl text-center space-y-2">
+                <span className="w-7 h-7 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 font-mono font-bold text-xs flex items-center justify-center mx-auto">
                   03
                 </span>
-                <b className="text-xs text-white block">Isolation Forest ML</b>
-                <p className="text-[11px] text-[#789883]">Unsupervised multidimensional anomaly detection (0-100 score)</p>
+                <b className="text-xs pipeline-title block">Isolation Forest ML</b>
+                <p className="text-[11px] pipeline-desc">Unsupervised multidimensional anomaly detection (0-100 score)</p>
               </div>
 
-              <div className="p-4 rounded-xl bg-[#0C2219] border border-[#B7E64B]/20 text-center space-y-2">
-                <span className="w-7 h-7 rounded-full bg-[#B7E64B]/20 text-[#B7E64B] font-mono font-bold text-xs flex items-center justify-center mx-auto">
+              <div className="pipeline-card p-4 rounded-xl text-center space-y-2">
+                <span className="w-7 h-7 rounded-full bg-teal-500/15 text-teal-600 dark:text-teal-400 border border-teal-500/30 font-mono font-bold text-xs flex items-center justify-center mx-auto">
                   04
                 </span>
-                <b className="text-xs text-white block">Leaflet GIS Engine</b>
-                <p className="text-[11px] text-[#789883]">Dynamic GeoJSON chloropleth with risk tier coloration</p>
+                <b className="text-xs pipeline-title block">Leaflet GIS Engine</b>
+                <p className="text-[11px] pipeline-desc">Dynamic GeoJSON chloropleth with risk tier coloration</p>
               </div>
 
-              <div className="p-4 rounded-xl bg-[#0C2219] border border-[#B7E64B]/20 text-center space-y-2">
-                <span className="w-7 h-7 rounded-full bg-[#B7E64B]/20 text-[#B7E64B] font-mono font-bold text-xs flex items-center justify-center mx-auto">
+              <div className="pipeline-card p-4 rounded-xl text-center space-y-2">
+                <span className="w-7 h-7 rounded-full bg-violet-500/15 text-violet-600 dark:text-violet-400 border border-violet-500/30 font-mono font-bold text-xs flex items-center justify-center mx-auto">
                   05
                 </span>
-                <b className="text-xs text-white block">AI Statutory Copilot</b>
-                <p className="text-[11px] text-[#789883]">FRA Rules 12A & 14 policy briefing & action recommendations</p>
+                <b className="text-xs pipeline-title block">AI Statutory Copilot</b>
+                <p className="text-[11px] pipeline-desc">FRA Rules 12A & 14 policy briefing & action recommendations</p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* SECTION 6: CHOOSE YOUR VANTAGE POINT (Kept Intact) */}
-        <section className="landing-navigation-section relative overflow-hidden bg-[#081A12] min-h-[480px] py-20 lg:py-24 flex flex-col justify-center border-t border-[#789883]/15">
+        {/* SECTION 6: CHOOSE YOUR VANTAGE POINT */}
+        <section className="landing-navigation-section relative overflow-hidden min-h-[480px] py-20 lg:py-24 flex flex-col justify-center">
           {/* Background Aerial Drone Forest Photograph */}
           <div className="absolute inset-0 z-0 group overflow-hidden">
             <img
               src="/misty-forest-bg.png"
               alt="Indian Forest Landscape"
-              className="w-full h-full object-cover opacity-30 filter saturate-[0.85] contrast-[1.1] brightness-[0.85]"
+              className="vantage-bg-img w-full h-full object-cover opacity-25 filter saturate-[0.85] contrast-[1.1]"
             />
-            {/* Dark Moody Forest Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-b from-[#081A12] via-[#081A12]/85 to-[#081A12] z-10" />
+            {/* Atmospheric Forest Gradient Overlay */}
+            <div className="vantage-overlay absolute inset-0 z-10" />
           </div>
 
           <div className="container relative z-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="space-y-8 text-center sm:text-left">
               <div>
-                <span className="eyebrow text-[#B7E64B] text-[11px] font-mono tracking-[0.2em] uppercase font-semibold block">
+                <span className="section-eyebrow text-[11px] font-mono tracking-[0.2em] uppercase font-semibold block">
                   CHOOSE YOUR VANTAGE POINT
                 </span>
-                <h2 className="text-4xl sm:text-5xl lg:text-[58px] font-bold tracking-tight mt-2.5 leading-[1.05] text-[#F2F3E9]">
+                <h2 className="vantage-heading text-4xl sm:text-5xl lg:text-[58px] font-bold tracking-tight mt-2.5 leading-[1.05]">
                   One landscape.<br />
-                  <em className="text-[#B7E64B] italic font-serif font-normal block mt-1">Different decisions.</em>
+                  <em className="vantage-em italic font-serif font-normal block mt-1">Different decisions.</em>
                 </h2>
               </div>
 
@@ -556,36 +554,36 @@ export default function Home() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <Link
                   href="/maps"
-                  className="group relative p-6 rounded-2xl border border-[#B7E64B]/20 bg-[#123D2A]/40 backdrop-blur-md hover:bg-[#123D2A]/70 hover:border-[#B7E64B]/60 hover:-translate-y-1 transition-all duration-300 shadow-xl flex flex-col justify-between min-h-[195px] text-left"
+                  className="vantage-card group relative p-6 rounded-2xl backdrop-blur-md hover:-translate-y-1 transition-all duration-300 shadow-xl flex flex-col justify-between min-h-[195px] text-left"
                 >
                   <div>
-                    <span className="text-[10px] font-mono font-bold text-[#B7E64B] tracking-widest block uppercase">
+                    <span className="text-[10px] font-mono font-bold text-sky-600 dark:text-sky-400 tracking-widest block uppercase">
                       02 / GEOSPATIAL MAPS
                     </span>
-                    <b className="text-xl font-bold text-[#F2F3E9] group-hover:text-[#B7E64B] transition-colors flex items-center justify-between mt-3">
+                    <b className="text-xl font-bold card-name group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors flex items-center justify-between mt-3">
                       Find the signal
-                      <ArrowUpRight size={18} className="text-[#B7E64B] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                      <ArrowUpRight size={18} className="text-sky-500 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                     </b>
                   </div>
-                  <small className="text-xs text-[#789883] font-mono block mt-4 leading-relaxed">
+                  <small className="text-xs card-desc font-mono block mt-4 leading-relaxed">
                     Open the Forest Rights state-level decision support map with ML risk attribution.
                   </small>
                 </Link>
 
                 <Link
                   href="/knowledge"
-                  className="group relative p-6 rounded-2xl border border-[#B7E64B]/20 bg-[#123D2A]/40 backdrop-blur-md hover:bg-[#123D2A]/70 hover:border-[#B7E64B]/60 hover:-translate-y-1 transition-all duration-300 shadow-xl flex flex-col justify-between min-h-[195px] text-left"
+                  className="vantage-card group relative p-6 rounded-2xl backdrop-blur-md hover:-translate-y-1 transition-all duration-300 shadow-xl flex flex-col justify-between min-h-[195px] text-left"
                 >
                   <div>
-                    <span className="text-[10px] font-mono font-bold text-[#B7E64B] tracking-widest block uppercase">
+                    <span className="text-[10px] font-mono font-bold text-amber-600 dark:text-amber-400 tracking-widest block uppercase">
                       03 / KNOWLEDGE HUB
                     </span>
-                    <b className="text-xl font-bold text-[#F2F3E9] group-hover:text-[#B7E64B] transition-colors flex items-center justify-between mt-3">
+                    <b className="text-xl font-bold card-name group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors flex items-center justify-between mt-3">
                       Learn the framework
-                      <ArrowUpRight size={18} className="text-[#B7E64B] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                      <ArrowUpRight size={18} className="text-amber-500 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                     </b>
                   </div>
-                  <small className="text-xs text-[#789883] font-mono block mt-4 leading-relaxed">
+                  <small className="text-xs card-desc font-mono block mt-4 leading-relaxed">
                     Read statutory process timelines and download official FRA documents.
                   </small>
                 </Link>

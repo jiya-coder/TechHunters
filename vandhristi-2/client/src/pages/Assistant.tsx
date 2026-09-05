@@ -21,7 +21,7 @@ type SpeechWindow = Window & {
 const fallbackReply = "I’ve noted that. In this prototype, try asking about delayed claims, a district review workflow, or a spatial mismatch.";
 
 export default function Assistant() {
-  const [theme, setTheme] = useState<Theme>("morning");
+  const [theme, setTheme] = useState<Theme>("dusk");
   const [input, setInput] = useState("");
   const [listening, setListening] = useState(false);
   const [messages, setMessages] = useState([{ from: "bot", text: "Namaste. I’m VanDhristi AI. Ask me about a claim, a workflow, or a map anomaly." }]);

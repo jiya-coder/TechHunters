@@ -9,7 +9,7 @@ import WhatIfSimulator from "@/components/WhatIfSimulator";
 import fraFallbackData from "@/data/fraData.json";
 
 export default function Maps() {
-  const [theme, setTheme] = useState<"morning" | "dusk">("morning");
+  const [theme, setTheme] = useState<"morning" | "dusk">("dusk");
   const [months, setMonths] = useState<string[]>([]);
   const [selectedMonth, setSelectedMonth] = useState<string>("");
   const [statesData, setStatesData] = useState<Record<string, StateDSSData>>({});

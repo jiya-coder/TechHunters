@@ -77,7 +77,49 @@
 
 * { box-sizing: border-box; }
 .site-shell { background: var(--deep); color: var(--ink); overflow: hidden; }
-.theme-dusk { --deep: #0d1420; --panel: rgba(20, 31, 49, .76); --panel-solid: #172239; --ink: #e7eff6; --muted-ink: #95a6b5; --lime: #97d4b0; --line: rgba(207, 230, 238, .14); --line-bright: rgba(207, 230, 238, .28); }
+/* =========================================================
+   FOREST IN MORNING (LIGHT THEME)
+   Atmosphere: Soft mountain dawn mist, dewy forest floor, 
+   warm morning sun amber, deep cedar & woodland bark ink.
+   ========================================================= */
+.theme-morning {
+  --deep: #F3F7F2;
+  --deep-alt: #EBF1E8;
+  --deep-accent: #DFE8DC;
+  --panel: rgba(255, 255, 255, 0.9);
+  --panel-solid: #FFFFFF;
+  --panel-card: #FFFFFF;
+  --ink: #122317;
+  --muted-ink: #4B6354;
+  --heading-ink: #0D1B12;
+  --lime: #1E6B4B;
+  --amber: #D97706;
+  --rose: #DC2626;
+  --line: rgba(30, 60, 42, 0.12);
+  --line-bright: rgba(30, 60, 42, 0.22);
+}
+
+/* =========================================================
+   FOREST AFTER SUNSET (DARK THEME)
+   Atmosphere: Deep twilight canopy, midnight indigo pine,
+   sunset horizon afterglow, firefly mint, starlight silver ink.
+   ========================================================= */
+.theme-dusk {
+  --deep: #071018;
+  --deep-alt: #0A1620;
+  --deep-accent: #0D1E2C;
+  --panel: rgba(13, 24, 34, 0.78);
+  --panel-solid: #101D28;
+  --panel-card: rgba(15, 28, 40, 0.85);
+  --ink: #EAF1F6;
+  --muted-ink: #8DA3B5;
+  --heading-ink: #FFFFFF;
+  --lime: #34D399;
+  --amber: #F59E0B;
+  --rose: #F87171;
+  --line: rgba(147, 197, 253, 0.12);
+  --line-bright: rgba(147, 197, 253, 0.25);
+}
 .container { width: min(1240px, calc(100% - 64px)); margin-inline: auto; }
 .glass-panel { border: 1px solid var(--line); background: var(--panel); backdrop-filter: blur(22px); box-shadow: 0 22px 70px rgba(0,0,0,.18); }
 .eyebrow { display: flex; align-items: center; gap: 9px; color: var(--lime); font-family: var(--display); font-size: 10px; font-weight: 700; letter-spacing: .17em; text-transform: uppercase; }
@@ -271,4 +313,403 @@
   margin-bottom: 26px !important;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7) !important;
 }
+
+/* ==========================================================================
+   VAN DRISHTI ATMOSPHERIC THEME ENGINE
+   1. FOREST IN MORNING (Soft dawn mist, warm sun amber, mountain sage, cedar bark)
+   2. FOREST AFTER SUNSET (Deep twilight pine, dusk horizon glow, starlight silver)
+   ========================================================================== */
+
+/* --- SITE HEADER ATMOSPHERE --- */
+.theme-morning .site-header {
+  background: linear-gradient(180deg, rgba(243, 247, 242, 0.96) 0%, rgba(243, 247, 242, 0.85) 100%) !important;
+  border-bottom: 1px solid rgba(30, 60, 42, 0.12) !important;
+  box-shadow: 0 4px 20px rgba(25, 45, 30, 0.05);
+}
+.theme-morning .brand b { color: #122317 !important; }
+.theme-morning .brand small { color: #4B6354 !important; }
+.theme-morning .brand-mark {
+  border-color: rgba(217, 119, 6, 0.4) !important;
+  background: rgba(217, 119, 6, 0.1) !important;
+  color: #B45309 !important;
+  box-shadow: 0 0 16px rgba(217, 119, 6, 0.15) !important;
+}
+.theme-morning .nav-link { color: #2C4235 !important; }
+.theme-morning .nav-link span { color: #587563 !important; }
+.theme-morning .nav-link:hover, .theme-morning .nav-link.active {
+  color: #0D1B12 !important;
+  background: rgba(30, 107, 75, 0.08) !important;
+}
+.theme-morning .nav-link.active span { color: #D97706 !important; }
+.theme-morning .header-cta {
+  background: #1E6B4B !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 14px rgba(30, 107, 75, 0.25) !important;
+}
+.theme-morning .header-cta:hover { background: #16563B !important; }
+.theme-morning .mode-switch { color: #4B6354 !important; }
+.theme-morning .mode-active { color: #D97706 !important; }
+.theme-morning .switch-track {
+  background: rgba(30, 60, 42, 0.15) !important;
+  border-color: rgba(30, 60, 42, 0.25) !important;
+}
+.theme-morning .switch-track span {
+  background: #D97706 !important;
+  box-shadow: 0 0 10px rgba(217, 119, 6, 0.6) !important;
+}
+
+.theme-dusk .site-header {
+  background: linear-gradient(180deg, rgba(8, 16, 24, 0.95) 0%, rgba(8, 16, 24, 0.8) 100%) !important;
+  border-bottom: 1px solid rgba(147, 197, 253, 0.12) !important;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.5);
+}
+.theme-dusk .brand b { color: #FFFFFF !important; }
+.theme-dusk .brand small { color: #8DA3B5 !important; }
+.theme-dusk .brand-mark {
+  border-color: rgba(245, 158, 11, 0.4) !important;
+  background: rgba(245, 158, 11, 0.12) !important;
+  color: #F59E0B !important;
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.2) !important;
+}
+.theme-dusk .nav-link { color: #B5CADB !important; }
+.theme-dusk .nav-link span { color: #6C8599 !important; }
+.theme-dusk .nav-link:hover, .theme-dusk .nav-link.active {
+  color: #FFFFFF !important;
+  background: rgba(147, 197, 253, 0.1) !important;
+}
+.theme-dusk .nav-link.active span { color: #F59E0B !important; }
+.theme-dusk .header-cta {
+  background: #F59E0B !important;
+  color: #081118 !important;
+  font-weight: 700 !important;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.28) !important;
+}
+.theme-dusk .header-cta:hover { background: #D97706 !important; }
+.theme-dusk .mode-switch { color: #8DA3B5 !important; }
+.theme-dusk .mode-active { color: #F59E0B !important; }
+.theme-dusk .switch-track {
+  background: rgba(0, 0, 0, 0.5) !important;
+  border-color: rgba(147, 197, 253, 0.3) !important;
+}
+.theme-dusk .switch-track span {
+  background: #F59E0B !important;
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.6) !important;
+}
+
+/* --- HERO 3D MODEL & MIST VIGNETTE --- */
+.theme-morning .static-hero .hero-vignette {
+  background: linear-gradient(180deg, rgba(243, 247, 242, 0.72) 0%, rgba(243, 247, 242, 0.28) 40%, rgba(243, 247, 242, 0.94) 100%),
+              radial-gradient(circle at 50% 45%, transparent 20%, rgba(243, 247, 242, 0.72) 85%) !important;
+}
+.theme-morning .hero-model-frame iframe {
+  filter: saturate(1.15) brightness(1.22) contrast(1.05) !important;
+}
+.theme-morning .hero-title-large {
+  color: #0E1D14 !important;
+  text-shadow: 0 0 35px rgba(255, 255, 255, 0.98), 0 2px 8px rgba(255, 255, 255, 0.95) !important;
+}
+.theme-morning .hero-lede {
+  color: #1F382A !important;
+  text-shadow: 0 0 18px rgba(255, 255, 255, 0.9) !important;
+}
+.theme-morning .hero-sublede {
+  color: #385544 !important;
+}
+
+.theme-dusk .static-hero .hero-vignette {
+  background: linear-gradient(90deg, rgba(7, 15, 22, 0.95) 0%, rgba(7, 15, 22, 0.65) 35%, rgba(7, 15, 22, 0.15) 75%),
+              linear-gradient(0deg, rgba(5, 11, 16, 0.95), transparent 45%, rgba(7, 15, 22, 0.4)) !important;
+}
+.theme-dusk .hero-model-frame iframe {
+  filter: saturate(0.85) brightness(0.72) contrast(1.18) hue-rotate(18deg) !important;
+}
+.theme-dusk .hero-title-large {
+  color: #FFFFFF !important;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.85) !important;
+}
+.theme-dusk .hero-lede {
+  color: rgba(255, 255, 255, 0.95) !important;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8) !important;
+}
+.theme-dusk .hero-sublede {
+  color: #94AEC2 !important;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* --- HERO CTAs & TELEMETRY STRIP --- */
+.theme-morning .hero-btn-primary {
+  background: #1E6B4B;
+  color: #FFFFFF;
+  box-shadow: 0 6px 20px rgba(30, 107, 75, 0.3);
+}
+.theme-morning .hero-btn-primary:hover { background: #16563B; }
+.theme-dusk .hero-btn-primary {
+  background: #F59E0B;
+  color: #081118;
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.35);
+}
+.theme-dusk .hero-btn-primary:hover { background: #D97706; }
+
+.theme-morning .hero-btn-simulator {
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(2, 132, 199, 0.35);
+  color: #0284C7;
+}
+.theme-morning .hero-btn-simulator:hover {
+  background: rgba(2, 132, 199, 0.1);
+  border-color: #0284C7;
+}
+.theme-dusk .hero-btn-simulator {
+  background: rgba(13, 24, 34, 0.8);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  color: #38BDF8;
+}
+.theme-dusk .hero-btn-simulator:hover {
+  background: rgba(56, 189, 248, 0.15);
+  border-color: #38BDF8;
+}
+
+.theme-morning .hero-btn-compare {
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(124, 58, 237, 0.35);
+  color: #7C3AED;
+}
+.theme-morning .hero-btn-compare:hover {
+  background: rgba(124, 58, 237, 0.1);
+  border-color: #7C3AED;
+}
+.theme-dusk .hero-btn-compare {
+  background: rgba(13, 24, 34, 0.8);
+  border: 1px solid rgba(192, 132, 252, 0.35);
+  color: #C084FC;
+}
+.theme-dusk .hero-btn-compare:hover {
+  background: rgba(192, 132, 252, 0.15);
+  border-color: #C084FC;
+}
+
+.theme-morning .telemetry-strip {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(30, 60, 42, 0.12);
+  box-shadow: 0 15px 40px rgba(25, 45, 30, 0.08);
+}
+.theme-morning .telemetry-val { color: #122317; }
+.theme-morning .telemetry-lbl { color: #557060; }
+.theme-dusk .telemetry-strip {
+  background: rgba(10, 20, 30, 0.85);
+  border: 1px solid rgba(147, 197, 253, 0.12);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+}
+.theme-dusk .telemetry-val { color: #FFFFFF; }
+.theme-dusk .telemetry-lbl { color: #8CA4B8; }
+
+/* --- SECTION 2: EVALUATOR FAST-TRACK --- */
+.theme-morning .evaluator-fast-track {
+  background: #EBF1E8;
+  border-top: 1px solid rgba(30, 60, 42, 0.12);
+}
+.theme-dusk .evaluator-fast-track {
+  background: #060D13;
+  border-top: 1px solid rgba(147, 197, 253, 0.1);
+}
+.theme-morning .section-eyebrow { color: #B45309; }
+.theme-dusk .section-eyebrow { color: #F59E0B; }
+.theme-morning .section-title { color: #122317; }
+.theme-dusk .section-title { color: #FFFFFF; }
+.theme-morning .section-subtitle { color: #4B6354; }
+.theme-dusk .section-subtitle { color: #8CA4B8; }
+.theme-morning .section-link { color: #1E6B4B; }
+.theme-dusk .section-link { color: #34D399; }
+
+.theme-morning .state-card {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 8px 24px rgba(25, 45, 30, 0.05);
+}
+.theme-morning .card-name { color: #122317; }
+.theme-morning .card-desc { color: #557060; }
+.theme-morning .card-meta { color: #7A9284; }
+.theme-morning .card-action { border-color: rgba(30, 60, 42, 0.08); }
+
+.theme-dusk .state-card {
+  background: rgba(12, 23, 33, 0.85);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+.theme-dusk .card-name { color: #FFFFFF; }
+.theme-dusk .card-desc { color: #8CA4B8; }
+.theme-dusk .card-meta { color: #647B8E; }
+.theme-dusk .card-action { border-color: rgba(147, 197, 253, 0.1); }
+
+/* Fast-track Card Specific Accents */
+.theme-morning .card-mp { border: 1px solid rgba(244, 63, 94, 0.3); }
+.theme-morning .card-mp:hover { border-color: rgba(244, 63, 94, 0.6); }
+.theme-morning .badge-mp { background: #FFE4E6; color: #9F1239; border: 1px solid #FECDD3; }
+
+.theme-morning .card-odisha { border: 1px solid rgba(245, 158, 11, 0.3); }
+.theme-morning .card-odisha:hover { border-color: rgba(245, 158, 11, 0.6); }
+.theme-morning .badge-odisha { background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; }
+
+.theme-morning .card-goa { border: 1px solid rgba(99, 102, 241, 0.3); }
+.theme-morning .card-goa:hover { border-color: rgba(99, 102, 241, 0.6); }
+.theme-morning .badge-goa { background: #E0E7FF; color: #3730A3; border: 1px solid #C7D2FE; }
+
+.theme-morning .card-rajasthan { border: 1px solid rgba(16, 185, 129, 0.3); }
+.theme-morning .card-rajasthan:hover { border-color: rgba(16, 185, 129, 0.6); }
+.theme-morning .badge-rajasthan { background: #D1FAE5; color: #065F46; border: 1px solid #A7F3D0; }
+
+.theme-dusk .card-mp { border: 1px solid rgba(244, 63, 94, 0.25); }
+.theme-dusk .card-mp:hover { border-color: rgba(244, 63, 94, 0.6); }
+.theme-dusk .badge-mp { background: rgba(76, 5, 25, 0.7); color: #FDA4AF; border: 1px solid rgba(225, 29, 72, 0.4); }
+
+.theme-dusk .card-odisha { border: 1px solid rgba(245, 158, 11, 0.25); }
+.theme-dusk .card-odisha:hover { border-color: rgba(245, 158, 11, 0.6); }
+.theme-dusk .badge-odisha { background: rgba(69, 26, 3, 0.7); color: #FCD34D; border: 1px solid rgba(217, 119, 6, 0.4); }
+
+.theme-dusk .card-goa { border: 1px solid rgba(99, 102, 241, 0.25); }
+.theme-dusk .card-goa:hover { border-color: rgba(99, 102, 241, 0.6); }
+.theme-dusk .badge-goa { background: rgba(30, 27, 75, 0.7); color: #A5B4FC; border: 1px solid rgba(79, 70, 229, 0.4); }
+
+.theme-dusk .card-rajasthan { border: 1px solid rgba(16, 185, 129, 0.25); }
+.theme-dusk .card-rajasthan:hover { border-color: rgba(16, 185, 129, 0.6); }
+.theme-dusk .badge-rajasthan { background: rgba(2, 44, 34, 0.7); color: #6EE7B7; border: 1px solid rgba(5, 150, 105, 0.4); }
+
+/* --- SECTION 3: THREE INNOVATION PILLARS --- */
+.theme-morning .core-breakthroughs {
+  background: #F3F7F2;
+  border-top: 1px solid rgba(30, 60, 42, 0.12);
+}
+.theme-dusk .core-breakthroughs {
+  background: #081219;
+  border-top: 1px solid rgba(147, 197, 253, 0.1);
+}
+
+.theme-morning .pillar-card {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(30, 60, 42, 0.1);
+  box-shadow: 0 12px 35px rgba(25, 45, 30, 0.05);
+}
+.theme-morning .pillar-heading { color: #122317; }
+.theme-morning .pillar-body { color: #4B6354; }
+.theme-morning .pillar-meta { color: #678072; }
+.theme-morning .pillar-bold { color: #122317; }
+.theme-morning .pillar-divider { border-color: rgba(30, 60, 42, 0.08); }
+.theme-morning .pillar-icon-1 { background: rgba(30, 107, 75, 0.1); color: #1E6B4B; border: 1px solid rgba(30, 107, 75, 0.25); }
+.theme-morning .pillar-icon-2 { background: rgba(2, 132, 199, 0.1); color: #0284C7; border: 1px solid rgba(2, 132, 199, 0.25); }
+.theme-morning .pillar-icon-3 { background: rgba(124, 58, 237, 0.1); color: #7C3AED; border: 1px solid rgba(124, 58, 237, 0.25); }
+.theme-morning .pillar-1:hover { border-color: #1E6B4B; }
+.theme-morning .pillar-2:hover { border-color: #0284C7; }
+.theme-morning .pillar-3:hover { border-color: #7C3AED; }
+
+.theme-dusk .pillar-card {
+  background: rgba(13, 25, 36, 0.78);
+  border: 1px solid rgba(147, 197, 253, 0.12);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.5);
+}
+.theme-dusk .pillar-heading { color: #FFFFFF; }
+.theme-dusk .pillar-body { color: #8CA4B8; }
+.theme-dusk .pillar-meta { color: #647B8E; }
+.theme-dusk .pillar-bold { color: #FFFFFF; }
+.theme-dusk .pillar-divider { border-color: rgba(147, 197, 253, 0.1); }
+.theme-dusk .pillar-icon-1 { background: rgba(52, 211, 153, 0.12); color: #34D399; border: 1px solid rgba(52, 211, 153, 0.3); }
+.theme-dusk .pillar-icon-2 { background: rgba(56, 189, 248, 0.12); color: #38BDF8; border: 1px solid rgba(56, 189, 248, 0.3); }
+.theme-dusk .pillar-icon-3 { background: rgba(192, 132, 252, 0.12); color: #C084FC; border: 1px solid rgba(192, 132, 252, 0.3); }
+.theme-dusk .pillar-1:hover { border-color: #34D399; }
+.theme-dusk .pillar-2:hover { border-color: #38BDF8; }
+.theme-dusk .pillar-3:hover { border-color: #C084FC; }
+
+/* --- SECTION 4: THE ORBIT CAROUSEL --- */
+.theme-morning .stable-carousel { background: #EEF3EB !important; }
+.theme-morning .landscape-copy h2 { color: #122317 !important; }
+.theme-morning .landscape-copy p { color: #3D5446 !important; text-shadow: none !important; }
+.theme-morning .landscape-copy em { color: #B45309 !important; }
+.theme-morning .carousel-category-rail b { color: #557060 !important; }
+.theme-morning .carousel-category-rail b.active { color: #B45309 !important; }
+.theme-morning .planar-circle-guide { border-color: rgba(217, 119, 6, 0.25) !important; }
+.theme-morning .planar-circle-guide span { border-color: #D97706 !important; background: rgba(217, 119, 6, 0.2) !important; }
+
+.theme-dusk .stable-carousel { background: #060D14 !important; }
+.theme-dusk .landscape-copy h2 { color: #FFFFFF !important; }
+.theme-dusk .landscape-copy p { color: #A3B8CC !important; }
+.theme-dusk .landscape-copy em { color: #F59E0B !important; }
+.theme-dusk .carousel-category-rail b { color: #7B93A8 !important; }
+.theme-dusk .carousel-category-rail b.active { color: #F59E0B !important; }
+.theme-dusk .planar-circle-guide { border-color: rgba(245, 158, 11, 0.25) !important; }
+.theme-dusk .planar-circle-guide span { border-color: #F59E0B !important; background: rgba(245, 158, 11, 0.2) !important; }
+
+/* --- SECTION 5: DATA PIPELINE --- */
+.theme-morning .architecture-section {
+  background: #EBF1E8;
+  border-top: 1px solid rgba(30, 60, 42, 0.12);
+}
+.theme-dusk .architecture-section {
+  background: #060D13;
+  border-top: 1px solid rgba(147, 197, 253, 0.1);
+}
+.theme-morning .pipeline-card {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(30, 60, 42, 0.1);
+  box-shadow: 0 10px 25px rgba(25, 45, 30, 0.05);
+}
+.theme-morning .pipeline-title { color: #122317; }
+.theme-morning .pipeline-desc { color: #557060; }
+
+.theme-dusk .pipeline-card {
+  background: rgba(12, 23, 33, 0.85);
+  border: 1px solid rgba(147, 197, 253, 0.1);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+.theme-dusk .pipeline-title { color: #FFFFFF; }
+.theme-dusk .pipeline-desc { color: #8CA4B8; }
+
+/* --- SECTION 6: CHOOSE YOUR VANTAGE POINT --- */
+.theme-morning .landing-navigation-section {
+  background: #E8EFE5;
+  border-top: 1px solid rgba(30, 60, 42, 0.12);
+}
+.theme-morning .vantage-overlay {
+  background: linear-gradient(to bottom, #E8EFE5 0%, rgba(232, 239, 229, 0.88) 50%, #E8EFE5 100%);
+}
+.theme-morning .vantage-heading { color: #122317; }
+.theme-morning .vantage-em { color: #B45309; }
+.theme-morning .vantage-card {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(30, 60, 42, 0.12);
+  box-shadow: 0 14px 35px rgba(25, 45, 30, 0.06);
+}
+
+.theme-dusk .landing-navigation-section {
+  background: #071018;
+  border-top: 1px solid rgba(147, 197, 253, 0.1);
+}
+.theme-dusk .vantage-overlay {
+  background: linear-gradient(to bottom, #071018 0%, rgba(7, 16, 24, 0.85) 50%, #071018 100%);
+}
+.theme-dusk .vantage-heading { color: #FFFFFF; }
+.theme-dusk .vantage-em { color: #F59E0B; }
+.theme-dusk .vantage-card {
+  background: rgba(14, 26, 38, 0.7);
+  border: 1px solid rgba(147, 197, 253, 0.15);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.5);
+}
+
+/* --- FOOTER ATMOSPHERE --- */
+.theme-morning .site-footer {
+  background: #E2ECE0 !important;
+  border-top: 1px solid rgba(30, 60, 42, 0.12) !important;
+}
+.theme-morning .footer-brand b { color: #122317 !important; }
+.theme-morning .footer-brand small { color: #4B6354 !important; }
+.theme-morning .footer-credit { color: #4B6354 !important; }
+.theme-morning .footer-credit b { color: #122317 !important; }
+.theme-morning .footer-meta { color: #587563 !important; }
+
+.theme-dusk .site-footer {
+  background: #04080D !important;
+  border-top: 1px solid rgba(147, 197, 253, 0.1) !important;
+}
+.theme-dusk .footer-brand b { color: #FFFFFF !important; }
+.theme-dusk .footer-brand small { color: #8DA3B5 !important; }
+.theme-dusk .footer-credit { color: #8DA3B5 !important; }
+.theme-dusk .footer-credit b { color: #FFFFFF !important; }
+.theme-dusk .footer-meta { color: #6C8599 !important; }
+
 
